@@ -3,7 +3,7 @@
 
 Modelo simplificado para TLR 4-5:
 - Pressão de contato do pneu -> afundamento (forma de Bekker)
-- Atualização incremental de compactação em uma coluna de solo de até 5 m
+- Atualização incremental de compactação em uma coluna de solo (profundidade configurável)
 - Regra de carga repetitiva com endurecimento progressivo (histerese simplificada)
 - Sensores virtuais (cone index e densidade aparente)
 """
@@ -53,7 +53,7 @@ class MachineParams:
 @dataclass
 class SimParams:
     passes: int = 30
-    depth_m: float = 5.0
+    depth_m: float = 10.0
     dz_m: float = 0.1
 
 
@@ -244,9 +244,37 @@ def plot_outputs(
     profile_df: pd.DataFrame,
     compaction_history: List[np.ndarray],
     depths: np.ndarray,
+    sim: SimParams,
+    soil: SoilParams,
+    machine: MachineParams,
+    load_n: float,
+    pressure_pa: float,
 ) -> None:
+    wheel_load_kg = load_n / GRAVITY
+    context_text = (
+        f"Passadas={sim.passes} | Coluna={sim.depth_m:.1f} m | dz={sim.dz_m:.2f} m | Umidade={soil.moisture:.2f}\n"
+        f"Massa={machine.mass_kg:.0f} kg | Rodas={machine.wheels} | Carga/roda={wheel_load_kg:.0f} kg | "
+        f"Pressao contato={pressure_pa / 1000:.1f} kPa\n"
+        f"Pneu: largura={machine.tire_width_m:.2f} m, contato={machine.contact_length_m:.2f} m | "
+        f"Bekker: kc={soil.kc:.2e}, kphi={soil.kphi:.2e}, n={soil.n_bekker:.2f}"
+    )
+
     fig, axes = plt.subplots(1, 2, figsize=(12, 4.5), dpi=130)
+    fig.text(
+        0.01,
+        0.995,
+        context_text,
+        ha="left",
+        va="top",
+        fontsize=7.6,
+        bbox={"boxstyle": "round,pad=0.28", "facecolor": "#f5f5f5", "edgecolor": "#cccccc"},
+    )
     max_pass = int(pass_df["pass"].iloc[-1])
+    if len(depths) > 1:
+        dz = float(depths[1] - depths[0])
+    else:
+        dz = float(depths[0])
+    max_depth_m = float(depths[-1] + dz / 2.0)
 
     if max_pass <= 12:
         xticks = np.arange(0, max_pass + 1, 1)
@@ -294,18 +322,27 @@ def plot_outputs(
         profile = compaction_history[p - 1]
         axes[1].plot(profile, depths, label=f"Passada {p}")
 
-    axes[1].set_title("Coluna de solo (0-5 m)")
+    axes[1].set_title(f"Coluna de solo (0-{max_depth_m:.1f} m)")
     axes[1].set_xlabel("Índice de compactação")
     axes[1].set_ylabel("Profundidade (m)")
     axes[1].invert_yaxis()
     axes[1].grid(alpha=0.3)
     axes[1].legend(fontsize=8)
 
-    fig.tight_layout()
+    fig.tight_layout(rect=[0.0, 0.0, 1.0, 0.87])
     fig.savefig(out_dir / "evolucao_ponto_unico.png")
     plt.close(fig)
 
     fig2, ax_left = plt.subplots(figsize=(6.2, 5), dpi=130)
+    fig2.text(
+        0.01,
+        0.995,
+        context_text,
+        ha="left",
+        va="top",
+        fontsize=7.3,
+        bbox={"boxstyle": "round,pad=0.26", "facecolor": "#f5f5f5", "edgecolor": "#cccccc"},
+    )
     ax_right = ax_left.twiny()
 
     ax_left.plot(
@@ -333,7 +370,7 @@ def plot_outputs(
     lines_right, labels_right = ax_right.get_legend_handles_labels()
     ax_left.legend(lines_left + lines_right, labels_left + labels_right, fontsize=8, loc="upper right")
 
-    fig2.tight_layout()
+    fig2.tight_layout(rect=[0.0, 0.0, 1.0, 0.87])
     fig2.savefig(out_dir / "sensores_virtuais_perfil_final.png")
     plt.close(fig2)
 
@@ -343,7 +380,7 @@ def parse_args() -> argparse.Namespace:
         description="Simula compactação em ponto único para passadas repetidas de máquina agrícola."
     )
     parser.add_argument("--passes", type=int, default=30, help="Número de passadas sobre o ponto")
-    parser.add_argument("--depth-m", type=float, default=5.0, help="Profundidade total da coluna (m)")
+    parser.add_argument("--depth-m", type=float, default=10.0, help="Profundidade total da coluna (m)")
     parser.add_argument("--dz-m", type=float, default=0.1, help="Espessura da camada (m)")
     parser.add_argument("--mass-kg", type=float, default=28_000.0, help="Massa total da máquina (kg)")
     parser.add_argument("--wheels", type=int, default=8, help="Quantidade de rodas")
@@ -431,8 +468,30 @@ def main() -> None:
     pressure_pa: float = float(result["pressure_pa"])  # type: ignore[arg-type]
 
     pass_df.to_csv(out_dir / "series_passadas.csv", index=False)
-    profile_df.to_csv(out_dir / "perfil_final_5m.csv", index=False)
-    plot_outputs(out_dir, pass_df, profile_df, compaction_history, depths)
+    profile_df.to_csv(out_dir / "perfil_final_coluna.csv", index=False)
+    metadata_df = pd.DataFrame(
+        [
+            {
+                "passes": sim.passes,
+                "depth_m": sim.depth_m,
+                "dz_m": sim.dz_m,
+                "mass_kg": machine.mass_kg,
+                "wheels": machine.wheels,
+                "wheel_load_kg_effective": load_n / GRAVITY,
+                "tire_width_m": machine.tire_width_m,
+                "contact_length_m": machine.contact_length_m,
+                "contact_pressure_kpa": pressure_pa / 1000.0,
+                "moisture": soil.moisture,
+                "kc": soil.kc,
+                "kphi": soil.kphi,
+                "n_bekker": soil.n_bekker,
+                "surface_compaction_final": float(pass_df["surface_compaction_index"].iloc[-1]),
+                "rut_depth_final_mm": float(pass_df["rut_depth_mm"].iloc[-1]),
+            }
+        ]
+    )
+    metadata_df.to_csv(out_dir / "parametros_simulacao.csv", index=False)
+    plot_outputs(out_dir, pass_df, profile_df, compaction_history, depths, sim, soil, machine, load_n, pressure_pa)
 
     print("--- PROTOTIPO PONTO UNICO ---")
     print(f"Passadas simuladas: {sim.passes}")
@@ -441,6 +500,7 @@ def main() -> None:
     print(f"Sulco residual final: {pass_df['rut_depth_mm'].iloc[-1]:.1f} mm")
     print(f"Indice de compactacao superficial final: {pass_df['surface_compaction_index'].iloc[-1]:.3f}")
     print(f"Energia acumulada de compactacao: {pass_df['cumulative_compaction_energy_kJ'].iloc[-1]:.1f} kJ")
+    print(f"Profundidade total simulada: {sim.depth_m:.1f} m")
     print(f"Arquivos gerados em: {out_dir}")
 
 

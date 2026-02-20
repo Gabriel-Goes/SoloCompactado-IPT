@@ -1,9 +1,9 @@
-# Protótipo: Compactação em Ponto Único (0-5 m)
+# Protótipo: Compactação em Ponto Único (0-10 m)
 
 ## Objetivo
 Este protótipo implementa, de forma **conceitual e executável**, a ideia discutida em `README.md`, `Proposta.md` e `Prototipo.md`:
 - um único ponto da superfície recebe várias passadas de uma máquina pesada;
-- a compactação evolui em uma coluna de solo de até 5 m;
+- a compactação evolui em uma coluna de solo (padrão de 10 m, configurável);
 - o resultado é uma série temporal por passada + perfil vertical final.
 
 ## Modelo simplificado usado
@@ -24,7 +24,7 @@ Este protótipo implementa, de forma **conceitual e executável**, a ideia discu
 - Cada passada aproxima o sulco residual de um valor-alvo com taxa decrescente.
 - Isso simula ganho rápido nas primeiras passadas e saturação gradual depois.
 
-### 4) Coluna de 5 m
+### 4) Coluna de 10 m (padrão)
 - A tensão vertical em profundidade é aproximada por uma solução elástica axisimétrica (área circular equivalente).
 - Cada camada recebe incremento de compactação `delta_c` proporcional a:
   - razão de tensão aplicada / pré-adensamento,
@@ -40,9 +40,10 @@ No perfil final, o protótipo calcula leituras sintéticas:
 ## Arquivos gerados
 Executando o script, são salvos em `outputs/ponto_unico/`:
 - `series_passadas.csv` (evolução por passada)
-- `perfil_final_5m.csv` (perfil final por profundidade)
-- `evolucao_ponto_unico.png` (sulco + compactação com passadas, e snapshots da coluna, com legenda)
-- `sensores_virtuais_perfil_final.png` (cone index e densidade no perfil final, com legenda)
+- `perfil_final_coluna.csv` (perfil final por profundidade)
+- `parametros_simulacao.csv` (parâmetros de entrada + variáveis derivadas da execução)
+- `evolucao_ponto_unico.png` (sulco + compactação com passadas, snapshots da coluna e quadro com parâmetros da simulação)
+- `sensores_virtuais_perfil_final.png` (cone index e densidade no perfil final, com legenda e quadro com parâmetros da simulação)
 
 ## Como rodar
 ```bash

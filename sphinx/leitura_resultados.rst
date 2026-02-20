@@ -17,6 +17,11 @@ Como interpretar:
 - tendência à saturação indica que incrementos adicionais por passada diminuem,
 - para a mesma carga e mesma configuração de roda, cenários mais úmidos tendem a maior deformação.
 
+Transparência de parâmetros:
+
+- os gráficos exibem um quadro com os parâmetros usados na simulação (massa, rodas, geometria do pneu, pressão de contato, umidade, ``kc``, ``kphi``, ``n``);
+- cada execução também salva ``parametros_simulacao.csv`` no diretório de saída.
+
 Nota técnica
 ------------
 
@@ -24,8 +29,19 @@ A frase acima é conceitualmente compatível com terramecânica em solos agríco
 
 No uso prático, essa relação deve sempre ser calibrada por tipo de solo e faixa de umidade local.
 
-Gráfico 2 - Perfil final da coluna (0-5 m)
--------------------------------------------
+Sobre a estabilização por número de passadas
+--------------------------------------------
+
+Se o modelo estabiliza próximo da 10ª passada, isso pode ser usado como critério operacional e não é, por si só, um erro.
+
+Interpretação recomendada:
+
+- a estabilização indica que os incrementos marginais por passada ficaram pequenos para aquele cenário paramétrico;
+- esse ponto pode ser usado como ``limiar de intervenção`` (ex.: renovar/descompactar após ~10 passadas naquela condição);
+- a calibração de campo continua necessária para garantir que esse limiar corresponde a impacto agronômico real no talhão.
+
+Gráfico 2 - Perfil final da coluna (0-10 m)
+--------------------------------------------
 
 Mostra a distribuição do índice de compactação com a profundidade para passadas selecionadas.
 

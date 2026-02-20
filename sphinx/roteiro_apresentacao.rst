@@ -12,7 +12,7 @@ Sequência sugerida (10-15 min)
 1. Problema de campo: compactação acumulada em faixas de tráfego.
 2. Hipótese técnica: carga + passadas + umidade controlam o dano acumulado.
 3. Modelo físico simplificado: pressão-afundamento e atualização por camadas.
-4. Evidência visual: evolução do sulco e perfil de 0-5 m.
+4. Evidência visual: evolução do sulco e perfil de 0-10 m.
 5. Plano de calibração: pontos sentinela e campanhas periódicas.
 6. Próximo passo: expansão para trilhas 2D e integração com telemetria real.
 

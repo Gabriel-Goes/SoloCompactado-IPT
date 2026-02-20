@@ -47,7 +47,7 @@ Cenários executados com sucesso:
 - `python3 src/prototipo_ponto_unico.py --passes 1 --dz-m 0.7 --output-dir outputs/ponto_unico_edge_dz`
 
 Checagens automáticas:
-- Arquivos esperados gerados (`series_passadas.csv`, `perfil_final_5m.csv`, `evolucao_ponto_unico.png`, `sensores_virtuais_perfil_final.png`)
+- Arquivos esperados gerados (`series_passadas.csv`, `perfil_final_coluna.csv`, `parametros_simulacao.csv`, `evolucao_ponto_unico.png`, `sensores_virtuais_perfil_final.png`)
 - Sem `NaN` nos CSVs
 - `rut_depth_mm` monotônico não decrescente
 
