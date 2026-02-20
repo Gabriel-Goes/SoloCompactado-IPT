@@ -9,6 +9,8 @@ O gráfico principal de evolução mostra duas curvas:
 - sulco residual (mm),
 - índice de compactação superficial (adimensional).
 
+No gráfico, a linha vermelha tracejada aparece com rótulo curto ``Índice superficial``; esse termo é equivalente a ``índice de compactação superficial``.
+
 Como interpretar:
 
 - crescimento rápido nas primeiras passadas é esperado,
@@ -106,3 +108,5 @@ Para gestão de tráfego por faixa, recomenda-se acompanhar:
 - taxa de crescimento do sulco por passada,
 - compactação média em 0-30 cm e 30-100 cm,
 - energia acumulada associada à compactação.
+
+Para definição completa dos termos e unidades, consulte :doc:`glossario`.
