@@ -161,3 +161,61 @@ sphinx-build -b html sphinx sphinx/_build/html
 - Workflow: `.github/workflows/pages.yml`
 - O deploy é automático a cada push no `main` quando houver mudanças na documentação/código.
 - Em `Settings > Pages`, garantir que a fonte está configurada para **GitHub Actions**.
+
+## Simulação 3D aberta (trajeto + compactação em profundidade)
+
+Para um protótipo simples, equivalente em conceito a um fluxo Terranimo/Softsoil (sem dependências proprietárias),
+foi adicionado um simulador 3D em código aberto:
+
+- Script: `src/prototipo_trajeto_3d.py`
+- Modelo: rota repetida + trilhas de roda + tensão decaindo com profundidade + acumulação por passadas
+- Rotas suportadas: reta, senoidal e CSV (RTK/local)
+- Solos suportados: perfil linear (legado) e perfis em camadas (`sandy_loam`, `clayey`, `lateritic`, `wet_weak`, `custom`)
+- Saídas: mapa 2D de carga, seção transversal (y-z), volume 3D estático e HTML interativo, CSV de evolução
+
+Execução:
+
+```bash
+python3 src/prototipo_trajeto_3d.py --output-dir outputs/prototipo_trajeto_3d
+```
+
+Exemplo com rota senoidal e perfil argiloso:
+
+```bash
+python3 src/prototipo_trajeto_3d.py \
+  --route-mode sine \
+  --route-sine-amplitude-m 1.5 \
+  --route-sine-wavelength-m 35 \
+  --soil-profile clayey \
+  --output-dir outputs/prototipo_trajeto_3d_senoidal
+```
+
+Exemplo com rota CSV (RTK) e perfil customizado por camadas:
+
+```bash
+python3 src/prototipo_trajeto_3d.py \
+  --route-mode csv \
+  --route-csv data/exemplo_rota_rtk.csv \
+  --soil-profile custom \
+  --sigma-crit-layers "0.30:95,1.00:140,2.00:210,5.00:290" \
+  --output-dir outputs/prototipo_trajeto_3d_csv
+```
+
+Formato esperado para CSV de rota:
+
+```csv
+x_m,y_m
+0.0,0.0
+1.0,0.1
+2.0,0.2
+```
+
+Arquivos gerados (exemplo):
+
+- `outputs/prototipo_trajeto_3d/mapa_carga_superficial.png`
+- `outputs/prototipo_trajeto_3d/secao_transversal_meio_rota.png`
+- `outputs/prototipo_trajeto_3d/volume_compactacao_3d.png`
+- `outputs/prototipo_trajeto_3d/volume_compactacao_3d_interativo.html`
+- `outputs/prototipo_trajeto_3d/evolucao_compactacao_passadas.csv`
+- `outputs/prototipo_trajeto_3d/perfil_sigma_crit.csv`
+- `outputs/prototipo_trajeto_3d/parametros_simulacao_3d.csv`
