@@ -40,7 +40,7 @@ Interpretação recomendada:
 - esse ponto pode ser usado como ``limiar de intervenção`` (ex.: renovar/descompactar após ~10 passadas naquela condição);
 - a calibração de campo continua necessária para garantir que esse limiar corresponde a impacto agronômico real no talhão.
 
-Gráfico 2 - Perfil final da coluna (0-10 m)
+Gráfico 2 - Perfil final da coluna (0-5 m)
 --------------------------------------------
 
 Mostra a distribuição do índice de compactação com a profundidade para passadas selecionadas.

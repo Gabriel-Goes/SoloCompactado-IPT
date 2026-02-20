@@ -164,7 +164,7 @@ def parse_args() -> argparse.Namespace:
         description="Executa matriz de cenários (variando uma variável por vez) para validação física interna."
     )
     parser.add_argument("--output-dir", type=Path, default=Path("outputs/validacao_bloco1"))
-    parser.add_argument("--depth-m", type=float, default=10.0)
+    parser.add_argument("--depth-m", type=float, default=5.0)
     parser.add_argument("--dz-m", type=float, default=0.1)
     parser.add_argument("--passes", type=int, default=30)
     parser.add_argument("--mass-kg", type=float, default=28_000.0)

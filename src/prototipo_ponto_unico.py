@@ -53,7 +53,7 @@ class MachineParams:
 @dataclass
 class SimParams:
     passes: int = 30
-    depth_m: float = 10.0
+    depth_m: float = 5.0
     dz_m: float = 0.1
 
 
@@ -380,7 +380,7 @@ def parse_args() -> argparse.Namespace:
         description="Simula compactação em ponto único para passadas repetidas de máquina agrícola."
     )
     parser.add_argument("--passes", type=int, default=30, help="Número de passadas sobre o ponto")
-    parser.add_argument("--depth-m", type=float, default=10.0, help="Profundidade total da coluna (m)")
+    parser.add_argument("--depth-m", type=float, default=5.0, help="Profundidade total da coluna (m)")
     parser.add_argument("--dz-m", type=float, default=0.1, help="Espessura da camada (m)")
     parser.add_argument("--mass-kg", type=float, default=28_000.0, help="Massa total da máquina (kg)")
     parser.add_argument("--wheels", type=int, default=8, help="Quantidade de rodas")
