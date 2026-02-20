@@ -8,6 +8,12 @@ div.sphinxsidebar {
   font-size: 15px;
 }
 
+div.sphinxsidebarwrapper p.logo img {
+  max-width: 250px;
+  width: 100%;
+  height: auto;
+}
+
 div.document {
   width: min(1220px, 96vw);
 }
@@ -30,6 +36,13 @@ table.docutils {
   font-size: 0.95em;
 }
 
+.index-inline-logo {
+  float: right;
+  width: 430px;
+  max-width: 50%;
+  margin: -8px 0 14px 24px;
+}
+
 @media screen and (max-width: 1100px) {
   div.document {
     width: 100%;
@@ -37,5 +50,13 @@ table.docutils {
 
   div.bodywrapper {
     margin: 0;
+  }
+
+  .index-inline-logo {
+    float: none;
+    display: block;
+    width: 100%;
+    max-width: 520px;
+    margin: 0 auto 18px auto;
   }
 }

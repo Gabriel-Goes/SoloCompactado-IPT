@@ -18,6 +18,7 @@ math_eqref_format = "Eq. {number}"
 html_theme = "alabaster"
 html_static_path = ["_static"]
 html_css_files = ["custom.css"]
+html_logo = "_static/logo_solo_compactado.svg"
 html_title = "SoloCompactado IPT - Documentação Técnica"
 html_last_updated_fmt = "%d/%m/%Y"
 
