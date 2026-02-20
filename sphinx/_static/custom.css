@@ -3,16 +3,21 @@ body {
   line-height: 1.7;
 }
 
-div.body {
-  max-width: 980px;
-}
-
 div.sphinxsidebar {
   width: 280px;
+  font-size: 15px;
 }
 
 div.document {
-  width: 1220px;
+  width: min(1220px, 96vw);
+}
+
+div.bodywrapper {
+  margin: 0 0 0 280px;
+}
+
+div.footer {
+  width: min(1220px, 96vw);
 }
 
 div.body h1,
@@ -23,4 +28,14 @@ div.body h3 {
 
 table.docutils {
   font-size: 0.95em;
+}
+
+@media screen and (max-width: 1100px) {
+  div.document {
+    width: 100%;
+  }
+
+  div.bodywrapper {
+    margin: 0;
+  }
 }
