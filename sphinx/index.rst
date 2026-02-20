@@ -1,3 +1,7 @@
+.. image:: _static/logo_solo_compactado.svg
+   :alt: Logomarca do projeto SoloCompactado IPT
+   :class: index-inline-logo
+
 SoloCompactado IPT - Documentação Técnica
 =========================================
 
@@ -9,6 +13,10 @@ Esta documentação descreve o protótipo de compactação de solo com foco em:
 - limites de validade e plano de calibração de campo.
 
 Público-alvo: engenheiros e tecnólogos com experiência em solos e geotecnia, sem necessidade de conhecimento em programação.
+
+.. raw:: html
+
+   <div style="clear: both;"></div>
 
 .. toctree::
    :maxdepth: 2
