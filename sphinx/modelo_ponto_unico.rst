@@ -1,4 +1,4 @@
-Modelo de Ponto Único (0-10 m)
+Modelo de Ponto Único (0-5 m)
 ==============================
 
 Para auditoria técnica com navegação até o código-fonte, consulte :doc:`referencia_codigo`.

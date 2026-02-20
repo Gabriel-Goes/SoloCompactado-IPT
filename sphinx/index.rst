@@ -27,6 +27,7 @@ Público-alvo: engenheiros e tecnólogos com experiência em solos e geotecnia, 
    modelo_ponto_unico
    leitura_resultados
    bloco1_validacao
+   revisao_referencias
    glossario
    validacao_calibracao
    referencia_codigo

@@ -1,9 +1,9 @@
-# Protótipo: Compactação em Ponto Único (0-10 m)
+# Protótipo: Compactação em Ponto Único (0-5 m)
 
 ## Objetivo
 Este protótipo implementa, de forma **conceitual e executável**, a ideia discutida em `README.md`, `Proposta.md` e `Prototipo.md`:
 - um único ponto da superfície recebe várias passadas de uma máquina pesada;
-- a compactação evolui em uma coluna de solo (padrão de 10 m, configurável);
+- a compactação evolui em uma coluna de solo (padrão de 5 m, configurável);
 - o resultado é uma série temporal por passada + perfil vertical final.
 
 ## Modelo simplificado usado
@@ -24,7 +24,7 @@ Este protótipo implementa, de forma **conceitual e executável**, a ideia discu
 - Cada passada aproxima o sulco residual de um valor-alvo com taxa decrescente.
 - Isso simula ganho rápido nas primeiras passadas e saturação gradual depois.
 
-### 4) Coluna de 10 m (padrão)
+### 4) Coluna de 5 m (padrão)
 - A tensão vertical em profundidade é aproximada por uma solução elástica axisimétrica (área circular equivalente).
 - Cada camada recebe incremento de compactação `delta_c` proporcional a:
   - razão de tensão aplicada / pré-adensamento,
