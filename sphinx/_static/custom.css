@@ -1,0 +1,26 @@
+body {
+  font-size: 18px;
+  line-height: 1.7;
+}
+
+div.body {
+  max-width: 980px;
+}
+
+div.sphinxsidebar {
+  width: 280px;
+}
+
+div.document {
+  width: 1220px;
+}
+
+div.body h1,
+div.body h2,
+div.body h3 {
+  line-height: 1.35;
+}
+
+table.docutils {
+  font-size: 0.95em;
+}
