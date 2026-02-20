@@ -1,0 +1,2 @@
+passes,depth_m,mass_kg,wheels,wheel_load_kg,tire_width_m,contact_length_m,track_gauge_m,contact_pressure_kpa,moisture,soil_profile,sigma_crit_surface_kpa,sigma_crit_gradient_kpa_m,sigma_crit_layers,route_mode,route_csv,route_sine_amplitude_m,route_sine_wavelength_m
+30,5.0,28000.0,8,3500.0,0.65,0.45,2.2,117.38461538461537,0.28,custom,110.0,35.0,"0.30:95,1.00:140,2.00:210,5.00:290",csv,data/exemplo_rota_rtk.csv,1.2,30.0

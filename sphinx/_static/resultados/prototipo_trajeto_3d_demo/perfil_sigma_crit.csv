@@ -1,0 +1,5 @@
+layer_upper_depth_m,sigma_crit_kpa,source_profile
+0.3,95.0,custom
+1.0,140.0,custom
+2.0,210.0,custom
+5.0,290.0,custom

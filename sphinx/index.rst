@@ -25,6 +25,7 @@ Público-alvo: engenheiros e tecnólogos com experiência em solos e geotecnia, 
    visao_geral
    fundamentos_terramecanica
    modelo_ponto_unico
+   simulador_3d
    leitura_resultados
    bloco1_validacao
    revisao_referencias
