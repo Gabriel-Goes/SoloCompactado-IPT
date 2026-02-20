@@ -141,3 +141,23 @@ Entregar um sistema que, dado um baseline e dados de telemetria, gere:
 ## Nota sobre riscos e limites
 - O modelo é **fortemente condicionado** por solo e umidade; extrapolações devem ficar dentro do envelope validado.
 - O objetivo do protótipo é atingir acurácia operacional “boa o suficiente” (ex.: ~90% utilidade prática) com **validação periódica** e uso de dados já disponíveis.
+
+---
+
+## Documentação Técnica (Sphinx + GitHub Pages)
+
+A documentação para público de engenharia de solos está em `sphinx/`, com foco em:
+- fundamentos geotécnicos e terramecânicos do modelo,
+- equações e hipóteses físicas,
+- interpretação dos resultados para decisão.
+
+### Build local
+```bash
+pip install -r docs-requirements.txt
+sphinx-build -b html sphinx sphinx/_build/html
+```
+
+### Publicação no GitHub Pages
+- Workflow: `.github/workflows/pages.yml`
+- O deploy é automático a cada push no `main` quando houver mudanças na documentação/código.
+- Em `Settings > Pages`, garantir que a fonte está configurada para **GitHub Actions**.
