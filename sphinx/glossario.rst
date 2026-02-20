@@ -41,9 +41,19 @@ Termos técnicos
 
    Índice de compactação
       Indicador adimensional do estado de compactação em cada camada da coluna (0 a ``Cmax`` no modelo).
+      É atualizado por passada por:
+
+      .. math::
+
+         C_k \leftarrow \operatorname{clip}(C_k+\Delta C_k,\;0,\;C_{max})
 
    Índice de compactação superficial
       Valor do índice de compactação na camada mais rasa da coluna simulada. No CSV: ``surface_compaction_index``.
+      No código:
+
+      .. math::
+
+         C_{sup} = C(z=\Delta z/2)
 
    Índice superficial
       Rótulo curto usado no gráfico para ``índice de compactação superficial``.
@@ -54,8 +64,16 @@ Termos técnicos
    Compactação média 0-30 cm
       Média do índice de compactação no intervalo de 0 a 0,30 m. No CSV: ``avg_compaction_0_30cm``.
 
+      .. math::
+
+         \bar{C}_{0-0.30}=\operatorname{media}\{C_k:0\le z_k\le 0.30\}
+
    Compactação média 30-100 cm
       Média do índice de compactação no intervalo de 0,30 a 1,00 m. No CSV: ``avg_compaction_30_100cm``.
+
+      .. math::
+
+         \bar{C}_{0.30-1.00}=\operatorname{media}\{C_k:0.30< z_k\le 1.00\}
 
    Resistência à compactação
       Métrica associada ao trabalho de deformar o solo para formar sulco. No CSV: ``compaction_resistance_kN``.

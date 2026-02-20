@@ -12,7 +12,7 @@ Objetivo do protótipo
 O protótipo simula, em um único ponto da trilha:
 
 - evolução do sulco residual ao longo das passadas,
-- evolução do índice de compactação na coluna de solo (0 a 5 m),
+- evolução do índice de compactação na coluna de solo (0 a 10 m, configurável),
 - leituras sintéticas de sensores virtuais (cone index e densidade aparente).
 
 Escopo técnico atual
