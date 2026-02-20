@@ -25,7 +25,7 @@ Transparência de parâmetros:
 Nota técnica
 ------------
 
-A frase acima é conceitualmente compatível com terramecânica em solos agrícolas na maioria das condições operacionais, pois o aumento da umidade costuma reduzir a resistência mecânica efetiva e elevar a suscetibilidade ao sulcamento.
+A afirmação "para a mesma carga e mesma configuração de roda, cenários mais úmidos tendem a maior deformação" é conceitualmente compatível com terramecânica em solos agrícolas na maioria das condições operacionais, pois o aumento da umidade costuma reduzir a resistência mecânica efetiva e elevar a suscetibilidade ao sulcamento.
 
 No uso prático, essa relação deve sempre ser calibrada por tipo de solo e faixa de umidade local.
 
