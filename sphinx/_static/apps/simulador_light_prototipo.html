@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Protótipo Light - Risco de Compactação</title>
+    <style>
+      :root {
+        --bg: #eceff2;
+        --panel: #30343a;
+        --panel2: #3a3f45;
+        --txt: #f2f4f7;
+        --muted: #bcc5d1;
+        --green: #c8df8a;
+        --orange: #edbe62;
+        --red: #e27c78;
+        --line: #a2acb8;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+        background: var(--bg);
+        color: #222;
+      }
+
+      .layout {
+        display: grid;
+        grid-template-columns: 360px 1fr;
+        gap: 14px;
+        min-height: 100vh;
+        padding: 14px;
+      }
+
+      .panel {
+        background: linear-gradient(180deg, var(--panel), #262a2f);
+        color: var(--txt);
+        border-radius: 10px;
+        padding: 18px;
+        border: 1px solid #1e2126;
+        box-shadow: 0 3px 12px rgba(0, 0, 0, 0.25);
+      }
+
+      .panel h1 {
+        font-size: 1.2rem;
+        line-height: 1.3;
+        margin: 0 0 8px;
+        color: #e6f2ff;
+      }
+
+      .disclaimer {
+        margin: 0 0 18px;
+        font-size: 0.88rem;
+        color: var(--muted);
+      }
+
+      .field {
+        margin-bottom: 14px;
+      }
+
+      .field label {
+        display: block;
+        font-size: 0.92rem;
+        margin-bottom: 4px;
+      }
+
+      .field .row {
+        display: grid;
+        grid-template-columns: 1fr 88px;
+        gap: 10px;
+        align-items: center;
+      }
+
+      input[type="range"] {
+        width: 100%;
+      }
+
+      input[type="number"] {
+        width: 100%;
+        padding: 6px;
+        border-radius: 6px;
+        border: 1px solid #666;
+        background: var(--panel2);
+        color: #fff;
+      }
+
+      .presets {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 6px;
+      }
+
+      .presets button {
+        border: 1px solid #6e7682;
+        background: #444b54;
+        color: #fff;
+        border-radius: 20px;
+        padding: 6px 11px;
+        cursor: pointer;
+      }
+
+      .presets button:hover {
+        background: #4e5660;
+      }
+
+      .main {
+        display: grid;
+        grid-template-rows: auto auto 1fr;
+        gap: 12px;
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(120px, 1fr));
+        gap: 10px;
+      }
+
+      .card {
+        background: #fff;
+        border-radius: 10px;
+        border: 1px solid #cfd8e3;
+        padding: 10px 12px;
+      }
+
+      .card h2 {
+        font-size: 0.9rem;
+        margin: 0 0 5px;
+        color: #4b5663;
+      }
+
+      .value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        line-height: 1.15;
+        color: #101418;
+      }
+
+      .sub {
+        font-size: 0.86rem;
+        color: #52606f;
+      }
+
+      .status-ok {
+        color: #2f8a00;
+      }
+
+      .status-mid {
+        color: #9a5f00;
+      }
+
+      .status-bad {
+        color: #b11010;
+      }
+
+      .chart-box {
+        background: #fff;
+        border-radius: 10px;
+        border: 1px solid #cfd8e3;
+        padding: 10px 12px 14px;
+      }
+
+      .chart-title {
+        margin: 0 0 10px;
+        font-size: 1rem;
+      }
+
+      #chart {
+        width: 100%;
+        height: 420px;
+        border: 1px solid #d6dde7;
+        background: #fff;
+      }
+
+      .legend {
+        margin-top: 8px;
+        display: grid;
+        gap: 4px;
+        font-size: 0.9rem;
+      }
+
+      .leg {
+        padding: 6px 8px;
+        border-radius: 4px;
+      }
+
+      .leg.green {
+        background: var(--green);
+      }
+
+      .leg.orange {
+        background: var(--orange);
+      }
+
+      .leg.red {
+        background: var(--red);
+      }
+
+      .model {
+        background: #fff;
+        border-radius: 10px;
+        border: 1px solid #cfd8e3;
+        padding: 12px;
+        font-size: 0.95rem;
+      }
+
+      .model h3 {
+        margin: 0 0 8px;
+        font-size: 1rem;
+      }
+
+      code {
+        background: #f0f3f7;
+        border: 1px solid #d6dce5;
+        padding: 1px 4px;
+        border-radius: 4px;
+      }
+
+      @media (max-width: 1100px) {
+        .layout {
+          grid-template-columns: 1fr;
+        }
+
+        .panel {
+          order: 2;
+        }
+
+        .main {
+          order: 1;
+        }
+
+        #chart {
+          height: 340px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="layout">
+      <aside class="panel">
+        <h1>Protótipo Light de risco de compactação</h1>
+        <p class="disclaimer">
+          Demonstração aberta e simplificada, inspirada no fluxo da versão Light do Terranimo.
+          Não é o algoritmo oficial.
+        </p>
+
+        <div class="field">
+          <label for="wheelLoadRange">Carga por roda (kg)</label>
+          <div class="row">
+            <input id="wheelLoadRange" type="range" min="800" max="7000" step="50" value="3500" />
+            <input id="wheelLoadNumber" type="number" min="800" max="7000" step="50" value="3500" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="pressureRange">Pressão do pneu (bar)</label>
+          <div class="row">
+            <input id="pressureRange" type="range" min="0.5" max="2.6" step="0.05" value="1.20" />
+            <input id="pressureNumber" type="number" min="0.5" max="2.6" step="0.05" value="1.20" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="clayRange">Teor de argila (%)</label>
+          <div class="row">
+            <input id="clayRange" type="range" min="5" max="60" step="1" value="16" />
+            <input id="clayNumber" type="number" min="5" max="60" step="1" value="16" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="matricRange">Potencial matricial (cbar)</label>
+          <div class="row">
+            <input id="matricRange" type="range" min="0" max="35" step="1" value="10" />
+            <input id="matricNumber" type="number" min="0" max="35" step="1" value="10" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="swriRange">Soil water retention index (0 a 1)</label>
+          <div class="row">
+            <input id="swriRange" type="range" min="0" max="1" step="0.01" value="0.60" />
+            <input id="swriNumber" type="number" min="0" max="1" step="0.01" value="0.60" />
+          </div>
+        </div>
+
+        <div class="presets">
+          <button type="button" data-preset="seco">Cenário Seco</button>
+          <button type="button" data-preset="umido">Cenário Úmido</button>
+          <button type="button" data-preset="pesado">Carga Pesada</button>
+        </div>
+      </aside>
+
+      <main class="main">
+        <section class="cards">
+          <article class="card">
+            <h2>Soil stress (35 cm)</h2>
+            <div class="value" id="soilStressBar">0.00 bar</div>
+            <div class="sub" id="soilStressConv">0 kPa | 0 psi</div>
+          </article>
+          <article class="card">
+            <h2>Soil strength (35 cm)</h2>
+            <div class="value" id="soilStrengthBar">0.00 bar</div>
+            <div class="sub" id="soilStrengthConv">0 kPa | 0 psi</div>
+          </article>
+          <article class="card">
+            <h2>Avaliação de risco</h2>
+            <div class="value" id="riskLabel">-</div>
+            <div class="sub" id="riskExplain">-</div>
+          </article>
+        </section>
+
+        <section class="chart-box">
+          <h2 class="chart-title">Decision chart (válido para 35 cm de profundidade)</h2>
+          <canvas id="chart" width="980" height="420"></canvas>
+          <div class="legend">
+            <div class="leg green">Sem risco relevante de compactação</div>
+            <div class="leg orange">Risco considerável: reduzir carga por roda ou pressão</div>
+            <div class="leg red">ALTO risco de compactação subsuperficial</div>
+          </div>
+        </section>
+
+        <section class="model">
+          <h3>Modelo usado nesta cópia simples</h3>
+          <p>
+            1) <code>soil_stress_bar</code> aumenta com carga por roda e pressão do pneu.
+          </p>
+          <p>
+            2) <code>soil_strength_bar</code> aumenta com sucção (potencial matricial), teor de argila e SWRI.
+          </p>
+          <p>
+            3) Risco no gráfico: verde se <code>strength ≥ 1.3 × stress</code>, amarelo entre
+            <code>0.8 × stress</code> e <code>1.3 × stress</code>, vermelho se <code>strength &lt; 0.8 × stress</code>.
+          </p>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      const BAR_TO_KPA = 100.0;
+      const BAR_TO_PSI = 14.5038;
+
+      const refs = {
+        wheelLoadRange: document.getElementById("wheelLoadRange"),
+        wheelLoadNumber: document.getElementById("wheelLoadNumber"),
+        pressureRange: document.getElementById("pressureRange"),
+        pressureNumber: document.getElementById("pressureNumber"),
+        clayRange: document.getElementById("clayRange"),
+        clayNumber: document.getElementById("clayNumber"),
+        matricRange: document.getElementById("matricRange"),
+        matricNumber: document.getElementById("matricNumber"),
+        swriRange: document.getElementById("swriRange"),
+        swriNumber: document.getElementById("swriNumber"),
+        soilStressBar: document.getElementById("soilStressBar"),
+        soilStressConv: document.getElementById("soilStressConv"),
+        soilStrengthBar: document.getElementById("soilStrengthBar"),
+        soilStrengthConv: document.getElementById("soilStrengthConv"),
+        riskLabel: document.getElementById("riskLabel"),
+        riskExplain: document.getElementById("riskExplain"),
+        chart: document.getElementById("chart"),
+      };
+
+      function clamp(v, a, b) {
+        return Math.max(a, Math.min(b, v));
+      }
+
+      function bindPair(rangeEl, numberEl) {
+        const syncFromRange = () => {
+          numberEl.value = rangeEl.value;
+          update();
+        };
+        const syncFromNumber = () => {
+          const num = Number(numberEl.value);
+          if (Number.isFinite(num)) {
+            const v = clamp(num, Number(rangeEl.min), Number(rangeEl.max));
+            rangeEl.value = String(v);
+            numberEl.value = String(v);
+            update();
+          }
+        };
+        rangeEl.addEventListener("input", syncFromRange);
+        numberEl.addEventListener("change", syncFromNumber);
+      }
+
+      bindPair(refs.wheelLoadRange, refs.wheelLoadNumber);
+      bindPair(refs.pressureRange, refs.pressureNumber);
+      bindPair(refs.clayRange, refs.clayNumber);
+      bindPair(refs.matricRange, refs.matricNumber);
+      bindPair(refs.swriRange, refs.swriNumber);
+
+      for (const btn of document.querySelectorAll("button[data-preset]")) {
+        btn.addEventListener("click", () => {
+          const p = btn.getAttribute("data-preset");
+          if (p === "seco") {
+            refs.wheelLoadRange.value = "3200";
+            refs.pressureRange.value = "1.40";
+            refs.clayRange.value = "18";
+            refs.matricRange.value = "25";
+            refs.swriRange.value = "0.55";
+          } else if (p === "umido") {
+            refs.wheelLoadRange.value = "3200";
+            refs.pressureRange.value = "1.40";
+            refs.clayRange.value = "18";
+            refs.matricRange.value = "6";
+            refs.swriRange.value = "0.75";
+          } else if (p === "pesado") {
+            refs.wheelLoadRange.value = "5200";
+            refs.pressureRange.value = "1.80";
+            refs.clayRange.value = "16";
+            refs.matricRange.value = "8";
+            refs.swriRange.value = "0.60";
+          }
+
+          refs.wheelLoadNumber.value = refs.wheelLoadRange.value;
+          refs.pressureNumber.value = refs.pressureRange.value;
+          refs.clayNumber.value = refs.clayRange.value;
+          refs.matricNumber.value = refs.matricRange.value;
+          refs.swriNumber.value = refs.swriRange.value;
+          update();
+        });
+      }
+
+      function computeModel() {
+        const wheelLoadKg = Number(refs.wheelLoadRange.value);
+        const tirePressureBar = Number(refs.pressureRange.value);
+        const clayPct = Number(refs.clayRange.value);
+        const matricCbar = Number(refs.matricRange.value);
+        const swri = Number(refs.swriRange.value);
+
+        const loadNorm = wheelLoadKg / 3500.0;
+        const pressureNorm = tirePressureBar / 1.2;
+
+        let soilStressBar = 0.08 + 0.82 * Math.pow(loadNorm, 0.72) * Math.pow(pressureNorm, 0.92);
+        soilStressBar = clamp(soilStressBar, 0.05, 2.5);
+
+        const suctionEffect = 0.20 + 0.032 * matricCbar + 0.11 * Math.log1p(matricCbar);
+        const clayEffect = 0.18 + 0.0055 * clayPct;
+        const swriEffect = 0.35 + 0.90 * swri;
+
+        let soilStrengthBar = (suctionEffect + clayEffect) * swriEffect;
+        soilStrengthBar = clamp(soilStrengthBar, 0.08, 2.5);
+
+        return { soilStressBar, soilStrengthBar };
+      }
+
+      function formatPressure(bar) {
+        const kpa = bar * BAR_TO_KPA;
+        const psi = bar * BAR_TO_PSI;
+        return `${kpa.toFixed(0)} kPa | ${psi.toFixed(1)} psi`;
+      }
+
+      function drawChart(stress, strength) {
+        const canvas = refs.chart;
+        const ctx = canvas.getContext("2d");
+        const w = canvas.width;
+        const h = canvas.height;
+        const m = { l: 76, r: 24, t: 20, b: 56 };
+
+        const xMax = 2.5;
+        const yMax = 2.5;
+
+        const pxX = (x) => m.l + (x / xMax) * (w - m.l - m.r);
+        const pxY = (y) => h - m.b - (y / yMax) * (h - m.t - m.b);
+
+        ctx.clearRect(0, 0, w, h);
+
+        ctx.fillStyle = "#c8df8a";
+        ctx.fillRect(m.l, m.t, w - m.l - m.r, h - m.t - m.b);
+
+        const slopeLow = 0.8;
+        const slopeHigh = 1.3;
+        const xTopHigh = yMax / slopeHigh;
+
+        ctx.fillStyle = "#edbe62";
+        ctx.beginPath();
+        ctx.moveTo(pxX(0), pxY(0));
+        ctx.lineTo(pxX(xTopHigh), pxY(yMax));
+        ctx.lineTo(pxX(xMax), pxY(yMax));
+        ctx.lineTo(pxX(xMax), pxY(slopeLow * xMax));
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.fillStyle = "#e27c78";
+        ctx.beginPath();
+        ctx.moveTo(pxX(0), pxY(0));
+        ctx.lineTo(pxX(xMax), pxY(0));
+        ctx.lineTo(pxX(xMax), pxY(slopeLow * xMax));
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.strokeStyle = "#738090";
+        ctx.lineWidth = 1;
+        for (let v = 0; v <= xMax + 1e-9; v += 0.25) {
+          ctx.beginPath();
+          ctx.moveTo(pxX(v), pxY(0));
+          ctx.lineTo(pxX(v), pxY(yMax));
+          ctx.stroke();
+        }
+        for (let v = 0; v <= yMax + 1e-9; v += 0.25) {
+          ctx.beginPath();
+          ctx.moveTo(pxX(0), pxY(v));
+          ctx.lineTo(pxX(xMax), pxY(v));
+          ctx.stroke();
+        }
+
+        ctx.strokeStyle = "#1d2430";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(pxX(0), pxY(0));
+        ctx.lineTo(pxX(xMax), pxY(slopeLow * xMax));
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.moveTo(pxX(0), pxY(0));
+        ctx.lineTo(pxX(xTopHigh), pxY(yMax));
+        ctx.stroke();
+
+        ctx.strokeStyle = "#222";
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(pxX(0), pxY(0));
+        ctx.lineTo(pxX(xMax), pxY(0));
+        ctx.lineTo(pxX(xMax), pxY(yMax));
+        ctx.stroke();
+
+        ctx.fillStyle = "#161a1d";
+        ctx.font = "16px Segoe UI";
+        ctx.textAlign = "center";
+        ctx.fillText("Soil stress [bar]", (pxX(0) + pxX(xMax)) / 2, h - 14);
+
+        ctx.save();
+        ctx.translate(20, (pxY(0) + pxY(yMax)) / 2);
+        ctx.rotate(-Math.PI / 2);
+        ctx.fillText("Soil strength [bar]", 0, 0);
+        ctx.restore();
+
+        ctx.font = "12px Segoe UI";
+        for (let v = 0; v <= xMax + 1e-9; v += 0.5) {
+          ctx.textAlign = "center";
+          ctx.fillText(v.toFixed(2).replace(/\.00$/, ""), pxX(v), pxY(0) + 18);
+        }
+        for (let v = 0; v <= yMax + 1e-9; v += 0.5) {
+          ctx.textAlign = "right";
+          ctx.fillText(v.toFixed(2).replace(/\.00$/, ""), pxX(0) - 8, pxY(v) + 4);
+        }
+
+        const xPt = clamp(stress, 0, xMax);
+        const yPt = clamp(strength, 0, yMax);
+        const px = pxX(xPt);
+        const py = pxY(yPt);
+
+        ctx.fillStyle = "#000";
+        ctx.beginPath();
+        ctx.arc(px, py, 9, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.fillStyle = "#fff";
+        ctx.beginPath();
+        ctx.arc(px, py, 4.2, 0, 2 * Math.PI);
+        ctx.fill();
+      }
+
+      function update() {
+        const { soilStressBar, soilStrengthBar } = computeModel();
+        refs.soilStressBar.textContent = `${soilStressBar.toFixed(2)} bar`;
+        refs.soilStressConv.textContent = formatPressure(soilStressBar);
+
+        refs.soilStrengthBar.textContent = `${soilStrengthBar.toFixed(2)} bar`;
+        refs.soilStrengthConv.textContent = formatPressure(soilStrengthBar);
+
+        let risk = "Baixo";
+        let explain = "Força do solo acima da tensão aplicada.";
+        let css = "status-ok";
+
+        if (soilStrengthBar < 0.8 * soilStressBar) {
+          risk = "Alto";
+          explain = "Evitar tráfego: reduzir pressão e/ou carga por roda.";
+          css = "status-bad";
+        } else if (soilStrengthBar < 1.3 * soilStressBar) {
+          risk = "Moderado";
+          explain = "Ajustar pressão, lastro ou janela de umidade.";
+          css = "status-mid";
+        }
+
+        refs.riskLabel.textContent = risk;
+        refs.riskLabel.className = `value ${css}`;
+        refs.riskExplain.textContent = explain;
+
+        drawChart(soilStressBar, soilStrengthBar);
+      }
+
+      update();
+      window.addEventListener("resize", update);
+    </script>
+  </body>
+</html>

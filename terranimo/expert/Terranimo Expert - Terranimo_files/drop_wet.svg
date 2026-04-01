@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="9.563" height="13.512" viewBox="0 0 9.563 13.512">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" y1="1.112" x2="0.5" y2="-0.094" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#3469FF"/>
+      <stop offset="1" stop-color="#3469FF"/>
+    </linearGradient>
+  </defs>
+  <path id="Tropfen" d="M42.863,575.53a4.781,4.781,0,0,1-9.563,0c0-2.647,4.781-8.73,4.781-8.73S42.863,572.9,42.863,575.53Z" transform="translate(-33.3 -566.8)" fill="url(#linear-gradient)"/>
+</svg>

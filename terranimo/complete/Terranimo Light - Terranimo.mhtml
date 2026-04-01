@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<!-- saved from url=(0036)https://quebec.terranimo.world/light -->
+<html lang="de" class="overflow-auto"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+        <meta name="robots" content="index,follow,noodp">
+    <meta name="format-detection" content="telephone=no">
+
+    <title>Terranimo Light - Terranimo </title>
+
+    <style data-tippy-stylesheet="">.tippy-box[data-animation=fade][data-state=hidden]{opacity:0}[data-tippy-root]{max-width:calc(100vw - 10px)}.tippy-box{position:relative;background-color:#333;color:#fff;border-radius:4px;font-size:14px;line-height:1.4;outline:0;transition-property:transform,visibility,opacity}.tippy-box[data-placement^=top]>.tippy-arrow{bottom:0}.tippy-box[data-placement^=top]>.tippy-arrow:before{bottom:-7px;left:0;border-width:8px 8px 0;border-top-color:initial;transform-origin:center top}.tippy-box[data-placement^=bottom]>.tippy-arrow{top:0}.tippy-box[data-placement^=bottom]>.tippy-arrow:before{top:-7px;left:0;border-width:0 8px 8px;border-bottom-color:initial;transform-origin:center bottom}.tippy-box[data-placement^=left]>.tippy-arrow{right:0}.tippy-box[data-placement^=left]>.tippy-arrow:before{border-width:8px 0 8px 8px;border-left-color:initial;right:-7px;transform-origin:center left}.tippy-box[data-placement^=right]>.tippy-arrow{left:0}.tippy-box[data-placement^=right]>.tippy-arrow:before{left:-7px;border-width:8px 8px 8px 0;border-right-color:initial;transform-origin:center right}.tippy-box[data-inertia][data-state=visible]{transition-timing-function:cubic-bezier(.54,1.5,.38,1.11)}.tippy-arrow{width:16px;height:16px;color:#333}.tippy-arrow:before{content:"";position:absolute;border-color:transparent;border-style:solid}.tippy-content{position:relative;padding:5px 9px;z-index:1}</style><link rel="stylesheet" href="./Terranimo Light - Terranimo_files/fonts.google.css">
+
+    
+    <link href="./Terranimo Light - Terranimo_files/nouislider.min.css" rel="stylesheet">
+    <link href="./Terranimo Light - Terranimo_files/lightbox.min.css" rel="stylesheet">
+
+
+    <link rel="stylesheet" href="./Terranimo Light - Terranimo_files/chardinjs.css">
+    <link rel="stylesheet" href="./Terranimo Light - Terranimo_files/bootstrap.min.css">
+    <link rel="stylesheet" href="./Terranimo Light - Terranimo_files/toastr.min.css">
+    <link rel="stylesheet" href="./Terranimo Light - Terranimo_files/terranimo.min.css">
+    <link rel="apple-touch-icon" sizes="57x57" href="https://quebec.terranimo.world/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="https://quebec.terranimo.world/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="https://quebec.terranimo.world/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="https://quebec.terranimo.world/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="https://quebec.terranimo.world/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="https://quebec.terranimo.world/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="https://quebec.terranimo.world/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="https://quebec.terranimo.world/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://quebec.terranimo.world/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="https://quebec.terranimo.world/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://quebec.terranimo.world/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="https://quebec.terranimo.world/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://quebec.terranimo.world/favicon-16x16.png">
+    <link rel="manifest" href="https://quebec.terranimo.world/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <script src="./Terranimo Light - Terranimo_files/jquery.min.js"></script>
+<script async="" src="./Terranimo Light - Terranimo_files/js"></script><script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-RWBVCHH722');
+    </script><meta id="bbafmabaelnnkondpfpjmdklbmfnbmol"></head>
+
+    <!-- Google tag (gtag.js) -->
+    
+    
+
+<body style="background: url(&quot;./images/terranimo_intro.jpg&quot;) 0% 0% / cover no-repeat;" class="terra-hide-footer-layout">
+    <div class="terra-overlay-dark-background" style="display: none;"></div>
+    <div class="terra-window-container" style="display: none;">
+        <div class="terra-window-content">
+            <div id="ajaxContent">
+            </div>
+        </div>
+    </div>
+
+    <header>
+        <nav class="navbar fixed-top navbar-expand-md navbar-toggleable-md navbar-light box-shadow terra-zindex-101">
+            <div class="container">
+                <div class="d-inline w-100">
+                    <div class="float-left pt-1">
+                        <a class="pl-2 pl-md-0 pl-lg-2 mr-3 text-decoration-none d-inline terra-text-white" href="https://terranimo.world/">
+                            <h14 class="d-inline">.world</h14>
+                        </a>
+
+                            <a id="terra-region-breadcrumb-id" class="terra-breadcrumb-element mr-1 mr-sm-3 pr-0 pr-lg-3 pl-md-0 pt-3 text-decoration-none terra-text-white" href="https://quebec.terranimo.world/">
+                                <h14 class="d-inline"> — .quebec</h14>
+                            </a>
+                            <a class="terra-breadcrumb-element mr-1 mr-sm-3 pl-1 pl-lg-4 text-decoration-none d-none d-md-inline terra-text-green active" href="https://quebec.terranimo.world/light"><h14 class="d-inline"> — .light</h14></a>
+                            <a class="terra-breadcrumb-element text-decoration-none d-none d-md-inline terra-text-white" href="https://quebec.terranimo.world/expert"><h14 class="d-inline"> — .expert</h14></a>
+                    </div>
+                    <div class="float-right pt-2 pr-5 d-inline d-md-none">
+                        <div id="terra-toggle-hamburger-menu-id" class="terra-btn-container navbar-toggler" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="top"></span><span class="middle"></span><span class="bottom"></span>
+                        </div>
+                    </div>
+                </div>
+                <div id="terra-navbar" class="navbar-collapse collapse d-md-inline pt-2 pl-0">
+                            <a class="terra-breadcrumb-element mr-1 mr-sm-3 pl-4 pt-3 text-decoration-none d-block d-md-none active" href="https://quebec.terranimo.world/light"><h14 class="d-inline"> — .light</h14></a>
+                            <a class="terra-breadcrumb-element pl-4 pt-3 text-decoration-none d-block d-md-none" href="https://quebec.terranimo.world/expert"><h14 class="d-inline"> — .expert</h14></a>
+                                <div class="d-block d-md-none mb-3 mb-md-0 pt-2"></div>
+                                <a class="terra-text-white mr-2 t-0 mt-md-0 mb-md-0 pl-4 pl-md-0 text-decoration-none" href="https://quebec.terranimo.world/login"><h8>LOGIN</h8></a>
+                                <span class="nav-item terra-text-white"><h8>—</h8></span>
+                                <a class="terra-text-white m-2 pr-0 pr-lg-5 mt-0 mt-md-0 mb-md-0 mr-md-0 text-decoration-none" href="https://quebec.terranimo.world/register"><h8>CREATE&nbsp;ACCOUNT</h8></a>
+                                <div class="d-block d-md-none pb-4"></div>
+                            <a class="nav-item text-decoration-none mr-5  pl-4 pl-md-5
+                                                    terra-text-white" href="https://quebec.terranimo.world/change-language?lang=fr&amp;returnUrl=%2Flight">
+                                <h8>FR</h8>
+                            </a>
+                            <a class="nav-item text-decoration-none mr-2 mr-lg-4  
+                                                    terra-text-green" href="https://quebec.terranimo.world/change-language?lang=en&amp;returnUrl=%2Flight">
+                                <h8>EN</h8>
+                            </a>
+                        <div class="d-block d-md-none mb-3 mb-md-0"></div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div id="terra-overlay" class="terra-overlay">
+        </div>
+        <main role="main">
+            
+
+
+
+<script>
+    var globalCountryCode = 'QC';
+</script>
+
+<div class="terra-height-warning">
+    <div class="terra-height-warning-text h-100">Please turn your Device to Portrait Mode or resize your Browser Window.</div>
+</div>
+
+<div class="terra-no-select">
+    <div class="container terra-container pt-3 pb-3 card terra-gray-bg">
+        <div class="row no-gutters pl-0 pl-md-3 pr-0 pr-md-3">
+            <div id="terra-control-panel-container-id" class="col-0 col-lg-4 align-content-center w-100" style="display: grid;">
+                <div id="terra-control-panel-content-container-id" class="terra-rounded-corners" style="background: black; box-shadow: -1px 5px 7px rgba(0, 0, 0, 0.6)">
+                <div id="terra-control-panel-content-id" class="terra-rounded-corners" style="background: #393939;">
+                    <div id="terra-control-panel-inner-content-container-id" class="d-block" data-intro="By slider or input you can change the parameters or select from predefined scenarios." data-position="right" style="min-height: 419px; max-height: 700px; overflow: hidden auto; scrollbar-width: thin;">
+                        <div class="no-gutters w-100 terra-text-black terra-light-result-header resultColor p-3" style="background: rgb(234, 167, 76);">
+                            <div class="row no-gutters h-100" data-intro="Here you can see the results of the calculations." data-position="top">
+                                <div class="col-9">
+                                    <div class="d-flex flex-column">
+                                        <div class="d-flex flex-row">
+                                            <div class="mr-2">
+                                                <img id="terra-light-result-icon" src="./Terranimo Light - Terranimo_files/ok.png" style="height: 36px;">
+                                            </div>
+                                            <div class="d-flex flex-column">
+                                                <div><h10 style="font-weight: bold;">Soil stress: <span id="bodenbelastung" style="font-weight: bold;"> 15.5 psi</span></h10></div>
+                                                <div><h10 style="font-weight: bold;">Soil strength: <span id="bodenfestigkeit" style="font-weight: bold;"> 27 psi</span></h10></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-3 pt-2 d-flex">
+                                    <div class="d-none d-lg-block ml-auto" style="cursor: pointer">
+                                        <a class="onOff" style="cursor: pointer" data-toggle="chardinjs">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="terra-control-element-menu-icon terra-fill-black mb-3">
+                                                <g id="Layer_2" data-name="Layer 2">
+                                                    <g id="small">
+                                                        <g>
+                                                            <g id="Ellipse_333" data-name="Ellipse 333">
+                                                                <path class="cls-3" d="M50,100a50,50,0,1,1,50-50A50.06,50.06,0,0,1,50,100ZM50,4.19A45.81,45.81,0,1,0,95.81,50,45.86,45.86,0,0,0,50,4.19Z"></path>
+                                                            </g>
+                                                            <path id="Pfad_246" data-name="Pfad 246" class="cls-3" d="M57.87,75.18h-16A1.47,1.47,0,0,1,40.73,74a1.08,1.08,0,0,1,1-1.15H57.87a1.09,1.09,0,0,1,1.15,1V74A1.24,1.24,0,0,1,57.87,75.18Zm0-4.81h-16c-.46,0-1.14-.45-1.14-.91a1.06,1.06,0,0,1,1-1.14H57.87a1.08,1.08,0,0,1,1.15,1v.13A1,1,0,0,1,57.87,70.37ZM54.45,81.81H45.3a2.17,2.17,0,0,1-2.29-2V77.23H56.73A10.35,10.35,0,0,1,57,79.52a2.51,2.51,0,0,1-2.52,2.29ZM59,65.8H40.7c0-16.22-9.12-22.41-9.12-32.24A18.16,18.16,0,0,1,49.4,15h.93A17.84,17.84,0,0,1,68.4,32.64c0,.31,0,.61,0,.92C68.39,43.16,59.48,49.58,59,65.8Z"></path>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                    <div id="terra-light-info-id" class="d-none d-lg-block ml-3" style="cursor: pointer">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="terra-control-element-menu-icon terra-fill-black">
+                                            <g>
+                                                <g>
+                                                    <g>
+                                                        <g>
+                                                            <path d="M50,100a50,50,0,1,1,50-50A50.06,50.06,0,0,1,50,100ZM50,4.19A45.81,45.81,0,1,0,95.81,50,45.86,45.86,0,0,0,50,4.19Z"></path>
+                                                        </g>
+                                                        <g>
+                                                            <circle cx="50.95" cy="26.7" r="7.49"></circle>
+                                                            <path d="M58.05,69.85V40.24a1,1,0,0,0-.95-1H38.81a1,1,0,0,0-1,1v3.53a1,1,0,0,0,1,1H42.9a1,1,0,0,1,1,1V69.81a1,1,0,0,1-1,1H38.81a1,1,0,0,0-1,1v3.61a1,1,0,0,0,1,1H63.19a1,1,0,0,0,1-1V71.73a1,1,0,0,0-1-1H59a.91.91,0,0,1-1-.86Z"></path>
+                                                        </g>
+                                                    </g>
+                                                </g>
+                                            </g>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-3">
+
+
+
+        <div class="d-flex align-items-center">
+            <h16 class="terra-text-white">Wheel load</h16>
+
+            <div class="input terra-rounded-corners position-relative ml-auto mt-1" style="border: solid; border-width: 1px; border-color: white; border-radius: .25rem; height: 26px; background-color: #6C757D;">
+                <h15>
+                    <input id="text_input_580fe953-3110-4230-b951-9e2234c47454" class="slider-text-input terra-rounded-corners pl-3 h-100" maxlength="5" data-parameter-name="580fe953-3110-4230-b951-9e2234c47454" value="2500">
+                </h15>
+                <div class="unitDiv d-inline-flex mt-2 float-right position-absolute terra-large-unit" style="color: rgba(255, 255, 255, 0.8); top: -2px; right: 15px;">
+                    <h10 id="unit_input_580fe953-3110-4230-b951-9e2234c47454" class="unit">kg</h10>
+                </div>
+            </div>
+
+        </div>
+        <div class="d-flex flex-column">
+            <div class="no-gutters ml-2 mr-3" style="margin-top: 15px; margin-bottom: 15px;">
+                <div class="slider noUi-target noUi-ltr noUi-horizontal noUi-txt-dir-ltr" id="slider_input_580fe953-3110-4230-b951-9e2234c47454" data-max-value="12000" data-min-value="1000" data-parameter-name="580fe953-3110-4230-b951-9e2234c47454" data-step="100" data-decimals="0" data-value="2500" data-routing="" data-control-element="" data-expert-action="tyre-selected-load" style="height: 5px; border: none;"><div class="noUi-base"><div class="noUi-connects"><div class="noUi-connect" style="transform: translate(0%, 0px) scale(1, 1);"></div></div><div class="noUi-origin" style="transform: translate(0%, 0px); z-index: 4;"><div class="noUi-handle noUi-handle-lower" data-handle="0" tabindex="0" role="slider" aria-orientation="horizontal" aria-valuemin="1000.0" aria-valuemax="12000.0" aria-valuenow="12000.0" aria-valuetext="12000"><div class="noUi-touch-area"></div><div class="noUi-tooltip">12000</div></div></div></div></div>
+            </div>
+        </div>
+
+
+
+        <div class="row mb-1 pb-1">
+            <div class="col-12">
+                <a class="buttonSmall text-decoration-none" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#ajaxContent" data-ajax-begin="doFadeIn()" data-ajax-failure="doFadeOut()" href="https://quebec.terranimo.world/load-and-pressure-procedure">
+                    <div class="button mt-2 w-100 justify-content-center align-items-center text-center d-inline-flex terra-modal-btn btn terra-btn-ok-small">
+                        Choose scenario
+                    </div>
+                </a>
+            </div>
+        </div>
+
+
+
+        <hr class="terra-seperator-gray mt-1 mb-1 w-100">
+
+
+
+        <div class="d-flex align-items-center">
+            <h16 class="terra-text-white">Tire inflation pressure</h16>
+
+            <div class="input terra-rounded-corners position-relative ml-auto mt-1" style="border: solid; border-width: 1px; border-color: white; border-radius: .25rem; height: 26px; background-color: #6C757D;">
+                <h15>
+                    <input id="text_input_5f5242b1-ff80-4396-a4ce-4f0e71085344" class="slider-text-input terra-rounded-corners pl-3 h-100" maxlength="5" data-parameter-name="5f5242b1-ff80-4396-a4ce-4f0e71085344" value="14.5">
+                </h15>
+                <div class="unitDiv d-inline-flex mt-2 float-right position-absolute terra-large-unit" style="color: rgba(255, 255, 255, 0.8); top: -2px; right: 15px;">
+                    <h10 id="unit_input_5f5242b1-ff80-4396-a4ce-4f0e71085344" class="unit">psi</h10>
+                </div>
+            </div>
+
+        </div>
+        <div class="d-flex flex-column">
+            <div class="no-gutters ml-2 mr-3" style="margin-top: 15px; margin-bottom: 15px;">
+                <div class="slider noUi-target noUi-ltr noUi-horizontal noUi-txt-dir-ltr" id="slider_input_5f5242b1-ff80-4396-a4ce-4f0e71085344" data-max-value="72" data-min-value="5" data-parameter-name="5f5242b1-ff80-4396-a4ce-4f0e71085344" data-step="0.1" data-decimals="1" data-value="14.5" data-routing="" data-control-element="" data-expert-action="tyre-selected-pressure" style="height: 5px; border: none;"><div class="noUi-base"><div class="noUi-connects"><div class="noUi-connect" style="transform: translate(0%, 0px) scale(0, 1);"></div></div><div class="noUi-origin" style="transform: translate(-1000%, 0px); z-index: 4;"><div class="noUi-handle noUi-handle-lower" data-handle="0" tabindex="0" role="slider" aria-orientation="horizontal" aria-valuemin="5.0" aria-valuemax="72.0" aria-valuenow="5.0" aria-valuetext="5.0"><div class="noUi-touch-area"></div><div class="noUi-tooltip">5.0</div></div></div></div></div>
+            </div>
+        </div>
+
+
+
+        <div class="row mb-1 pb-1">
+            <div class="col-12">
+                <a class="buttonSmall text-decoration-none" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#ajaxContent" data-ajax-begin="doFadeIn()" data-ajax-failure="doFadeOut()" href="https://quebec.terranimo.world/load-and-pressure-procedure">
+                    <div class="button mt-2 w-100 justify-content-center align-items-center text-center d-inline-flex terra-modal-btn btn terra-btn-ok-small">
+                        Choose scenario
+                    </div>
+                </a>
+            </div>
+        </div>
+
+
+
+        <hr class="terra-seperator-gray mt-1 mb-1 w-100">
+
+
+
+        <div class="d-flex align-items-center">
+            <h16 class="terra-text-white">Clay content</h16>
+
+            <div class="input terra-rounded-corners position-relative ml-auto mt-1" style="border: solid; border-width: 1px; border-color: white; border-radius: .25rem; height: 26px; background-color: #6C757D;">
+                <h15>
+                    <input id="text_input_de24435a-5147-4d66-8375-f49838add288" class="slider-text-input terra-rounded-corners pl-3 h-100" maxlength="5" data-parameter-name="de24435a-5147-4d66-8375-f49838add288" value="20">
+                </h15>
+                <div class="unitDiv d-inline-flex mt-2 float-right position-absolute terra-large-unit" style="color: rgba(255, 255, 255, 0.8); top: -2px; right: 15px;">
+                    <h10 id="unit_input_de24435a-5147-4d66-8375-f49838add288" class="unit">%</h10>
+                </div>
+            </div>
+
+        </div>
+        <div class="d-flex flex-column">
+            <div class="no-gutters ml-2 mr-3" style="margin-top: 15px; margin-bottom: 15px;">
+                <div class="slider noUi-target noUi-ltr noUi-horizontal noUi-txt-dir-ltr" id="slider_input_de24435a-5147-4d66-8375-f49838add288" data-max-value="40" data-min-value="5" data-parameter-name="de24435a-5147-4d66-8375-f49838add288" data-step="1" data-decimals="0" data-value="20" data-routing="" data-control-element="" data-expert-action="clay-selected-content" style="height: 5px; border: none;"><div class="noUi-base"><div class="noUi-connects"><div class="noUi-connect" style="transform: translate(0%, 0px) scale(0.571429, 1);"></div></div><div class="noUi-origin" style="transform: translate(-428.571%, 0px); z-index: 4;"><div class="noUi-handle noUi-handle-lower" data-handle="0" tabindex="0" role="slider" aria-orientation="horizontal" aria-valuemin="5.0" aria-valuemax="40.0" aria-valuenow="25.0" aria-valuetext="25"><div class="noUi-touch-area"></div><div class="noUi-tooltip">25</div></div></div></div></div>
+            </div>
+        </div>
+
+
+
+        <div class="row mb-1 pb-1">
+            <div class="col-12">
+                <a class="buttonSmall text-decoration-none" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#ajaxContent" data-ajax-begin="doFadeIn()" data-ajax-failure="doFadeOut()" href="https://quebec.terranimo.world/clay-procedure">
+                    <div class="button mt-2 w-100 justify-content-center align-items-center text-center d-inline-flex terra-modal-btn btn terra-btn-ok-small">
+                        Choose scenario
+                    </div>
+                </a>
+            </div>
+        </div>
+
+
+
+        <hr class="terra-seperator-gray mt-1 mb-1 w-100">
+
+
+
+        <div class="d-flex align-items-center">
+            <h16 class="terra-text-white">Soil water suction</h16>
+
+            <div class="input terra-rounded-corners position-relative ml-auto mt-1" style="border: solid; border-width: 1px; border-color: white; border-radius: .25rem; height: 26px; background-color: #6C757D;">
+                <h15>
+                    <input id="text_input_b87bb7be-448c-4a49-837a-038a32e9130a" class="slider-text-input terra-rounded-corners pl-3 h-100" maxlength="5" data-parameter-name="b87bb7be-448c-4a49-837a-038a32e9130a" value="10">
+                </h15>
+                <div class="unitDiv d-inline-flex mt-2 float-right position-absolute terra-large-unit" style="color: rgba(255, 255, 255, 0.8); top: -2px; right: 15px;">
+                    <h10 id="unit_input_b87bb7be-448c-4a49-837a-038a32e9130a" class="unit">cbar</h10>
+                </div>
+            </div>
+
+        </div>
+        <div class="d-flex flex-column">
+            <div class="no-gutters ml-2 mr-3" style="margin-top: 15px; margin-bottom: 15px;">
+                <div class="slider noUi-target noUi-ltr noUi-horizontal noUi-txt-dir-ltr" id="slider_input_b87bb7be-448c-4a49-837a-038a32e9130a" data-max-value="60" data-min-value="0" data-parameter-name="b87bb7be-448c-4a49-837a-038a32e9130a" data-step="1" data-decimals="0" data-value="10" data-routing="" data-control-element="" data-expert-action="soil-selected-suction" style="height: 5px; border: none;"><div class="noUi-base"><div class="noUi-connects"><div class="noUi-connect" style="transform: translate(0%, 0px) scale(0.333333, 1);"></div></div><div class="noUi-origin" style="transform: translate(-666.667%, 0px); z-index: 4;"><div class="noUi-handle noUi-handle-lower" data-handle="0" tabindex="0" role="slider" aria-orientation="horizontal" aria-valuemin="0.0" aria-valuemax="60.0" aria-valuenow="20.0" aria-valuetext="20"><div class="noUi-touch-area"></div><div class="noUi-tooltip">20</div></div></div></div></div>
+            </div>
+        </div>
+
+
+
+        <div class="row mb-1 pb-1">
+            <div class="col-12">
+                <a class="buttonSmall text-decoration-none" data-ajax="true" data-ajax-method="GET" data-ajax-mode="replace" data-ajax-update="#ajaxContent" data-ajax-begin="doFadeIn()" data-ajax-failure="doFadeOut()" href="https://quebec.terranimo.world/suction-procedure">
+                    <div class="button mt-2 w-100 justify-content-center align-items-center text-center d-inline-flex terra-modal-btn btn terra-btn-ok-small">
+                        Choose scenario
+                    </div>
+                </a>
+            </div>
+        </div>
+                        </div>
+                    </div>
+                </div></div>
+            </div>
+            <div class="col-12 col-lg-8 align-self-center">
+                <div class="row justify-content-end">
+                    <div class="diaContent col-12 col-lg-11 pt-0 pt-md-4 pt-xl-5 mt-0 mt-xl-4 pb-2 pb-lg-0 pl-0 pr-0">
+                        <div class="row no-gutters w-100">
+                            <div class="col-2"></div>
+                            <div class="col-9 w-100 position-relative">
+                                <div class="row no-gutters w-100" style="border-bottom: solid 2px #939393" data-intro="With the different charts you can better judge the results." data-position="top">
+                                    <button id="DiagrammDesicion" style="background: transparent;" type="button" class="terra-diagram-btn col-4 w-100 text-center pb-3 border-0 active pr-1 ml-auto" onclick="activateDiagram(this)">
+                                        <div class="d-none d-md-block">
+                                            <h16 class="text-overflow">Decision chart</h16>
+                                            <div class="greenArrow container position-absolute" style="bottom: -18px; opacity: 1;">
+                                                <div class="underline terra-underline-green position-relative">
+                                                    <div class="terra-arrow-up green position-absolute active" style="bottom: -6px; left: calc(50% - 3px);"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="d-block d-md-none">
+                                            <div class="container diagramOverlay position-absolute" style="bottom: -18px; opacity: 1;">
+                                                <div class="underlineIcon terra-underline-green d-block position-relative">
+                                                    <div class="diagramSpace space-between position-absolute" style="bottom: -7px; left: calc(50% - 3px);"></div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex position-absolute w-100 justify-content-center" style="bottom: -2.5px;">
+                                                <div style="width: 13px;">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="terra-diagram-icon active">
+                                                        <g id="Layer_2" data-name="Layer 2">
+                                                            <g id="small">
+                                                                <g>
+                                                                    <rect class="cls-1" y="40" width="27" height="60"></rect>
+                                                                    <rect class="cls-1" x="73" y="22" width="27" height="78"></rect>
+                                                                    <rect class="cls-1" x="36.5" width="27" height="100"></rect>
+                                                                </g>
+                                                            </g>
+                                                        </g>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </button>
+                                    <button id="DiagrammStress" style="background: transparent;" type="button" class="terra-diagram-btn col-4 w-100 text-center pb-3 border-0 ml-auto mr-auto" onclick="activateDiagram(this)">
+                                        <div class="d-none d-md-block">
+                                            <h16 class="ellipsis">Nomogram Stress</h16>
+                                            <div class="greenArrow container position-absolute" style="bottom: -18px; opacity: 0;">
+                                                <div class="underline terra-underline-gray position-relative">
+                                                    <div class="terra-arrow-up gray position-absolute active" style="bottom: -6px; left: calc(50% - 3px);"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="d-block d-md-none">
+                                            <div class="container diagramOverlay position-absolute" style="bottom: -18px; opacity: 1;">
+                                                <div class="underlineIcon terra-underline-gray d-block position-relative">
+                                                    <div class="diagramSpace space-between position-absolute" style="bottom: -7px; left: calc(50% - 3px);"></div>
+                                                </div>
+                                            </div>
+                                            <div class="d-flex position-absolute w-100 justify-content-center" style="bottom: -2.5px;">
+                                                <div style="width: 13px;">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="terra-diagram-icon ">
+                                                        <g id="Layer_2" data-name="Layer 2">
+                                                            <g id="small">
+                                                                <path class="cls-1" d="M99.32,50.56a5.9,5.9,0,0,1-5.65-4.49l-.06-.26v-.27A5.88,5.88,0,0,1,97.91,40l.86-.27a47.81,47.81,0,0,0-3.08-9.44l-.69.21a5.83,5.83,0,0,1-2.32.5A5.72,5.72,0,0,1,88,28.55l-.1-.14-.07-.15a5.58,5.58,0,0,1,1.74-7l.61-.54a53.89,53.89,0,0,0-6.61-7.41l-.42.42A5.76,5.76,0,0,1,76,15l-.19-.11-.15-.14a5.76,5.76,0,0,1-1.31-7l.36-.8C73.09,6,71.58,5.23,70.19,4.58c-1.74-.74-3.19-1.31-4.5-1.76l-.26.58a5.69,5.69,0,0,1-5.38,4,7,7,0,0,1-.8-.05l-.17,0-.15,0a5.76,5.76,0,0,1-4-5.91v-1a45.38,45.38,0,0,0-5-.28,43.58,43.58,0,0,0-5,.28V.93A5.67,5.67,0,0,1,40.89,7l-.15,0-.16,0c-.22,0-.45,0-.68,0a5.7,5.7,0,0,1-5.35-3.77l-.39-.87a51.42,51.42,0,0,0-9,4l.28.63a5.89,5.89,0,0,1-1.16,7.13l-.17.16-.2.11a5.8,5.8,0,0,1-7-1l-.66-.58a46.11,46.11,0,0,0-6.66,7.36l.49.43a5.72,5.72,0,0,1,1.9,7l-.09.21-.14.18a5.87,5.87,0,0,1-6.8,2L4,29.8a46.68,46.68,0,0,0-3.1,9.38l.72.21a6,6,0,0,1,4.58,5.53V45A5.53,5.53,0,0,1,.82,50.56L0,50.63a49.47,49.47,0,0,0,1,9.8l.63-.06a5.75,5.75,0,0,1,6.43,3.31l.09.19,0,.21a5.7,5.7,0,0,1-3.06,6.37l-.82.44A51.84,51.84,0,0,0,9.2,79.4L9.84,79a5.73,5.73,0,0,1,7.19.47l.14.12.11.15A5.59,5.59,0,0,1,17,86.87l-.49.71a50.18,50.18,0,0,0,8,5.86l.41-.55A6,6,0,0,1,30,90.07a6.14,6.14,0,0,1,1.7.25l.19.06.18.09a5.57,5.57,0,0,1,2.67,6.62l-.21.83a50.17,50.17,0,0,0,9.62,2l.12-.63a5.81,5.81,0,0,1,5.09-5.13l.2,0,.19,0A5.69,5.69,0,0,1,54.93,99l.24,1A50.56,50.56,0,0,0,65,97.9l-.13-.67a5.86,5.86,0,0,1,2.58-6.72l.21-.12.23-.08A5.9,5.9,0,0,1,69.63,90a5.82,5.82,0,0,1,4.92,2.75l.52.74a53.16,53.16,0,0,0,8.05-5.78l-.39-.52a5.79,5.79,0,0,1-.3-7.2l.12-.16.14-.13a5.71,5.71,0,0,1,3.91-1.55,5.61,5.61,0,0,1,3.13.94l.86.46a44.39,44.39,0,0,0,5-8.57L95,70.67a5.9,5.9,0,0,1-3.36-6.44l0-.24.1-.23A5.75,5.75,0,0,1,97,60.35a5.57,5.57,0,0,1,1.08.11l.93.11a50.2,50.2,0,0,0,1-9.94ZM50,71A21,21,0,1,1,71,50,21,21,0,0,1,50,71Z"></path>
+                                                            </g>
+                                                        </g>
+                                                    </svg>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </button>
+                                        <button id="DiagrammSoil" style="background: transparent;" type="button" class="terra-diagram-btn col-4 w-100 text-center pb-3 border-0 pl-1" onclick="activateDiagram(this)">
+                                            <div class="d-none d-md-block">
+                                                <h16 class="ellipsis">Nomogram Soil</h16>
+                                                <div class="greenArrow container position-absolute" style="bottom: -18px; opacity: 0;">
+                                                    <div class="underline terra-underline-gray position-relative">
+                                                        <div class="terra-arrow-up gray position-absolute active" style="bottom: -6px; left: calc(50% - 3px);"></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="d-block d-md-none">
+                                                <div class="container diagramOverlay position-absolute" style="bottom: -18px; opacity: 1;">
+                                                    <div class="underlineIcon terra-underline-gray d-block position-relative">
+                                                        <div class="diagramSpace space-between position-absolute" style="bottom: -7px; left: calc(50% - 3px);"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex position-absolute w-100 justify-content-center" style="bottom: -2.5px;">
+                                                    <div style="width: 13px;">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="terra-diagram-icon">
+                                                            <g id="Layer_2" data-name="Layer 2">
+                                                                <g id="small">
+                                                                    <g>
+                                                                        <circle class="cls-1" cx="78" cy="32" r="6"></circle>
+                                                                        <circle class="cls-1" cx="32" cy="91" r="9"></circle>
+                                                                        <circle class="cls-1" cx="21" cy="52" r="21"></circle>
+                                                                        <circle class="cls-1" cx="50.5" cy="16.5" r="16.5"></circle>
+                                                                        <circle class="cls-1" cx="73.5" cy="73.5" r="26.5"></circle>
+                                                                    </g>
+                                                                </g>
+                                                            </g>
+                                                        </svg>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="position: relative;">
+                            <div id="DiagrammDesicion_Content" class="terra-pseudo-diagram-content d-block">
+                                    <div id="diaDes"><svg id="Entscheidungsdiagramm" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 936.341 913">
+  <defs>
+    <lineargradient id="linear-gradient" x1="0.5" y1="-0.545" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#CFE692" stop-opacity="1"></stop>
+      <stop offset="1" stop-color="#CFE692" stop-opacity="1"></stop>
+    </lineargradient>
+    <lineargradient id="linear-gradient-2" x1="0.5" y1="-0.158" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#F2BB64" stop-opacity="1"></stop>
+      <stop offset="1" stop-color="#F2BB64" stop-opacity="1"></stop>
+    </lineargradient>
+    <lineargradient id="linear-gradient-3" x1="0.5" y1="-0.811" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#E37671" stop-opacity="1"></stop>
+      <stop offset="1" stop-color="#E37671" stop-opacity="1"></stop>
+    </lineargradient>
+    <clippath id="clip-path">
+      <rect width="860" height="765" fill="none"></rect>
+    </clippath>
+  </defs>
+  <rect id="Rechteck_1603" data-name="Rechteck 1603" width="936" height="913" transform="translate(0.341)" fill="#fff" opacity="0"></rect>
+  <g id="Titel" transform="translate(-497.659 -83)">
+    <text id="_IMG_SOIL_STRENGTH_WITH_UNIT_" data-name="Soil strength [psi]" transform="translate(522.659 774.432) rotate(-90)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600" letter-spacing="0.001em" text-anchor="middle">
+      <tspan x="228" y="0">Soil strength [psi]</tspan>
+    </text>
+    <text id="_IMG_SOIL_STRESS_WITH_UNIT_" data-name="Soil stress at 35 cm soil depth [psi]" transform="translate(783 990.932)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600" letter-spacing="0.001em" text-anchor="middle">
+      <tspan x="228" y="0">Soil stress at 35 cm soil depth [psi]</tspan>
+    </text>
+    <text id="_IMG_DECISION_CHART_INFO_" data-name="Decision chart (at 35 cm soil depth)" transform="translate(783 141.932)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600" letter-spacing="0.001em" text-anchor="middle">
+      <tspan x="228" y="0">Decision chart (at 35 cm soil depth)</tspan>
+    </text>
+  </g>
+  <g id="Grafik" transform="translate(-497.753 -84.041)">
+    <path id="Pfad_4" data-name="Pfad 4" d="M-352.127,615.417,90.679-94.617l-442.64.075" transform="translate(968.255 277.217)" opacity="0.443" fill="url(#linear-gradient)"></path>
+    <path id="Pfad_150" data-name="Pfad 150" d="M194.03,464.355l792.384-582.7-.314-127.2s-300.043-.1-349.136-.128" transform="translate(422.091 428.217)" fill="url(#linear-gradient-2)"></path>
+    <path id="Pfad_333" data-name="Pfad 333" d="M497.834-24.318-294.731,558.532l792.111-.06" transform="translate(910.825 334.043)" fill="url(#linear-gradient-3)"></path>
+  </g>
+  <g id="Diagramm" transform="translate(-497.659 -83)">
+    <path id="Pfad_332" data-name="Pfad 332" d="M0,0V722" transform="translate(616.5 181.572)" fill="none" stroke="#939393" stroke-width="1"></path>
+    <path id="Pfad_332-2" data-name="Pfad 332" d="M0,0V722" transform="translate(704.5 181.572)" fill="none" stroke="#939393" stroke-width="1"></path>
+    <path id="Pfad_332-3" data-name="Pfad 332" d="M0,0V722" transform="translate(792.5 181.572)" fill="none" stroke="#939393" stroke-width="1"></path>
+    <path id="Pfad_332-4" data-name="Pfad 332" d="M0,0V722" transform="translate(880.5 181.572)" fill="none" stroke="#939393" stroke-width="1"></path>
+    <path id="Pfad_332-5" data-name="Pfad 332" d="M0,0V722" transform="translate(968.5 181.572)" fill="none" stroke="#939393" stroke-width="1"></path>
+    <path id="Pfad_332-6" data-name="Pfad 332" d="M0,0V722" transform="translate(1056.5 181.572)" fill="none" stroke="#939393" stroke-width="1"></path>
+    <path id="Pfad_332-7" data-name="Pfad 332" d="M0,0V722" transform="translate(1144.5 181.572)" fill="none" stroke="#939393" stroke-width="1"></path>
+    <path id="Pfad_332-8" data-name="Pfad 332" d="M0,0V722" transform="translate(1232.5 181.572)" fill="none" stroke="#939393" stroke-width="1"></path>
+    <path id="Pfad_332-9" data-name="Pfad 332" d="M0,0V722" transform="translate(1320.5 181.572)" fill="none" stroke="#939393" stroke-width="1"></path>
+    <path id="Pfad_332-10" data-name="Pfad 332" d="M0,0V722.577" transform="translate(1408.5 180.995)" fill="none" stroke="#939393" stroke-width="1"></path>
+    <text id="_0" data-name="0" transform="translate(616 939)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600">
+      <tspan x="-7.25" y="0">0</tspan>
+    </text>
+    <text id="_25" data-name="25" transform="translate(698 939)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600">
+      <tspan x="0" y="0">4</tspan>
+    </text>
+    <text id="_50" data-name="50" transform="translate(786 939)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600">
+      <tspan x="0" y="0">7</tspan>
+    </text>
+    <text id="_75" data-name="75" transform="translate(874 939)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600">
+      <tspan x="-8" y="0">11</tspan>
+    </text>
+    <text id="_100" data-name="100" transform="translate(969 939)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600">
+      <tspan x="-15" y="0">14</tspan>
+    </text>
+    <text id="_125" data-name="125" transform="translate(1057 939)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600">
+      <tspan x="-15" y="0">18</tspan>
+    </text>
+    <text id="_150" data-name="150" transform="translate(1145 939)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600">
+      <tspan x="-15" y="0">21</tspan>
+    </text>
+    <text id="_175" data-name="175" transform="translate(1233 939)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600">
+      <tspan x="-15" y="0">25</tspan>
+    </text>
+    <text id="_200" data-name="200" transform="translate(1321 939)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600">
+      <tspan x="-15" y="0">29</tspan>
+    </text>
+    <text id="_225" data-name="225" transform="translate(1408 939)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600">
+      <tspan x="-15" y="0">33</tspan>
+    </text>
+    <g id="Wiederholungsraster_3" data-name="Wiederholungsraster 3" transform="translate(547.931 167)" clip-path="url(#clip-path)">
+      <g transform="translate(-531.931 -215)">
+        <path id="Pfad_318" data-name="Pfad 318" d="M0,0V821.287" transform="translate(1410.762 229.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_250" data-name="250" transform="translate(573.931 239)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600">
+          <tspan x="-25" y="0">36</tspan>
+        </text>
+      </g>
+      <g transform="translate(-531.931 -144)">
+        <path id="Pfad_318-2" data-name="Pfad 318" d="M0,0V821.287" transform="translate(1410.762 229.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_225-2" data-name="225" transform="translate(573.931 239)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600">
+          <tspan x="-25" y="0">33</tspan>
+        </text>
+      </g>
+      <g transform="translate(-531.931 -73)">
+        <path id="Pfad_318-3" data-name="Pfad 318" d="M0,0V821.287" transform="translate(1410.762 229.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_200-2" data-name="200" transform="translate(573.931 239)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600">
+          <tspan x="-25" y="0">29</tspan>
+        </text>
+      </g>
+      <g transform="translate(-531.931 -2)">
+        <path id="Pfad_318-4" data-name="Pfad 318" d="M0,0V821.287" transform="translate(1410.762 229.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_175-2" data-name="175" transform="translate(573.931 239)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600">
+          <tspan x="-25" y="0">25</tspan>
+        </text>
+      </g>
+      <g transform="translate(-531.931 69)">
+        <path id="Pfad_318-5" data-name="Pfad 318" d="M0,0V821.287" transform="translate(1410.762 229.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_150-2" data-name="150" transform="translate(573.931 239)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600">
+          <tspan x="-25" y="0">21</tspan>
+        </text>
+      </g>
+      <g transform="translate(-531.931 140)">
+        <path id="Pfad_318-6" data-name="Pfad 318" d="M0,0V821.287" transform="translate(1410.762 229.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_125-2" data-name="125" transform="translate(573.931 239)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600">
+          <tspan x="-25" y="0">18</tspan>
+        </text>
+      </g>
+      <g transform="translate(-531.931 211)">
+        <path id="Pfad_318-7" data-name="Pfad 318" d="M0,0V821.287" transform="translate(1410.762 229.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_100-2" data-name="100" transform="translate(573.931 239)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600">
+          <tspan x="-25" y="0">14</tspan>
+        </text>
+      </g>
+      <g transform="translate(-531.931 282)">
+        <path id="Pfad_318-8" data-name="Pfad 318" d="M0,0V821.287" transform="translate(1410.762 229.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_75-2" data-name="75" transform="translate(573.931 239)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600">
+          <tspan x="-25" y="0">11</tspan>
+        </text>
+      </g>
+      <g transform="translate(-531.931 353)">
+        <path id="Pfad_318-9" data-name="Pfad 318" d="M0,0V821.287" transform="translate(1410.762 229.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_50-2" data-name="50" transform="translate(573.931 239)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600">
+          <tspan x="-15" y="0">7</tspan>
+        </text>
+      </g>
+      <g transform="translate(-531.931 424)">
+        <path id="Pfad_318-10" data-name="Pfad 318" d="M0,0V821.287" transform="translate(1410.762 229.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_25-2" data-name="25" transform="translate(573.931 239)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600">
+          <tspan x="-15" y="0">4</tspan>
+        </text>
+      </g>
+      <g transform="translate(-531.931 495)">
+        <path id="Pfad_318-11" data-name="Pfad 318" d="M0,0V821.287" transform="translate(1410.762 229.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_0-2" data-name="0" transform="translate(578.931 239)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600">
+          <tspan x="-15" y="0">0</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
+</svg>
+</div>
+
+                                <div id="resultWheel" class="position-absolute" style="width: 30px; height: 30px; left: 346.03px; bottom: 446.4px;">
+                                    <img src="./Terranimo Light - Terranimo_files/Rad.svg">
+                                    <div class="terra-speech-bubble left terra-text-white terra-rounded-corners p-1 position-absolute d-none" style="min-width: 50px; max-width: 200px; bottom: -13.5px;">
+                                        <h10 class="pt-1 pb-1 pl-2 pr-2 d-flex">No soil compaction risk</h10>
+                                    </div>
+                                    <div class="terra-speech-bubble left terra-text-white terra-rounded-corners p-1 position-absolute d-inline" lang="de" style="min-width: 50px; max-width: 200px; bottom: -51px;">
+                                        <h10 class="pt-1 pb-1 pl-2 pr-2 d-flex">Considerable risk of soil compaction - reduce wheel load or tire inflation pressure</h10>
+                                    </div>
+                                    <div class="terra-speech-bubble terra-text-white terra-rounded-corners p-1 position-absolute left d-none" style="min-width: 50px; max-width: 200px; bottom: -43.5px;">
+                                        <h10 class="pt-1 pb-1 pl-2 pr-2 d-flex">CAUTION: High risk of subsoil compaction - avoid driving on the field</h10>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="DiagrammStress_Content" class="terra-pseudo-diagram-content d-none">
+                                    <div><svg id="Bodendruck" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 936.341 913.144">
+  <defs>
+    <clippath id="clip-path">
+      <rect width="825" height="871.143" fill="none"></rect>
+    </clippath>
+    <clippath id="clip-path-2">
+      <rect width="860" height="765" fill="none"></rect>
+    </clippath>
+  </defs>
+  <rect id="Rechteck_1603" data-name="Rechteck 1603" width="936" height="913" transform="translate(0.341 0.144)" fill="#fff" opacity="0"></rect>
+  <g id="Titel" transform="translate(-497.659 -82.856)">
+    <text id="_IMG_TYRE_INFLATION_PRESSURE_WITH_UNIT_" data-name="Tire inflation pressure [psi]" transform="translate(522.659 774.432) rotate(-90)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600" letter-spacing="0.001em" text-anchor="middle"><tspan x="228" y="0">Tire inflation pressure [psi]</tspan></text>
+    <text id="_IMG_WHEEL_LOAD_WITH_UNIT_" data-name="Wheel load [t]" transform="translate(783 990.932)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600" letter-spacing="0.001em" text-anchor="middle"><tspan x="228" y="0">Wheel load [t]</tspan></text>
+    <text id="_IMG_SOIL_STRESS_INFO_" data-name="Soil stress at 35 cm soil depth [psi]" transform="translate(783 141.932)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600" letter-spacing="0.001em" text-anchor="middle"><tspan x="228" y="0">Soil stress at 35 cm soil depth [psi]</tspan></text>
+  </g>
+  <g id="Diagramm" transform="translate(-497.659 -82.856)">
+    <g id="Wiederholungsraster_4" data-name="Wiederholungsraster 4" transform="translate(609 82.856)" clip-path="url(#clip-path)">
+      <g transform="translate(-609.931 -78.857)">
+        <path id="Pfad_332" data-name="Pfad 332" d="M0,0V722" transform="translate(617.119 177.572)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_0" data-name="0" transform="translate(616.931 935)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-7.25" y="0">0</tspan></text>
+      </g>
+      <g transform="translate(-543.931 -78.857)">
+        <path id="Pfad_332-2" data-name="Pfad 332" d="M0,0V722" transform="translate(617.119 177.572)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_1" data-name="1" transform="translate(616.931 935)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-7.25" y="0">1</tspan></text>
+      </g>
+      <g transform="translate(-477.931 -78.857)">
+        <path id="Pfad_332-3" data-name="Pfad 332" d="M0,0V722" transform="translate(617.119 177.572)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_2" data-name="2" transform="translate(616.931 935)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-7.25" y="0">2</tspan></text>
+      </g>
+      <g transform="translate(-411.931 -78.857)">
+        <path id="Pfad_332-4" data-name="Pfad 332" d="M0,0V722" transform="translate(617.119 177.572)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_3" data-name="3" transform="translate(616.931 935)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-7.25" y="0">3</tspan></text>
+      </g>
+      <g transform="translate(-345.931 -78.857)">
+        <path id="Pfad_332-5" data-name="Pfad 332" d="M0,0V722" transform="translate(617.119 177.572)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_4" data-name="4" transform="translate(616.931 935)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-7.25" y="0">4</tspan></text>
+      </g>
+      <g transform="translate(-279.931 -78.857)">
+        <path id="Pfad_332-6" data-name="Pfad 332" d="M0,0V722" transform="translate(617.119 177.572)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_5" data-name="5" transform="translate(616.931 935)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-7.25" y="0">5</tspan></text>
+      </g>
+      <g transform="translate(-213.931 -78.857)">
+        <path id="Pfad_332-7" data-name="Pfad 332" d="M0,0V722" transform="translate(617.119 177.572)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_6" data-name="6" transform="translate(616.931 935)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-7.25" y="0">6</tspan></text>
+      </g>
+      <g transform="translate(-147.931 -78.857)">
+        <path id="Pfad_332-8" data-name="Pfad 332" d="M0,0V722" transform="translate(617.119 177.572)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_7" data-name="7" transform="translate(616.931 935)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-7.25" y="0">7</tspan></text>
+      </g>
+      <g transform="translate(-81.931 -78.857)">
+        <path id="Pfad_332-9" data-name="Pfad 332" d="M0,0V722" transform="translate(617.119 177.572)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_8" data-name="8" transform="translate(616.931 935)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-7.25" y="0">8</tspan></text>
+      </g>
+      <g transform="translate(-15.931 -78.857)">
+        <path id="Pfad_332-10" data-name="Pfad 332" d="M0,0V722" transform="translate(617.119 177.572)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_9" data-name="9" transform="translate(616.931 935)" fill="#15100A3" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-7.25" y="0">9</tspan></text>
+      </g>
+      <g transform="translate(50.069 -78.857)">
+        <path id="Pfad_332-11" data-name="Pfad 332" d="M0,0V722" transform="translate(617.119 177.572)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_10" data-name="10" transform="translate(616.931 935)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-14.5" y="0">10</tspan></text>
+      </g>
+      <g transform="translate(116.069 -78.857)">
+        <path id="Pfad_332-12" data-name="Pfad 332" d="M0,0V722" transform="translate(617.119 177.572)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_11" data-name="11" transform="translate(616.931 935)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-14.5" y="0">11</tspan></text>
+      </g>
+      <g transform="translate(182.069 -78.857)">
+        <path id="Pfad_332-13" data-name="Pfad 332" d="M0,0V722" transform="translate(617.119 177.572)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_12" data-name="12" transform="translate(616.931 935)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-14.5" y="0">12</tspan></text>
+      </g>
+    </g>
+    <g id="Wiederholungsraster_3" data-name="Wiederholungsraster 3" transform="translate(547.931 167)" clip-path="url(#clip-path-2)">
+      <g transform="translate(-531.931 -215)">
+        <path id="Pfad_318" data-name="Pfad 318" d="M0,0V821.287" transform="translate(1410.762 229.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_5.0" data-name="5.0" transform="translate(573.931 239)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-25" y="0">72</tspan></text>
+      </g>
+      <g transform="translate(-531.931 -144)">
+        <path id="Pfad_318-2" data-name="Pfad 318" d="M0,0V821.287" transform="translate(1410.762 229.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_4.5" data-name="4.5" transform="translate(573.931 239)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-25" y="0">65</tspan></text>
+      </g>
+      <g transform="translate(-531.931 -73)">
+        <path id="Pfad_318-3" data-name="Pfad 318" d="M0,0V821.287" transform="translate(1410.762 229.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_4.0" data-name="4.0" transform="translate(573.931 239)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-25" y="0">58</tspan></text>
+      </g>
+      <g transform="translate(-531.931 -2)">
+        <path id="Pfad_318-4" data-name="Pfad 318" d="M0,0V821.287" transform="translate(1410.762 229.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_3.5" data-name="3.5" transform="translate(573.931 239)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-25" y="0">50</tspan></text>
+      </g>
+      <g transform="translate(-531.931 69)">
+        <path id="Pfad_318-5" data-name="Pfad 318" d="M0,0V821.287" transform="translate(1410.762 229.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_3.0" data-name="3.0" transform="translate(573.931 239)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-25" y="0">43</tspan></text>
+      </g>
+      <g transform="translate(-531.931 140)">
+        <path id="Pfad_318-6" data-name="Pfad 318" d="M0,0V821.287" transform="translate(1410.762 229.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_2.5" data-name="2.5" transform="translate(573.931 239)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-25" y="0">36</tspan></text>
+      </g>
+      <g transform="translate(-531.931 211)">
+        <path id="Pfad_318-7" data-name="Pfad 318" d="M0,0V821.287" transform="translate(1410.762 229.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_2.0" data-name="2.0" transform="translate(573.931 239)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-25" y="0">29</tspan></text>
+      </g>
+      <g transform="translate(-531.931 282)">
+        <path id="Pfad_318-8" data-name="Pfad 318" d="M0,0V821.287" transform="translate(1410.762 229.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_1.5" data-name="1.5" transform="translate(573.931 239)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-25" y="0">21</tspan></text>
+      </g>
+      <g transform="translate(-531.931 353)">
+        <path id="Pfad_318-9" data-name="Pfad 318" d="M0,0V821.287" transform="translate(1410.762 229.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_1.0" data-name="1.0" transform="translate(573.931 239)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-25" y="0">14</tspan></text>
+      </g>
+      <g transform="translate(-531.931 424)">
+        <path id="Pfad_318-10" data-name="Pfad 318" d="M0,0V821.287" transform="translate(1410.762 229.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_0.5" data-name="0.5" transform="translate(573.931 239)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-15" y="0">7</tspan></text>
+      </g>
+      <g transform="translate(-531.931 495)">
+        <path id="Pfad_318-11" data-name="Pfad 318" d="M0,0V821.287" transform="translate(1410.762 229.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+        <text id="_0-2" data-name="0" transform="translate(573.931 239)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-15" y="0">0</tspan></text>
+      </g>
+    </g>
+    <g id="Gruppe_542" data-name="Gruppe 542">
+      <path id="Pfad_363" data-name="Pfad 363" d="M7739.271,9633.878c151.4,124.088,351.412,199.231,351.412,199.231" transform="translate(-6682.526 -9106.999)" fill="none" stroke="#393939" stroke-width="3"></path>
+      <path id="Pfad_364" data-name="Pfad 364" d="M7788.57,9628.38c189.078,122.924,449.024,181.946,449.024,181.946" transform="translate(-6829.562 -9023.999)" fill="none" stroke="#393939" stroke-width="3"></path>
+      <path id="Pfad_365" data-name="Pfad 365" d="M7706.285,9465.888q26.29,13.485,54.388,26.263c190.1,86.073,476.792,127.344,476.792,127.344" transform="translate(-6829.562 -8793.999)" fill="none" stroke="#393939" stroke-width="3"></path>
+      <path id="Pfad_366" data-name="Pfad 366" d="M7637.155,9378.1c37.013,14.043,78.451,28.235,123.518,41.323,190.1,55.206,476.8,81.58,476.8,81.58" transform="translate(-6829.562 -8649.999)" fill="none" stroke="#393939" stroke-width="3"></path>
+      <path id="Pfad_367" data-name="Pfad 367" d="M7582.211,9330.922c48.936,12.854,109.443,26.95,178.461,39.432,190.1,34.38,476.917,50.862,476.917,50.862" transform="translate(-6829.562 -8555.999)" fill="none" stroke="#393939" stroke-width="3"></path>
+      <path id="Pfad_368" data-name="Pfad 368" d="M7541.572,9308.771c54.489,9.851,129.647,21.888,219.1,32.2,190.1,21.907,476.777,32.437,476.777,32.437" transform="translate(-6829.562 -8497.999)" fill="none" stroke="#393939" stroke-width="3"></path>
+      <path id="Pfad_369" data-name="Pfad 369" d="M7508.464,9298.082c54.826,6.982,142.83,17,252.208,25.318,190.1,14.452,476.607,21.435,476.607,21.435" transform="translate(-6829.562 -8460.999)" fill="none" stroke="#393939" stroke-width="3"></path>
+      <path id="Pfad_354" data-name="Pfad 354" d="M7573.124,9465.715c54.039,63.928,109.4,117.8,109.4,117.8" transform="translate(-6275 -9107)" fill="none" stroke="#393939" stroke-width="3"></path>
+      <path id="Pfad_376" data-name="Pfad 376" d="M7445.034,9289.351s40.493,64.929,91.9,131.579" transform="translate(-6275 -9107)" fill="none" stroke="#393939" stroke-width="3"></path>
+      <path id="Pfad_377" data-name="Pfad 377" d="M7445.033,9289.349s106.236,170.707,249.3,304.93" transform="translate(-6682.526 -9106.999)" fill="none" stroke="#393939" stroke-width="3"></path>
+      <path id="Pfad_378" data-name="Pfad 378" d="M7446.469,9291.42c12.864,18.444,126.5,177.9,294.838,303.793" transform="translate(-6829.562 -9023.999)" fill="none" stroke="#393939" stroke-width="3"></path>
+      <path id="Pfad_379" data-name="Pfad 379" d="M7446.641,9290.817c11.023,10,89.264,79.458,209.687,148.038" transform="translate(-6829.562 -8793.999)" fill="none" stroke="#393939" stroke-width="3"></path>
+      <path id="Pfad_380" data-name="Pfad 380" d="M7446.772,9290.367c8.888,5.169,58.947,33.653,138.237,66.915" transform="translate(-6829.562 -8649.999)" fill="none" stroke="#393939" stroke-width="3"></path>
+      <path id="Pfad_381" data-name="Pfad 381" d="M7446.5,9289.886c5.939,2.156,34.413,12.3,80.758,25.824" transform="translate(-6829.562 -8555.999)" fill="none" stroke="#393939" stroke-width="3"></path>
+      <path id="Pfad_382" data-name="Pfad 382" d="M7446.531,9289.7c3.824.885,17.027,3.888,38.556,8.263" transform="translate(-6829.562 -8497.999)" fill="none" stroke="#393939" stroke-width="3"></path>
+      <path id="Pfad_383" data-name="Pfad 383" d="M7445.753,9289.46c.7.107,2.368.362,5.275.795" transform="translate(-6829.562 -8460.999)" fill="none" stroke="#393939" stroke-width="3"></path>
+      <path id="Pfad_362" data-name="Pfad 362" d="M7649.322,9550.312c103.447,103.421,238.02,185.353,238.02,185.353" transform="translate(-6479.526 -9106.999)" fill="none" stroke="#393939" stroke-width="3"></path>
+      <path id="Pfad_375" data-name="Pfad 375" d="M7445.033,9289.35s70.076,112.471,164.379,218.4" transform="translate(-6479.526 -9106.999)" fill="none" stroke="#393939" stroke-width="3"></path>
+    </g>
+    <g id="Zahlen">
+      <text id="_150" data-name="150" transform="translate(934 599)" fill="#393939" font-size="25" font-family="Lato-Bold, Lato" font-weight="700"><tspan x="-15.75" y="0">21</tspan></text>
+      <text id="_175" data-name="175" transform="translate(1035 517)" fill="#393939" font-size="25" font-family="Lato-Bold, Lato" font-weight="700"><tspan x="-15.75" y="0">25</tspan></text>
+      <text id="_200" data-name="200" transform="translate(1150 431)" fill="#393939" font-size="25" font-family="Lato-Bold, Lato" font-weight="700"><tspan x="-15.75" y="0">29</tspan></text>
+      <text id="_225" data-name="225" transform="translate(1279 346)" fill="#393939" font-size="25" font-family="Lato-Bold, Lato" font-weight="700"><tspan x="-15.75" y="0">33</tspan></text>
+      <text id="_125" data-name="125" transform="translate(855 662)" fill="#393939" font-size="25" font-family="Lato-Bold, Lato" font-weight="700"><tspan x="-15.75" y="0">18</tspan></text>
+      <text id="_100" data-name="100" transform="translate(783 722)" fill="#393939" font-size="25" font-family="Lato-Bold, Lato" font-weight="700"><tspan x="-15.75" y="0">14</tspan></text>
+      <text id="_75" data-name="75" transform="translate(725 774)" fill="#393939" font-size="25" font-family="Lato-Bold, Lato" font-weight="700"><tspan x="-12.5" y="0">11</tspan></text>
+      <text id="_50" data-name="50" transform="translate(684 813)" fill="#393939" font-size="25" font-family="Lato-Bold, Lato" font-weight="700"><tspan x="-6.5" y="0">7</tspan></text>
+      <text id="_25" data-name="25" transform="translate(650 842)" fill="#393939" font-size="25" font-family="Lato-Bold, Lato" font-weight="700"><tspan x="-6.5" y="0">4</tspan></text>
+    </g>
+  </g>
+</svg>
+</div>
+                                <img id="resultWheel" src="./Terranimo Light - Terranimo_files/Rad.svg" class="position-absolute" style="width: 30px; height: 30px; left: 72px; bottom: 61px;">
+                            </div>
+                            <div id="DiagrammSoil_Content" class="terra-pseudo-diagram-content d-none">
+                                    <div><svg id="Bodenfestigkeit" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 936.341 913">
+  <rect id="Rechteck_1603" data-name="Rechteck 1603" width="936" height="913" transform="translate(0.341)" fill="#fff" opacity="0"></rect>
+  <g id="Titel" transform="translate(-497.659 -83)">
+    <text id="_IMG_SOIL_WATER_SUCTION_WITH_UNIT_" data-name="Soil water matric potential [cbar]" transform="translate(522.659 774.432) rotate(-90)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600" letter-spacing="0.001em" text-anchor="middle"><tspan x="228" y="0">Soil water matric potential [cbar]</tspan></text>
+    <text id="_IMG_CLAY_CONTENT_WITH_UNIT_" data-name="Clay content [%]" transform="translate(783 990.932)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600" letter-spacing="0.001em" text-anchor="middle"><tspan x="228" y="0">Clay content [%]</tspan></text>
+    <text id="_IMG_SOIL_STRENGTH_INFO_" data-name="Soil strength (precompression stress at 35 cm depth [psi])" transform="translate(783 141.932)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600" letter-spacing="0.001em" text-anchor="middle"><tspan x="228" y="0">Soil strength (precompression stress at 35 cm depth [psi])</tspan></text>
+  </g>
+  <g id="Diagramm" transform="translate(-497.659 -83)">
+    <path id="Pfad_332" data-name="Pfad 332" d="M0,0V722" transform="translate(616.5 181.572)" fill="none" stroke="#939393" stroke-width="1"></path>
+    <path id="Pfad_332-2" data-name="Pfad 332" d="M0,0V722" transform="translate(715.5 181.572)" fill="none" stroke="#939393" stroke-width="1"></path>
+    <path id="Pfad_332-3" data-name="Pfad 332" d="M0,0V722" transform="translate(814.5 181.572)" fill="none" stroke="#939393" stroke-width="1"></path>
+    <path id="Pfad_332-4" data-name="Pfad 332" d="M0,0V722" transform="translate(913.5 181.572)" fill="none" stroke="#939393" stroke-width="1"></path>
+    <path id="Pfad_332-5" data-name="Pfad 332" d="M0,0V722" transform="translate(1012.5 181.572)" fill="none" stroke="#939393" stroke-width="1"></path>
+    <path id="Pfad_332-6" data-name="Pfad 332" d="M0,0V722" transform="translate(1111.5 181.572)" fill="none" stroke="#939393" stroke-width="1"></path>
+    <path id="Pfad_332-7" data-name="Pfad 332" d="M0,0V722" transform="translate(1210.5 181.572)" fill="none" stroke="#939393" stroke-width="1"></path>
+    <path id="Pfad_332-8" data-name="Pfad 332" d="M0,0V722" transform="translate(1309.5 181.572)" fill="none" stroke="#939393" stroke-width="1"></path>
+    <path id="Pfad_332-9" data-name="Pfad 332" d="M0,0V722" transform="translate(1408.5 181.572)" fill="none" stroke="#939393" stroke-width="1"></path>
+    <text id="_0" data-name="0" transform="translate(616 939)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-7.25" y="0">0</tspan></text>
+    <text id="_5" data-name="5" transform="translate(716 939)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-7.25" y="0">5</tspan></text>
+    <text id="_10" data-name="10" transform="translate(814 939)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-14.5" y="0">10</tspan></text>
+    <text id="_15" data-name="15" transform="translate(913 939)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-14.5" y="0">15</tspan></text>
+    <text id="_20" data-name="20" transform="translate(1012 939)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-14.5" y="0">20</tspan></text>
+    <text id="_25" data-name="25" transform="translate(1111 939)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-14.5" y="0">25</tspan></text>
+    <text id="_30" data-name="30" transform="translate(1210 939)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-14.5" y="0">30</tspan></text>
+    <text id="_35" data-name="35" transform="translate(1309 939)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-14.5" y="0">35</tspan></text>
+    <text id="_40" data-name="40" transform="translate(1408 939)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-14.5" y="0">40</tspan></text>
+    <g id="Gruppe_530" data-name="Gruppe 530" transform="translate(16 -48)">
+      <path id="Pfad_318" data-name="Pfad 318" d="M0,0V803.18" transform="translate(1392.655 229.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+      <text id="_60" data-name="60" transform="translate(573.931 239)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-29" y="0">60</tspan></text>
+    </g>
+    <g id="Gruppe_531" data-name="Gruppe 531" transform="translate(16 11)">
+      <path id="Pfad_318-2" data-name="Pfad 318" d="M0,0V802.625" transform="translate(1392.101 229.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+      <text id="_55" data-name="55" transform="translate(573.931 239)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-29" y="0">55</tspan></text>
+    </g>
+    <g id="Gruppe_530-2" data-name="Gruppe 530" transform="translate(16 70)">
+      <path id="Pfad_318-3" data-name="Pfad 318" d="M0,0V802.621" transform="translate(1392.096 229.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+      <text id="_50" data-name="50" transform="translate(573.931 239)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-29" y="0">50</tspan></text>
+    </g>
+    <g id="Gruppe_531-2" data-name="Gruppe 531" transform="translate(560.931 344)">
+      <path id="Pfad_318-4" data-name="Pfad 318" d="M0,0V802.7" transform="translate(847.248 15.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+      <text id="_45" data-name="45" transform="translate(29 25)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-29" y="0">45</tspan></text>
+    </g>
+    <g id="Gruppe_532" data-name="Gruppe 532" transform="translate(560.931 403)">
+      <path id="Pfad_318-5" data-name="Pfad 318" d="M0,0V802.521" transform="translate(847.065 15.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+      <text id="_40-2" data-name="40" transform="translate(29 25)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-29" y="0">40</tspan></text>
+    </g>
+    <g id="Gruppe_533" data-name="Gruppe 533" transform="translate(560.931 462)">
+      <path id="Pfad_318-6" data-name="Pfad 318" d="M0,0V802.541" transform="translate(847.086 15.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+      <text id="_35-2" data-name="35" transform="translate(29 25)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-29" y="0">35</tspan></text>
+    </g>
+    <g id="Gruppe_534" data-name="Gruppe 534" transform="translate(560.931 521)">
+      <path id="Pfad_318-7" data-name="Pfad 318" d="M0,0V802.539" transform="translate(847.084 15.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+      <text id="_30-2" data-name="30" transform="translate(29 25)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-29" y="0">30</tspan></text>
+    </g>
+    <g id="Gruppe_535" data-name="Gruppe 535" transform="translate(560.931 580)">
+      <path id="Pfad_318-8" data-name="Pfad 318" d="M0,0V802" transform="translate(847.019 15.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+      <text id="_25-2" data-name="25" transform="translate(29 25)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-29" y="0">25</tspan></text>
+    </g>
+    <g id="Gruppe_536" data-name="Gruppe 536" transform="translate(560.931 639)">
+      <path id="Pfad_318-9" data-name="Pfad 318" d="M0,0V802.455" transform="translate(847 15.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+      <text id="_20-2" data-name="20" transform="translate(29 25)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-29" y="0">20</tspan></text>
+    </g>
+    <g id="Gruppe_537" data-name="Gruppe 537" transform="translate(560.931 699)">
+      <path id="Pfad_318-10" data-name="Pfad 318" d="M0,0V802.724" transform="translate(847.269 15.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+      <text id="_15-2" data-name="15" transform="translate(29 25)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-29" y="0">15</tspan></text>
+    </g>
+    <g id="Gruppe_538" data-name="Gruppe 538" transform="translate(560.931 758)">
+      <path id="Pfad_318-11" data-name="Pfad 318" d="M0,0V802.468" transform="translate(847.013 15.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+      <text id="_10-2" data-name="10" transform="translate(29 25)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-29" y="0">10</tspan></text>
+    </g>
+    <g id="Gruppe_539" data-name="Gruppe 539" transform="translate(575.931 817)">
+      <path id="Pfad_318-12" data-name="Pfad 318" d="M0,0V802.555" transform="translate(832.1 15.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+      <text id="_5-2" data-name="5" transform="translate(14 25)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-14.5" y="0">5</tspan></text>
+    </g>
+    <g id="Gruppe_540" data-name="Gruppe 540" transform="translate(575.931 876)">
+      <path id="Pfad_318-13" data-name="Pfad 318" d="M0,0V802.637" transform="translate(832.182 15.5) rotate(90)" fill="none" stroke="#939393" stroke-width="1"></path>
+      <text id="_0-2" data-name="0" transform="translate(14 25)" fill="#15100A" font-size="25" font-family="Lato-Semibold, Lato" font-weight="600"><tspan x="-14.5" y="0">0</tspan></text>
+    </g>
+  </g>
+  <g id="Zahlen" transform="translate(-498.659 -83)">
+      <text id="_150" data-name="150" transform="translate(772 747)" fill="#393939" font-size="25" font-family="HelveticaNeue-Bold, Helvetica Neue" font-weight="700"><tspan x="-15" y="0">21</tspan></text>
+      <text id="_175" data-name="175" transform="translate(811 604)" fill="#393939" font-size="25" font-family="HelveticaNeue-Bold, Helvetica Neue" font-weight="700"><tspan x="-15" y="0">25</tspan></text>
+      <text id="_200" data-name="200" transform="translate(914 523)" fill="#393939" font-size="25" font-family="HelveticaNeue-Bold, Helvetica Neue" font-weight="700"><tspan x="-15" y="0">29</tspan></text>
+      <text id="_225" data-name="225" transform="translate(1012 474)" fill="#393939" font-size="25" font-family="HelveticaNeue-Bold, Helvetica Neue" font-weight="700"><tspan x="-15" y="0">33</tspan></text>
+      <text id="_250" data-name="250" transform="translate(1112 445)" fill="#393939" font-size="25" font-family="HelveticaNeue-Bold, Helvetica Neue" font-weight="700"><tspan x="-15" y="0">36</tspan></text>
+      <text id="_125" data-name="125" transform="translate(888 800)" fill="#393939" font-size="25" font-family="HelveticaNeue-Bold, Helvetica Neue" font-weight="700"><tspan x="-15" y="0">18</tspan></text>
+      <text id="_100" data-name="100" transform="translate(963 824)" fill="#393939" font-size="25" font-family="HelveticaNeue-Bold, Helvetica Neue" font-weight="700"><tspan x="-15" y="0">14</tspan></text>
+      <text id="_50-2" data-name="50" transform="translate(1062 848)" fill="#393939" font-size="25" font-family="HelveticaNeue-Bold, Helvetica Neue" font-weight="700"><tspan x="-8" y="0">7</tspan></text>
+  </g>
+  <g id="Grafik" transform="translate(-498.659 -83)">
+    <path id="Pfad_354" data-name="Pfad 354" d="M7407.3,9562.729c114.862,88.533,276.694,122.63,276.694,122.63" transform="translate(-6275 -9107)" fill="none" stroke="#393939" stroke-width="3"></path>
+    <path id="Pfad_355" data-name="Pfad 355" d="M7306.195,9593.121c1.809,1.586,3.69,3.2,5.591,4.789,126.659,105.96,372.237,133.689,372.237,133.689" transform="translate(-6275 -9107)" fill="none" stroke="#393939" stroke-width="3"></path>
+    <path id="Pfad_356" data-name="Pfad 356" d="M7209.1,9641.5c.575.468,1.381,1.116,2.191,1.762,112.528,89.565,279.532,111.963,472.727,128.021" transform="translate(-6275 -9107)" fill="none" stroke="#393939" stroke-width="3"></path>
+    <path id="Pfad_357" data-name="Pfad 357" d="M7108.952,9719.093c73.85,48.292,250.851,81.74,575.014,85.371" transform="translate(-6275 -9107)" fill="none" stroke="#393939" stroke-width="3"></path>
+    <path id="Pfad_358" data-name="Pfad 358" d="M7684.123,9833.9c-262.546,0-475.425,3.329-608.276,10.452" transform="translate(-6275 -9107)" fill="none" stroke="#393939" stroke-width="3"></path>
+    <path id="Pfad_359" data-name="Pfad 359" d="M7684.123,9858.662c-264.562,5.255-436.8,25.275-492.187,35.787" transform="translate(-6275 -9107)" fill="none" stroke="#393939" stroke-width="3"></path>
+    <path id="Pfad_360" data-name="Pfad 360" d="M7683.878,9879.72c-208.346,9.9-345.1,26.864-417.253,38.08" transform="translate(-6275 -9107)" fill="none" stroke="#393939" stroke-width="3"></path>
+    <path id="Pfad_361" data-name="Pfad 361" d="M7683.958,9911.955c-93.1,10.107-192.632,15.926-317.815,31.394" transform="translate(-6275 -9107)" fill="none" stroke="#393939" stroke-width="3"></path>
+    <path id="Pfad_384" data-name="Pfad 384" d="M7233.354,9288.473s39.773,139,131.222,235.688" transform="translate(-6275 -9107)" fill="none" stroke="#393939" stroke-width="3"></path>
+    <path id="Pfad_385" data-name="Pfad 385" d="M7144.045,9288.592s31.146,154.178,122.854,264.027" transform="translate(-6275 -9107)" fill="none" stroke="#393939" stroke-width="3"></path>
+    <path id="Pfad_386" data-name="Pfad 386" d="M7056.949,9288.473c17.958,92.636,35.811,221.013,111.212,312.308" transform="translate(-6275 -9107)" fill="none" stroke="#393939" stroke-width="3"></path>
+    <path id="Pfad_387" data-name="Pfad 387" d="M6967.611,9288.473c20.131,272.906,53.648,339.862,99.546,391.735" transform="translate(-6275 -9107)" fill="none" stroke="#393939" stroke-width="3"></path>
+    <path id="Pfad_388" data-name="Pfad 388" d="M7018.631,9849.244c-87.045,11.807-94.627,39.883-109.587,73.2" transform="translate(-6275 -9107)" fill="none" stroke="#393939" stroke-width="3"></path>
+    <path id="Pfad_389" data-name="Pfad 389" d="M7135.462,9905.237c-50.2,10.7-114.9,30.105-186.007,79.935" transform="translate(-6275 -9107)" fill="none" stroke="#393939" stroke-width="3"></path>
+    <path id="Pfad_390" data-name="Pfad 390" d="M7210.41,9927.462c-57.851,10.86-128.118,27.224-202.333,56" transform="translate(-6275 -9107)" fill="none" stroke="#393939" stroke-width="3"></path>
+    <path id="Pfad_391" data-name="Pfad 391" d="M7308.749,9950.9c-60.72,8.493-127.083,19.363-201.145,33.944" transform="translate(-6275 -9107)" fill="none" stroke="#393939" stroke-width="3"></path>
+  </g>
+</svg>
+</div>
+                                <img id="resultWheel" src="./Terranimo Light - Terranimo_files/Rad.svg" class="position-absolute" style="width: 30px; height: 30px; left: 72px; bottom: 61px;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="terra-control-panel" id="terra-control-panel-container-compact-id" style="background: rgb(57, 57, 57); display: none; overflow: hidden;">
+            <div id="terra-control-handle-container-with-arrows-id" class="terra-box-header d-flex">
+                <div id="slideUp" class="h-100" style="position: absolute; left: 0px; padding: 5px 5px 5px 10px; cursor: pointer; display: none;" onclick="slideUp()">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" fill="#808080" xmlns="http://www.w3.org/2000/svg" style="font-size: 24px;">
+                        <path d="M7.247 4.86l-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"></path>
+                    </svg>
+                </div>
+                <div class="w-100 h-100 text-center">
+                    <div style="padding-top: 5px;">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" fill="#808080" xmlns="http://www.w3.org/2000/svg" style="font-size: 24px; cursor: pointer;" onclick="toggleControlPanelOpacity();">
+                            <path fill-rule="evenodd" d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.134 13.134 0 0 0 1.66 2.043C4.12 11.332 5.88 12.5 8 12.5c2.12 0 3.879-1.168 5.168-2.457A13.134 13.134 0 0 0 14.828 8a13.133 13.133 0 0 0-1.66-2.043C11.879 4.668 10.119 3.5 8 3.5c-2.12 0-3.879 1.168-5.168 2.457A13.133 13.133 0 0 0 1.172 8z"></path>
+                            <path fill-rule="evenodd" d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div id="slideDown" class="h-100" style="position: absolute; right: 0px; padding: 5px; padding-right: 10px; cursor: pointer;" onclick="slideDown()">
+                    <svg width="1em" height="1em" viewBox="0 0 16 16" fill="#808080" xmlns="http://www.w3.org/2000/svg" style="font-size: 24px;">
+                        <path d="M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"></path>
+                    </svg>
+                </div>
+            </div>
+
+            <div id="terra-control-panel-content-container-compact-id">
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- content for info popovers -->
+<div id="template" style="display: none;">
+    <div class="d-flex align-items-center flex-row">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" class="terra-control-element-tooltip-icon">
+            <g>
+                <g>
+                    <g>
+                        <g>
+                            <path d="M50,100a50,50,0,1,1,50-50A50.06,50.06,0,0,1,50,100ZM50,4.19A45.81,45.81,0,1,0,95.81,50,45.86,45.86,0,0,0,50,4.19Z"></path>
+                        </g>
+                        <g>
+                            <circle cx="50.95" cy="26.7" r="7.49"></circle>
+                            <path d="M58.05,69.85V40.24a1,1,0,0,0-.95-1H38.81a1,1,0,0,0-1,1v3.53a1,1,0,0,0,1,1H42.9a1,1,0,0,1,1,1V69.81a1,1,0,0,1-1,1H38.81a1,1,0,0,0-1,1v3.61a1,1,0,0,0,1,1H63.19a1,1,0,0,0,1-1V71.73a1,1,0,0,0-1-1H59a.91.91,0,0,1-1-.86Z"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </svg>
+
+        <h7 class="terra-text-white ml-2">Help Light</h7>
+    </div>
+    <div class="mt-2">
+        <p class="m-1 font-italic">Adjust the wheel loads and the tire pressure. Then adjust the soil clay content and soil water matric potential  or soil water content. You can then use the decision diagram on the right to estimate the soil's capability to support traffic.</p>
+    </div>
+</div>
+<!-- content for info popovers -->
+
+<span class="breakpoint d-inline-block d-sm-none" value="xs"></span>
+<span class="breakpoint d-none d-sm-inline-block d-md-none" value="sm"></span>
+<span class="breakpoint d-none d-md-inline-block d-lg-none" value="md"></span>
+<span class="breakpoint d-none d-lg-inline-block d-xl-none" value="lg"></span>
+<span class="breakpoint d-none d-xl-block" value="xl"></span>
+
+
+
+        </main>
+    </div>
+
+    <footer class="footer text-muted terra-zindex-101 d-none d-lg-block">
+        <div class="container">
+            <div class="row terra-footer-layout">
+                <div class="col-12 col-lg-9 pt-2">
+                        <a class="footerLayoutLink mr-1 mr-sm-2" href="https://quebec.terranimo.world/team"><h8>TERRANIMO TEAM</h8></a>
+                        <span class="terra-text-white mr-1 mr-sm-2 d-none d-xl-inline">—</span>
+                        <div class="d-block d-xl-none"></div>
+                        <a class="footerLayoutLink mr-1 mr-sm-2" href="mailto:marc-o.gasser@irda.qc.ca" target="_blank"><h8>CONTACT</h8></a>
+                        <span class="terra-text-white mr-1 mr-sm-2 d-none d-xl-inline">—</span>
+                        <div class="d-block d-xl-none"></div>
+                        <a class="footerLayoutLink mr-1 mr-sm-2" href="https://quebec.terranimo.world/legal-notes"><h8>LEGAL NOTICE</h8></a>
+                        <span class="terra-text-white mr-1 mr-sm-2 d-none d-xl-inline">—</span>
+                        <div class="d-block d-xl-none"></div>
+                        <a class="footerLayoutLink mr-1 mr-sm-2" href="https://quebec.terranimo.world/impress"><h8>LEGAL INFO</h8></a>
+                </div>
+                <div class="col-12 col-lg-3 pt-2 text-right align-self-end">
+                    <h13 class="terra-text-white">© 2026 Terranimo — 3.0.2525.1</h13>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <a id="terra-back-2-top" title="Back to Top" href="https://quebec.terranimo.world/light#">➤</a>
+
+    <script src="./Terranimo Light - Terranimo_files/bootstrap.bundle.min.js"></script>
+    <script src="./Terranimo Light - Terranimo_files/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="./Terranimo Light - Terranimo_files/chardinjs.min.js"></script>
+    <script src="./Terranimo Light - Terranimo_files/toastr.min.js"></script>
+
+    
+
+    
+        <script src="./Terranimo Light - Terranimo_files/terranimo.min.js"></script>
+    
+
+    
+    <script src="./Terranimo Light - Terranimo_files/nouislider.min.js"></script>
+    <script src="./Terranimo Light - Terranimo_files/wNumb.min.js"></script>
+    <script src="./Terranimo Light - Terranimo_files/bootstrap-toolkit.min.js"></script>
+    <script src="./Terranimo Light - Terranimo_files/popper.min.js"></script>
+    <script src="./Terranimo Light - Terranimo_files/tippy.min.js"></script>
+    <script src="./Terranimo Light - Terranimo_files/lightbox.min.js"></script>
+    <script src="./Terranimo Light - Terranimo_files/bootstrap-autocomplete.min.js"></script>
+    <script src="./Terranimo Light - Terranimo_files/expert.js"></script>
+    <script src="./Terranimo Light - Terranimo_files/light.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            tippy('#terra-light-info-id', {
+                content: $('#template').html(),
+                allowHTML: true,
+                placement: 'bottom',
+                offset: [0, 5],
+                trigger: 'click',
+            });
+            updateLightData();
+        });
+
+        setTimeout(function () {
+            if ($('.slider').length > 0) {
+                registerInputElements('light');
+            }
+            if ($('.sliderDouble').length > 0) {
+                registerDoubleInputElements();
+            }
+            if ($('.sliderTriple').length > 0) {
+                registerTripleInputElements();
+            }
+        }, 100);
+    </script>
+
+
+<div class="responsive-bootstrap-toolkit"><div class="device-xs visible-xs visible-xs-block"></div><div class="device-sm visible-sm visible-sm-block"></div><div class="device-md visible-md visible-md-block"></div><div class="device-lg visible-lg visible-lg-block"></div></div><div id="lightboxOverlay" tabindex="-1" class="lightboxOverlay" style="display: none;"></div><div id="lightbox" tabindex="-1" class="lightbox" style="display: none;"><div class="lb-outerContainer"><div class="lb-container"><img class="lb-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==" alt=""><div class="lb-nav"><a class="lb-prev" aria-label="Previous image" href="https://quebec.terranimo.world/light"></a><a class="lb-next" aria-label="Next image" href="https://quebec.terranimo.world/light"></a></div><div class="lb-loader"><a class="lb-cancel"></a></div></div></div><div class="lb-dataContainer"><div class="lb-data"><div class="lb-details"><span class="lb-caption"></span><span class="lb-number"></span></div><div class="lb-closeContainer"><a class="lb-close"></a></div></div></div></div></body></html>

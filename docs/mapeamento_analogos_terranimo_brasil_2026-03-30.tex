@@ -1,0 +1,443 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{parskip}
+\usepackage{enumitem}
+\usepackage{needspace}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xurl}
+
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+\setstretch{1.12}
+\setlist[enumerate]{leftmargin=*,itemsep=0.45em,topsep=0.35em}
+\setlist[itemize]{leftmargin=*,itemsep=0.35em,topsep=0.3em}
+\setlength\emergencystretch{4em}
+\Urlmuskip=0mu plus 2mu
+
+\newcommand{\Section}[1]{\needspace{12\baselineskip}\section{#1}}
+\newcommand{\SubsectionKeep}[1]{\needspace{10\baselineskip}\subsection{#1}}
+\newcommand{\SubsubsectionKeep}[1]{\needspace{8\baselineskip}\subsubsection{#1}}
+
+\newcommand{\Link}[1]{\href{#1}{\nolinkurl{#1}}}
+
+\newenvironment{NoBreakEnumerate}
+{\begin{samepage}\begin{enumerate}}
+{\end{enumerate}\end{samepage}}
+
+\newenvironment{NoBreakItemize}
+{\begin{samepage}\begin{itemize}}
+{\end{itemize}\end{samepage}}
+
+\title{Mapeamento de Análogos ao Terranimo\\
+\large No mundo e no Brasil --- Foco em compactação por tráfego}
+\author{}
+\date{Data de referência: 30/03/2026}
+
+\begin{document}
+
+\maketitle
+\vspace{-1.2em}
+
+%% ====================================================================
+\Section{Objetivo}
+Consolidar ferramentas, modelos, bases de dados e publicações que podem servir de base para um protótipo nacional de avaliação de risco de compactação do solo por tráfego de máquinas, no espírito do Terranimo.
+
+%% ====================================================================
+\Section{Síntese executiva}
+\begin{NoBreakEnumerate}
+  \item O \textbf{Terranimo} ocupa nicho único: combina motor físico (SoilFlex/TASC), banco de máquinas pré-populado, interface web amigável e classificação semafórica de risco. Nenhuma outra ferramenta reúne esses quatro atributos.
+  \item Os dois análogos brasileiros funcionais são \textbf{PredComp} (acadêmico, baseado em SoilFlex) e \textbf{COMPSOHMA} (aplicado, estilo Light, foco em cana).
+  \item No cenário internacional, os principais modelos analíticos são \textbf{SoilFlex}, \textbf{TASC}, \textbf{SOCOMO} e \textbf{COMPSOIL}. Ferramentas MEF (PLAXIS/Softsoil, ABAQUS) são usadas para validação, mas impraticáveis para decisão rápida de campo.
+  \item \textbf{Soil2Cover} (2025) representa a fronteira: otimização de rota integrando SoilFlex para minimizar compactação acumulada.
+  \item Recomendação: usar \textbf{PredComp/soilphysics} como benchmark técnico, \textbf{COMPSOHMA + Terranimo Light} como benchmark de interface, e explorar integração com \textbf{BDSolos/SiBCS} para parametrização automática.
+\end{NoBreakEnumerate}
+
+%% ====================================================================
+\Section{Ferramenta de referência: Terranimo}
+
+\begin{NoBreakItemize}
+  \item \textbf{Desenvolvedores:} Agroscope (Suíça), Aarhus University (Dinamarca), SLU (Suécia), Wageningen (Holanda).
+  \item \textbf{URLs:} \Link{https://www.terranimo.world/} (versões regionais: \texttt{.ch}, \texttt{.dk}, \texttt{.uk}, \texttt{quebec.terranimo.world}).
+  \item \textbf{Modo Light:} 4 entradas (carga na roda, pressão do pneu, teor de argila, sucção matricial) $\to$ risco a 35\,cm de profundidade.
+  \item \textbf{Modo Expert:} solo por camadas (passo de 10\,cm), textura completa por camada, configuração manual de parâmetros mecânicos.
+  \item \textbf{Integração embarcada:} desde 2022, integrado ao sistema CLAAS CEMOS para decisão no trator.
+  \item \textbf{Sem versão Brasil:} não há parametrização para solos tropicais na página oficial.
+\end{NoBreakItemize}
+
+%% ====================================================================
+\Section{Análogos internacionais}
+
+\SubsectionKeep{SoilFlex (Suíça/Suécia)}
+Keller, Defossez, Weisskopf, Arvidsson, Richard (2007). \textit{Soil \& Tillage Research}, 93(2), 391--411.
+
+\begin{NoBreakItemize}
+  \item Motor de cálculo analítico: tensão vertical via Boussinesq/Froehlich + contato em super-elipse (Keller 2005).
+  \item \textbf{Base científica do Terranimo.} Mais flexível para pesquisa (perfis arbitrários, geometria de contato customizada), mas sem interface amigável nem banco de máquinas.
+  \item Implementado no pacote R \texttt{soilphysics} (função \texttt{stressTraffic}).
+  \item \textbf{Status:} ativo como modelo de pesquisa. Usado em Soil2Cover (2025).
+\end{NoBreakItemize}
+
+\SubsectionKeep{TASC --- Tyres/Tracks And Soil Compaction (Suíça/Suécia)}
+Keller (2005). \textit{Biosystems Engineering}, 92(1), 85--96.
+
+\begin{NoBreakItemize}
+  \item Sub-modelo de contato: prediz área de contato pneu-solo e distribuição de tensão a partir de parâmetros do pneu (dimensões, pressão, carga).
+  \item Componente que alimenta SoilFlex/Terranimo; não é ferramenta autônoma.
+  \item Aplicado com dados brasileiros de cana: \textit{Sci. Total Environ.} (2019); \textit{Soil Till. Res.} (2024).
+  \item \textbf{Status:} ativo (pesquisa).
+\end{NoBreakItemize}
+
+\SubsectionKeep{SOCOMO --- SOil COmpaction MOdel (Holanda)}
+van den Akker (2004). \textit{Soil \& Tillage Research}, 79(1), 113--127.
+
+\begin{NoBreakItemize}
+  \item Tensão vertical (Boussinesq + Froehlich) vs.\ pré-adensamento por camada. Um dos primeiros modelos analíticos amplamente citados.
+  \item Contato simplificado (carga circular uniforme), sem interface web.
+  \item \textbf{Precursor do Terranimo} (década anterior).
+  \item \textbf{Status:} legado/referência acadêmica.
+\end{NoBreakItemize}
+
+\SubsectionKeep{COMPSOIL (Irlanda/UE --- projeto SIDASS)}
+O'Sullivan, Henshall, Dickson (1999). \textit{Soil \& Tillage Research}, 49(4), 325--335.
+
+\begin{NoBreakItemize}
+  \item Prediz variação de densidade aparente ($\Delta\rho$) pós-carga usando índice de compressão e pré-adensamento.
+  \item Foco na \textbf{magnitude} da compactação, não no risco ($\sigma/\sigma_{crit}$).
+  \item \textbf{Status:} acadêmico (projetos EU SIDASS, ENVASSO). Sem manutenção ativa como software.
+\end{NoBreakItemize}
+
+\SubsectionKeep{REPRO (Alemanha)}
+Universidade de Halle-Wittenberg / Instituto Agrícola da Turíngia.
+
+\begin{NoBreakItemize}
+  \item Ferramenta de sustentabilidade de fazenda; módulo de compactação é um entre vários indicadores ambientais.
+  \item Física de compactação simplificada; perspectiva de gestão, não de engenharia por operação.
+  \item \textbf{Status:} uso em assessoria agrícola na Alemanha.
+\end{NoBreakItemize}
+
+\SubsectionKeep{Softsoil / PLAXIS (Holanda --- comercial)}
+Vermeer, Neher (1999). Implementado em PLAXIS (Bentley Systems).
+
+\begin{NoBreakItemize}
+  \item Modelo constitutivo elasto-plástico em software MEF comercial: consolidação, creep, acoplamento hidromecânico, geometrias 2D/3D.
+  \item Muito mais detalhado que Terranimo, mas exige especialista, calibração pesada e tempo computacional elevado. Impraticável para decisão rápida de campo.
+  \item Usado na academia para validar modelos simplificados (Elaoud et al. 2013).
+  \item \textbf{Status:} ativo (software comercial, Bentley Systems).
+\end{NoBreakItemize}
+
+\SubsectionKeep{Soil2Cover (Suíça/Suécia --- 2025)}
+Keller et al. (2025). \textit{Precision Agriculture}. DOI: 10.1007/s11119-025-10250-4.
+
+\begin{NoBreakItemize}
+  \item Framework de otimização de rota que integra SoilFlex ao planejamento de cobertura de campo. Minimiza compactação acumulada em cabeceiras.
+  \item \textbf{Extensão do Terranimo:} não só avalia risco, mas otimiza a rota que minimiza o risco. Testado em 1000+ campos.
+  \item \textbf{Status:} pesquisa/protótipo (publicação 2025).
+\end{NoBreakItemize}
+
+\SubsectionKeep{PTFs Horn/Lebert (Alemanha)}
+Horn, Fleige (2003). \textit{Soil \& Tillage Research}, 73(1--2), 89--99.
+Lebert, Horn (1991). \textit{Soil \& Tillage Research}, 19(2--3), 275--286.
+
+\begin{NoBreakItemize}
+  \item Funções de pedotransferência para estimar pré-adensamento ($\sigma_p$) a partir de textura, MO, $\rho$, umidade.
+  \item Fornecem o lado ``resistência do solo'' da equação de risco usada pelo Terranimo.
+  \item Base da política alemã de proteção do solo (BBodSchG).
+  \item \textbf{Status:} ativo (política e regulação).
+\end{NoBreakItemize}
+
+\SubsectionKeep{FRIDA (Alemanha)}
+\begin{NoBreakItemize}
+  \item Diagnóstico de risco de dano por rodado em solo arável. Foco regulatório/assessoria.
+  \item Abordagem mais qualitativa (checklist) que Terranimo.
+  \item \textbf{Status:} uso regional em assessoria agrícola alemã.
+\end{NoBreakItemize}
+
+\SubsectionKeep{Abordagens ANN/ML (diversos países, 2020--2025)}
+Ex.: Khemis et al. (2022). \textit{Processes}, 10(11), 2326.
+
+\begin{NoBreakItemize}
+  \item Redes neurais e random forests treinadas com dados experimentais de compactação.
+  \item Capturam não-linearidades, mas sem interpretabilidade física e sem generalização para condições novas.
+  \item \textbf{Status:} pesquisa acadêmica. Nenhuma ferramenta operacional consolidada.
+\end{NoBreakItemize}
+
+%% ====================================================================
+\Section{Quadro comparativo internacional}
+
+\begin{longtable}{>{\raggedright}p{2.8cm} >{\raggedright}p{1.4cm} c c >{\raggedright\arraybackslash}p{3.6cm}}
+\toprule
+\textbf{Ferramenta} & \textbf{País} & \textbf{Web?} & \textbf{Status} & \textbf{Diferencial} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Ferramenta} & \textbf{País} & \textbf{Web?} & \textbf{Status} & \textbf{Diferencial} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+Terranimo        & CH/DK/SE & Sim  & Ativo       & Referência: motor + UX + banco de máquinas \\
+SoilFlex         & CH/SE    & Via R & Ativo      & Base científica do Terranimo \\
+TASC             & CH/SE    & Não  & Ativo       & Sub-modelo de contato pneu \\
+SOCOMO           & NL       & Não  & Legado      & Precursor analítico \\
+COMPSOIL         & IE/EU    & Não  & Acadêmico   & Foco em $\Delta\rho$ \\
+REPRO            & DE       & Parcial & Incerto  & Módulo em ferramenta de fazenda \\
+Softsoil/PLAXIS  & NL       & Não  & Comercial   & MEF detalhado, impraticável p/ campo \\
+Soil2Cover       & CH/SE    & Não  & Pesquisa    & Otimização de rota + SoilFlex \\
+PredComp         & BR       & Sim  & Ativo       & SoilFlex em Shiny, acadêmico \\
+COMPSOHMA        & BR       & Sim  & Beta        & Light brasileiro, foco em cana \\
+Horn PTFs        & DE       & Não  & Política    & Resistência do solo para regulação \\
+FRIDA            & DE       & Parcial & Regional & Diagnóstico qualitativo \\
+ANN/ML           & Vários   & Não  & Pesquisa    & Data-driven, sem ferramenta pronta \\
+\end{longtable}
+
+%% ====================================================================
+\Section{Análogos brasileiros --- Ferramentas funcionais}
+
+\SubsectionKeep{PredComp (web app / Shiny)}
+\Link{https://appsoilphysics.shinyapps.io/PredComp/}
+
+\textbf{Desenvolvedores:} R.\,P.\ de Lima (ESALQ/USP), A.\,R.\ da Silva (IF Goiano), A.\,P.\ da Silva (ESALQ/USP).
+
+Cinco abas de cálculo:
+\begin{NoBreakEnumerate}
+  \item \textbf{Tensão:} área de contato e propagação no perfil via \texttt{stressTraffic()} (Keller 2005 + Froehlich 1934).
+  \item \textbf{Pré-adensamento:} estimativa de $\sigma_p$ via PTFs (\texttt{soilStrength()}).
+  \item \textbf{Propriedades compressivas:} $N$, $\lambda_n$, $\kappa$ via PTFs (\texttt{compressive\_properties()}).
+  \item \textbf{Risco de compactação:} comparação $\sigma/\sigma_p$ (Horn \& Fleige 2003; Stettler et al. 2014).
+  \item \textbf{Predição de compactação:} $\Delta\rho$ via \texttt{soilDeformation()} (O'Sullivan \& Robertson 1996).
+\end{NoBreakEnumerate}
+
+Entradas: pressão do pneu, pressão recomendada, diâmetro, largura, carga por roda, fator de concentração ($\xi$), camadas de solo, parâmetros compressivos ($N$, $\lambda_n$, $\kappa$, $k_2$, $m$, $\rho_s$, $\rho_0$).
+
+\textbf{Diferença do Terranimo:} exige que o usuário conheça ou estime parâmetros mecânicos do solo. Sem banco de máquinas pré-populado.
+
+\textbf{Status:} ativo, no CRAN, registro INPI. Financiamento FAPESP (\#2020/15783-4) e CNPq (\#316751/2021-9).
+
+\SubsectionKeep{COMPSOHMA (web app / Shiny, beta)}
+\Link{https://testbeta.shinyapps.io/compsohma/}
+
+\textbf{Desenvolvedores:} R.\,P.\ de Lima e M.\,R.\ Cherubin (ESALQ/USP). Grupo SOHMA.
+
+\begin{NoBreakItemize}
+  \item Risco de compactação até 1,0\,m de profundidade em 4 camadas (0--20, 20--40, 40--60, 60--80\,cm).
+  \item Cenários pré-configurados: tipo de máquina, fase da cultura (ex.: ``Cana Plana'').
+  \item Entradas simplificadas: máquina, teor de argila por camada, umidade qualitativa (``Muito Úmido'' etc.).
+  \item Contato via Keller (2007), propagação via Boussinesq, resistência via PTF de argila + umidade.
+  \item Saída: perfil de risco verde/amarelo/vermelho (seção transversal 2D).
+\end{NoBreakItemize}
+
+\textbf{Diferença do PredComp:} mais acessível (abstrai parâmetros mecânicos), mas atualmente especializado em cana.\\
+\textbf{Diferença do Terranimo:} filosofia Light similar, mas cultura-específico em vez de agnóstico.
+
+\textbf{Status:} beta, registro INPI (BR512023000761-7).
+
+%% ====================================================================
+\Section{Pacote \texttt{soilphysics} --- infraestrutura computacional}
+
+\Link{https://cran.r-project.org/web/packages/soilphysics/index.html}\\
+\Link{https://arsilva87.github.io/soilphysics/}
+
+\SubsectionKeep{Funções de compactação}
+
+\begin{longtable}{>{\ttfamily\raggedright}p{4.2cm} >{\raggedright\arraybackslash}p{9cm}}
+\toprule
+\textrm{\textbf{Função}} & \textbf{O que calcula} \\
+\midrule
+\endfirsthead
+\toprule
+\textrm{\textbf{Função}} & \textbf{O que calcula} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+stressTraffic()         & Área de contato + distribuição de tensão + propagação em profundidade (Keller 2005 + Froehlich 1934) \\
+soilDeformation()       & Variação de $\rho$ após tensão aplicada (O'Sullivan \& Robertson 1996) \\
+soilStrength()          & $\sigma_p$ via PTFs (Lebert/Horn, Imhoff, Severiano, Saffih-Hdadi, Schjonning) \\
+soilStrength2()         & PTFs adicionais para $\sigma_p$ \\
+compressive\_properties() & $N$, $\lambda_n$, $\kappa$ via PTFs (O'Sullivan, Defossez, Keller, de Lima) \\
+PredComp()              & Lança a app Shiny PredComp a partir do console R \\
+\end{longtable}
+
+\SubsectionKeep{PTFs calibradas com solos brasileiros (já no pacote)}
+
+\begin{NoBreakItemize}
+  \item \textbf{Severiano et al.\ (2013):} $\sigma_p$ para Latossolos/Oxissolos, argila 152--521\,g/kg, $\sigma_p = f(\text{sucção})$. Equações por faixa de argila (ex.: $\sigma_p^{(152)} = 129\,h^{0{,}15}$).
+  \item \textbf{Imhoff et al.\ (2004):} $\sigma_p$ para Hapludox, $\sigma_p = -566{,}764 + 442{,}891\,\rho + 4{,}338\,\text{CC} - 773{,}057\,w$.
+  \item \textbf{de Lima et al.\ (2018):} $N$, $\lambda_n$, $\kappa$ para Franco-arenoso e Franco-argiloarenoso (dados brasileiros).
+  \item \textbf{de Lima et al.\ (2020b):} PTFs para camada arável e pé-de-grade de Franco-arenoso.
+\end{NoBreakItemize}
+
+%% ====================================================================
+\Section{Grupos de pesquisa e instituições (Brasil)}
+
+\SubsectionKeep{ESALQ/USP (Piracicaba, SP) --- hub principal}
+\begin{NoBreakItemize}
+  \item \textbf{R.\,P.\ de Lima} --- pós-doc, Dep.\ Ciência do Solo. Desenvolvedor principal de soilphysics, PredComp e COMPSOHMA.
+  \item \textbf{M.\,R.\ Cherubin} --- professor associado. Co-desenvolvedor COMPSOHMA. Foco em qualidade do solo e compactação em cana.
+  \item \textbf{A.\,P.\ da Silva} --- professor, co-autor do soilphysics. Pesquisador sênior em física do solo.
+  \item \textbf{R.\,B.\ Menillo} --- doutorando/pós-doc. Probe automatizada de $\rho$ montada em trator (patente INPI BR\,2020230145480). Publicação: \textit{Experimental Agriculture} 61, e9, 2025.
+\end{NoBreakItemize}
+
+\SubsectionKeep{Outras instituições relevantes}
+\begin{NoBreakItemize}
+  \item \textbf{IF Goiano (Urutaí, GO):} A.\,R.\ da Silva --- co-desenvolvimento do soilphysics (lado estatístico/computacional).
+  \item \textbf{UFLA (Lavras, MG):} Severiano et al.\ --- PTFs para $\sigma_p$ de Latossolos (implementadas no soilphysics).
+  \item \textbf{UEM (Maringá, PR) / UEPG (Ponta Grossa, PR):} Tormena, Giarola, Cavalieri --- colaboração com Keller no SoilFlex-LLWR (2015).
+  \item \textbf{UFRPE (Recife, PE):} afiliação anterior de R.\,P.\ de Lima. Ensaios de rodagem com solos brasileiros.
+  \item \textbf{EMBRAPA Solos:} mantém BDSolos e SiBCS. Apps de classificação. Sem ferramenta pública de compactação por tráfego.
+\end{NoBreakItemize}
+
+%% ====================================================================
+\Section{Bases de dados e recursos brasileiros}
+
+\begin{longtable}{>{\raggedright}p{3.2cm} >{\raggedright}p{3cm} >{\raggedright\arraybackslash}p{7cm}}
+\toprule
+\textbf{Recurso} & \textbf{Instituição} & \textbf{Relevância para protótipo nacional} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Recurso} & \textbf{Instituição} & \textbf{Relevância para protótipo nacional} \\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+BDSolos              & EMBRAPA       & Milhares de perfis (granulometria, $\rho$, MO) $\to$ parâmetros default por classe de solo \\
+HYBRAS               & ANA / INPE    & Curvas de retenção de água $\to$ estimar sucção/umidade como entrada do modelo \\
+SiBCS                & EMBRAPA       & Classificação pedológica $\to$ mapear classe $\to$ vulnerabilidade à compactação \\
+MapBiomas Solos      & Rede MapBiomas & Carbono orgânico espacializado $\to$ contexto de degradação \\
+SoloClass (app)      & EMBRAPA       & Classificação de campo no celular $\to$ fonte de dados para entrada do modelo \\
+\end{longtable}
+
+%% ====================================================================
+\Section{Documentação técnica e código-fonte}
+\begin{NoBreakEnumerate}
+  \item Índice do pacote \texttt{soilphysics} (CRAN):\\
+  \Link{https://search.r-project.org/CRAN/refmans/soilphysics/html/00Index.html}
+
+  \item Função \texttt{stressTraffic} (base SoilFlex):\\
+  \Link{https://search.r-project.org/CRAN/refmans/soilphysics/html/stressTraffic.html}
+
+  \item Página do projeto \texttt{soilphysics}:\\
+  \Link{https://arsilva87.github.io/soilphysics/}
+
+  \item Código-fonte da app PredComp no pacote:\\
+  \Link{https://rdrr.io/cran/soilphysics/src/R/PredComp.R}
+
+  \item Página do pacote no CRAN:\\
+  \Link{https://cran.r-project.org/web/packages/soilphysics/index.html}
+
+  \item Registro AGRIS associado ao software/artigo:\\
+  \Link{https://agris.fao.org/search/en/providers/122535/records/65de3c294c5aef494fdb1c51}
+
+  \item Página do ecossistema soilphysics/COMPSOHMA:\\
+  \Link{https://renatoagro.wixsite.com/soilphysics}
+\end{NoBreakEnumerate}
+
+%% ====================================================================
+\Section{Artigos e produção científica}
+
+\SubsectionKeep{Software e ferramentas}
+\begin{NoBreakEnumerate}
+  \item de Lima, da Silva, da Silva (2021). soilphysics: An R package for simulation of soil compaction induced by agricultural field traffic. \textit{Soil \& Tillage Research}, 206, 104824.\\
+  \Link{https://doi.org/10.1016/j.still.2020.104824}
+
+  \item de Lima, da Silva (2022). soilphysics: A suite of tools to fit and compare water retention curves. \textit{Soil Sci.\ Soc.\ Am.\ J.}, 86, 658--663.\\
+  \Link{https://doi.org/10.1002/saj2.20397}
+
+  \item de Lima, Cherubin (2023). Ferramentas computacionais (Made in Brazil) para predição da compactação do solo induzida pelo tráfego agrícola. \textit{LII CONBEA}, Ribeirão Preto.\\
+  \Link{https://conbea.org.br/anais/publicacoes/conbea-2023/anais-2023/engenharia-de-agua-e-solo-eas-4/3708-ferramentas-computacionais-made-in-brazil-para-predicao-da-compactacao-do-solo-induzida-pelo-trafego-agricola/file}
+\end{NoBreakEnumerate}
+
+\SubsectionKeep{Aplicação no Brasil}
+\begin{NoBreakEnumerate}
+  \item Lozano et al. (2013). SoilFlex em cana no Brasil. \textit{Soil \& Tillage Research}.\\
+  \Link{https://doi.org/10.1016/j.still.2013.01.010}
+
+  \item Science of the Total Environment (2019). TASC em sistemas de cana no Brasil.\\
+  \Link{https://doi.org/10.1016/j.scitotenv.2019.05.009}
+
+  \item Soil \& Tillage Research (2024). Risco de compactação em cana (contexto Terranimo/SoilFlex/TASC).\\
+  \Link{https://doi.org/10.1016/j.still.2024.106206}
+
+  \item Menillo, de Lima, Cherubin (2025). Performance of a tractor-mounted probe for undisturbed soil sampling. \textit{Experimental Agriculture}, 61, e9.\\
+  \Link{https://doi.org/10.1017/S0014479725000031}
+\end{NoBreakEnumerate}
+
+\SubsectionKeep{Modelos de referência internacional}
+\begin{NoBreakEnumerate}
+  \item Keller et al.\ (2007). SoilFlex: A model for prediction of soil stresses and soil compaction due to agricultural field traffic. \textit{Soil \& Tillage Research}, 93(2), 391--411.\\
+  \Link{https://doi.org/10.1016/j.still.2006.05.012}
+
+  \item Keller (2005). A model for the prediction of the contact area and the distribution of vertical stress below agricultural tyres. \textit{Biosystems Engineering}, 92(1), 85--96.
+
+  \item van den Akker (2004). SOCOMO: a soil compaction model. \textit{Soil \& Tillage Research}, 79(1), 113--127.
+
+  \item Horn, Fleige (2003). A method for assessing the impact of load on mechanical stability. \textit{Soil \& Tillage Research}, 73(1--2), 89--99.
+
+  \item Keller et al.\ (2025). Soil2Cover: route optimization. \textit{Precision Agriculture}.\\
+  \Link{https://doi.org/10.1007/s11119-025-10250-4}
+\end{NoBreakEnumerate}
+
+\SubsectionKeep{Teses}
+\begin{NoBreakEnumerate}
+  \item Tese USP/ESALQ, 2017 (sistema de predição para solos brasileiros).\\
+  \Link{https://www.teses.usp.br/teses/disponiveis/11/11140/tde-09082017-151718/pt-br.php}
+\end{NoBreakEnumerate}
+
+%% ====================================================================
+\Section{Evidência institucional e financiamento}
+\begin{NoBreakItemize}
+  \item \textbf{FAPESP:} pós-doc \#2020/15783-4 para R.\,P.\ de Lima (ferramentas computacionais de compactação).
+  \item \textbf{CNPq:} Produtividade em Pesquisa \#316751/2021-9.
+  \item \textbf{INPI:} PredComp e COMPSOHMA registrados. Probe de $\rho$: BR\,2020230145480.
+  \item \textbf{CONBEA 2023:} apresentação de PredComp e COMPSOHMA como ferramentas ``Made in Brazil''.
+  \item \textbf{CLAAS/CEMOS:} referência internacional de integração Terranimo embarcado em máquina (desde 2022). Sem equivalente brasileiro com Jacto, Stara, John Deere ou CNH.
+\end{NoBreakItemize}
+
+%% ====================================================================
+\Section{Análogos brasileiros com escopo diferente}
+\begin{NoBreakEnumerate}
+  \item \textbf{ESALQ} (plataforma digital de solo, escopo diferente):\\
+  \Link{https://pt.esalq.usp.br/banco-de-noticias/grupo-da-esalq-cria-plataforma-online-para-an\%C3\%A1lise-de-solo}
+
+  \item \textbf{EMBRAPA} (conteúdo e apps sobre solos/manejo, sem equivalência direta ao Terranimo):
+  \begin{NoBreakItemize}
+    \item \Link{https://www.embrapa.br/busca-de-noticias/-/noticia/47652221/produtor-obtera-classificacao-do-solo-da-sua-propriedade-no-celular}
+    \item \Link{https://www.embrapa.br/agencia-de-informacao-tecnologica/cultivos/soja/producao/manejo-do-solo/compactacao-do-solo}
+    \item \Link{https://www.embrapa.br/florestas/aplicativos-e-softwares/aplicativos}
+  \end{NoBreakItemize}
+\end{NoBreakEnumerate}
+
+%% ====================================================================
+\Section{Lacunas críticas para um Terranimo brasileiro}
+
+\begin{NoBreakEnumerate}
+  \item \textbf{Sem ferramenta agnóstica de cultura:} COMPSOHMA é específico para cana; não há equivalente para grãos, café, citros, floresta.
+  \item \textbf{Sem integração espacial:} nenhuma ferramenta conecta GPS/RTK para mapa de risco por trilha.
+  \item \textbf{Sem capacidade embarcada:} nada equivalente a CLAAS CEMOS + Terranimo em máquinas brasileiras.
+  \item \textbf{Cobertura incompleta de PTFs:} Latossolos bem cobertos; Argissolos, Nitossolos, Cambissolos, Neossolos carecem de PTFs de $\sigma_p$.
+  \item \textbf{Sem conexão automática com BDSolos/SiBCS:} toda entrada de parâmetros é manual.
+  \item \textbf{Sem framework regulatório:} Brasil não tem equivalente ao BBodSchG alemão ligando tráfego a limites de degradação do solo.
+\end{NoBreakEnumerate}
+
+%% ====================================================================
+\Section{Conclusão prática para o projeto}
+\begin{NoBreakEnumerate}
+  \item Benchmark técnico imediato: \textbf{PredComp/soilphysics} (SoilFlex em R, PTFs brasileiras prontas).
+  \item Benchmark de produto/interface: \textbf{COMPSOHMA + Terranimo Light}.
+  \item Fronteira tecnológica: \textbf{Soil2Cover} (otimização de rota + compactação acumulada).
+  \item Próxima etapa: tropicalizar o modelo com parâmetros de natureza e estado dos solos brasileiros (granulometria, Atterberg, índice L, índice de vazios, grau de saturação, histórico de umedecimento/secagem).
+  \item Integração-alvo: conectar classificação SiBCS/BDSolos $\to$ PTFs automáticas $\to$ modelo de risco por camada $\to$ saída operacional (semáforo + recomendação de ajuste).
+\end{NoBreakEnumerate}
+
+\end{document}
