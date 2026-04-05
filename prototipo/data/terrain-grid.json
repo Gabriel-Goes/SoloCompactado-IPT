@@ -1,21 +1,21 @@
 {
   "farmId": "fazenda-paladino",
-  "datasetVersion": "2026-04-05-paladino-center-v1",
-  "cellSizeMeters": 100,
+  "datasetVersion": "2026-04-05-paladino-bdc-1km-v1",
+  "cellSizeMeters": 667,
   "bounds": {
-    "north": -13.096724,
-    "south": -13.099424,
-    "east": -45.844849,
-    "west": -45.847609
+    "north": -13.089090888250091,
+    "south": -13.10705711174991,
+    "east": -45.837005937227154,
+    "west": -45.85545206277285
   },
   "cells": [
     {
       "cellId": "paladino-r1-c1",
-      "datasetVersion": "2026-04-05-paladino-center-v1",
-      "center": { "lat": -13.097174, "lng": -45.847149 },
-      "bounds": { "north": -13.096724, "south": -13.097624, "east": -45.846689, "west": -45.847609 },
+      "datasetVersion": "2026-04-05-paladino-bdc-1km-v1",
+      "center": { "lat": -13.092085258833394, "lng": -45.85237770851524 },
+      "bounds": { "north": -13.089090888250091, "south": -13.095079629416697, "east": -45.84930335425762, "west": -45.85545206277285 },
       "thematicClass": {
-        "source": "mapbiomas",
+        "source": "bdc",
         "value": null
       },
       "terrainSnapshotBase": {
@@ -29,7 +29,7 @@
         "thematic_class": null
       },
       "provenance": {
-        "thematic_class": "official",
+        "thematic_class": "unavailable",
         "clay_content": "unavailable",
         "water_content": "unavailable",
         "matric_suction": "unavailable",
@@ -40,11 +40,11 @@
     },
     {
       "cellId": "paladino-r1-c2",
-      "datasetVersion": "2026-04-05-paladino-center-v1",
-      "center": { "lat": -13.097174, "lng": -45.846229 },
-      "bounds": { "north": -13.096724, "south": -13.097624, "east": -45.845769, "west": -45.846689 },
+      "datasetVersion": "2026-04-05-paladino-bdc-1km-v1",
+      "center": { "lat": -13.092085258833394, "lng": -45.846229 },
+      "bounds": { "north": -13.089090888250091, "south": -13.095079629416697, "east": -45.84315464574239, "west": -45.84930335425762 },
       "thematicClass": {
-        "source": "mapbiomas",
+        "source": "bdc",
         "value": null
       },
       "terrainSnapshotBase": {
@@ -58,7 +58,7 @@
         "thematic_class": null
       },
       "provenance": {
-        "thematic_class": "official",
+        "thematic_class": "unavailable",
         "clay_content": "unavailable",
         "water_content": "unavailable",
         "matric_suction": "unavailable",
@@ -69,11 +69,11 @@
     },
     {
       "cellId": "paladino-r1-c3",
-      "datasetVersion": "2026-04-05-paladino-center-v1",
-      "center": { "lat": -13.097174, "lng": -45.845309 },
-      "bounds": { "north": -13.096724, "south": -13.097624, "east": -45.844849, "west": -45.845769 },
+      "datasetVersion": "2026-04-05-paladino-bdc-1km-v1",
+      "center": { "lat": -13.092085258833394, "lng": -45.84008029148477 },
+      "bounds": { "north": -13.089090888250091, "south": -13.095079629416697, "east": -45.837005937227154, "west": -45.84315464574239 },
       "thematicClass": {
-        "source": "mapbiomas",
+        "source": "bdc",
         "value": null
       },
       "terrainSnapshotBase": {
@@ -87,7 +87,7 @@
         "thematic_class": null
       },
       "provenance": {
-        "thematic_class": "official",
+        "thematic_class": "unavailable",
         "clay_content": "unavailable",
         "water_content": "unavailable",
         "matric_suction": "unavailable",
@@ -98,11 +98,11 @@
     },
     {
       "cellId": "paladino-r2-c1",
-      "datasetVersion": "2026-04-05-paladino-center-v1",
-      "center": { "lat": -13.098074, "lng": -45.847149 },
-      "bounds": { "north": -13.097624, "south": -13.098524, "east": -45.846689, "west": -45.847609 },
+      "datasetVersion": "2026-04-05-paladino-bdc-1km-v1",
+      "center": { "lat": -13.098074, "lng": -45.85237770851524 },
+      "bounds": { "north": -13.095079629416697, "south": -13.101068370583303, "east": -45.84930335425762, "west": -45.85545206277285 },
       "thematicClass": {
-        "source": "mapbiomas",
+        "source": "bdc",
         "value": null
       },
       "terrainSnapshotBase": {
@@ -116,7 +116,7 @@
         "thematic_class": null
       },
       "provenance": {
-        "thematic_class": "official",
+        "thematic_class": "unavailable",
         "clay_content": "unavailable",
         "water_content": "unavailable",
         "matric_suction": "unavailable",
@@ -127,11 +127,11 @@
     },
     {
       "cellId": "paladino-r2-c2",
-      "datasetVersion": "2026-04-05-paladino-center-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-1km-v1",
       "center": { "lat": -13.098074, "lng": -45.846229 },
-      "bounds": { "north": -13.097624, "south": -13.098524, "east": -45.845769, "west": -45.846689 },
+      "bounds": { "north": -13.095079629416697, "south": -13.101068370583303, "east": -45.84315464574239, "west": -45.84930335425762 },
       "thematicClass": {
-        "source": "mapbiomas",
+        "source": "bdc",
         "value": null
       },
       "terrainSnapshotBase": {
@@ -145,7 +145,7 @@
         "thematic_class": null
       },
       "provenance": {
-        "thematic_class": "official",
+        "thematic_class": "unavailable",
         "clay_content": "unavailable",
         "water_content": "unavailable",
         "matric_suction": "unavailable",
@@ -156,11 +156,11 @@
     },
     {
       "cellId": "paladino-r2-c3",
-      "datasetVersion": "2026-04-05-paladino-center-v1",
-      "center": { "lat": -13.098074, "lng": -45.845309 },
-      "bounds": { "north": -13.097624, "south": -13.098524, "east": -45.844849, "west": -45.845769 },
+      "datasetVersion": "2026-04-05-paladino-bdc-1km-v1",
+      "center": { "lat": -13.098074, "lng": -45.84008029148477 },
+      "bounds": { "north": -13.095079629416697, "south": -13.101068370583303, "east": -45.837005937227154, "west": -45.84315464574239 },
       "thematicClass": {
-        "source": "mapbiomas",
+        "source": "bdc",
         "value": null
       },
       "terrainSnapshotBase": {
@@ -174,7 +174,7 @@
         "thematic_class": null
       },
       "provenance": {
-        "thematic_class": "official",
+        "thematic_class": "unavailable",
         "clay_content": "unavailable",
         "water_content": "unavailable",
         "matric_suction": "unavailable",
@@ -185,11 +185,11 @@
     },
     {
       "cellId": "paladino-r3-c1",
-      "datasetVersion": "2026-04-05-paladino-center-v1",
-      "center": { "lat": -13.098974, "lng": -45.847149 },
-      "bounds": { "north": -13.098524, "south": -13.099424, "east": -45.846689, "west": -45.847609 },
+      "datasetVersion": "2026-04-05-paladino-bdc-1km-v1",
+      "center": { "lat": -13.104062741166606, "lng": -45.85237770851524 },
+      "bounds": { "north": -13.101068370583303, "south": -13.10705711174991, "east": -45.84930335425762, "west": -45.85545206277285 },
       "thematicClass": {
-        "source": "mapbiomas",
+        "source": "bdc",
         "value": null
       },
       "terrainSnapshotBase": {
@@ -203,7 +203,7 @@
         "thematic_class": null
       },
       "provenance": {
-        "thematic_class": "official",
+        "thematic_class": "unavailable",
         "clay_content": "unavailable",
         "water_content": "unavailable",
         "matric_suction": "unavailable",
@@ -214,11 +214,11 @@
     },
     {
       "cellId": "paladino-r3-c2",
-      "datasetVersion": "2026-04-05-paladino-center-v1",
-      "center": { "lat": -13.098974, "lng": -45.846229 },
-      "bounds": { "north": -13.098524, "south": -13.099424, "east": -45.845769, "west": -45.846689 },
+      "datasetVersion": "2026-04-05-paladino-bdc-1km-v1",
+      "center": { "lat": -13.104062741166606, "lng": -45.846229 },
+      "bounds": { "north": -13.101068370583303, "south": -13.10705711174991, "east": -45.84315464574239, "west": -45.84930335425762 },
       "thematicClass": {
-        "source": "mapbiomas",
+        "source": "bdc",
         "value": null
       },
       "terrainSnapshotBase": {
@@ -232,7 +232,7 @@
         "thematic_class": null
       },
       "provenance": {
-        "thematic_class": "official",
+        "thematic_class": "unavailable",
         "clay_content": "unavailable",
         "water_content": "unavailable",
         "matric_suction": "unavailable",
@@ -243,11 +243,11 @@
     },
     {
       "cellId": "paladino-r3-c3",
-      "datasetVersion": "2026-04-05-paladino-center-v1",
-      "center": { "lat": -13.098974, "lng": -45.845309 },
-      "bounds": { "north": -13.098524, "south": -13.099424, "east": -45.844849, "west": -45.845769 },
+      "datasetVersion": "2026-04-05-paladino-bdc-1km-v1",
+      "center": { "lat": -13.104062741166606, "lng": -45.84008029148477 },
+      "bounds": { "north": -13.101068370583303, "south": -13.10705711174991, "east": -45.837005937227154, "west": -45.84315464574239 },
       "thematicClass": {
-        "source": "mapbiomas",
+        "source": "bdc",
         "value": null
       },
       "terrainSnapshotBase": {
@@ -261,7 +261,7 @@
         "thematic_class": null
       },
       "provenance": {
-        "thematic_class": "official",
+        "thematic_class": "unavailable",
         "clay_content": "unavailable",
         "water_content": "unavailable",
         "matric_suction": "unavailable",
