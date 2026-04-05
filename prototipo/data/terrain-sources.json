@@ -1,0 +1,36 @@
+{
+  "farmId": "fazenda-paladino",
+  "datasetVersion": "2026-04-05-paladino-center-v1",
+  "generatedAt": "2026-04-05T12:00:00.000Z",
+  "areaBounds": {
+    "north": -13.096724,
+    "south": -13.099424,
+    "east": -45.844849,
+    "west": -45.847609
+  },
+  "sources": {
+    "mapbiomas": {
+      "collectionId": "collection10_1",
+      "assetId": "projects/mapbiomas-public/assets/brazil/lulc/collection10_1/mapbiomas_brazil_collection10_1_coverage_v1",
+      "description": "Fonte primaria configurada para classe tematica oficial de uso e cobertura da terra."
+    },
+    "bdc": {
+      "collectionId": "S2-16D-2",
+      "stacUrl": "https://data.inpe.br/bdc/stac/v1/",
+      "description": "Fonte complementar configurada para contexto espacial e temporal adicional."
+    }
+  },
+  "fieldProvenance": {
+    "thematic_class": "official",
+    "clay_content": "unavailable",
+    "water_content": "unavailable",
+    "matric_suction": "unavailable",
+    "bulk_density": "unavailable",
+    "conc_factor": "unavailable",
+    "sigma_p": "unavailable"
+  },
+  "notes": [
+    "O recorte esta limitado a regiao central usada pela demo na Fazenda Paladino.",
+    "Campos sem valor oficial extraido no recorte local permanecem null e nunca sao inventados."
+  ]
+}
