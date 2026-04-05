@@ -1,0 +1,282 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{parskip}
+\usepackage{enumitem}
+\usepackage{needspace}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[hidelinks]{hyperref}
+
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+\setstretch{1.15}
+\setlist[enumerate]{leftmargin=*,itemsep=0.45em,topsep=0.35em}
+\setlist[itemize]{leftmargin=*,itemsep=0.35em,topsep=0.3em}
+\setlength\emergencystretch{4em}
+
+\newcommand{\Section}[1]{\needspace{12\baselineskip}\section{#1}}
+\newcommand{\Subsection}[1]{\needspace{10\baselineskip}\subsection{#1}}
+\newcommand{\Subsubsection}[1]{\needspace{8\baselineskip}\subsubsection{#1}}
+
+\title{Fundamentos Físicos da Compactação do Solo por Tráfego\\
+\large Base conceitual para um protótipo brasileiro tipo Terranimo/Soil2Cover}
+\author{}
+\date{Data de referência: 03/04/2026}
+
+\begin{document}
+
+\maketitle
+\vspace{-1.2em}
+
+%% ====================================================================
+\Section{Boussinesq --- propagação de tensão no solo}
+
+%% --------------------------------------------------------------------
+\Subsection{O problema original (1885)}
+
+Joseph Boussinesq resolveu analiticamente o seguinte problema: uma \textbf{carga pontual}~$P$ aplicada na superfície de um \textbf{meio semi-infinito, homogêneo, isotrópico e elástico linear}. Qual é a tensão vertical $\sigma_z$ em qualquer ponto $(r,\,z)$ abaixo da superfície?
+
+A solução é:
+\begin{equation}
+  \sigma_z
+  = \frac{3P}{2\pi\, z^2}\;\cos^5\!\alpha
+  = \frac{3P}{2\pi\, z^2}\;\frac{1}{\left[1 + \left(\dfrac{r}{z}\right)^{\!2}\right]^{5/2}}
+  \label{eq:boussinesq}
+\end{equation}
+onde $\alpha$ é o ângulo entre a vertical e a linha que liga o ponto de aplicação da carga ao ponto de interesse, $r$ é a distância horizontal e $z$ é a profundidade.
+
+%% --------------------------------------------------------------------
+\Subsection{Significado físico}
+
+\begin{itemize}
+  \item A tensão decai com o \textbf{quadrado da profundidade} ($\propto 1/z^2$).
+  \item Na vertical direta abaixo da carga ($r=0$):
+    \begin{equation}
+      \sigma_z = \frac{3P}{2\pi\, z^2}
+    \end{equation}
+  \item Lateralmente, a tensão se espalha formando um \textbf{``bulbo de tensão''} --- as isolinhas formam volumes semelhantes a bulbos de cebola.
+  \item A \textbf{profundidade importa mais que a distância lateral}: a 50\,cm de profundidade, a tensão já é uma fração da superficial.
+\end{itemize}
+
+%% --------------------------------------------------------------------
+\Subsection{Limitações do Boussinesq puro}
+
+\begin{enumerate}
+  \item \textbf{Solo não é elástico linear} --- deforma-se plasticamente (irrecuperavelmente) quando a tensão é suficientemente alta.
+  \item \textbf{Solo não é homogêneo} --- tem camadas com propriedades distintas (horizonte A, B, C; camada arável vs.\ pé-de-grade).
+  \item \textbf{Solo não é isotrópico} --- solos compactados concentram tensão mais verticalmente do que Boussinesq prevê.
+  \item \textbf{A carga não é pontual} --- um pneu agrícola tem área de contato de ${\sim}0{,}1$ a $0{,}5$\,m$^2$.
+\end{enumerate}
+
+%% ====================================================================
+\Section{Correção de Froehlich (1934) --- fator de concentração}
+
+Froehlich introduziu um \textbf{fator de concentração} $\xi$ que generaliza Boussinesq:
+\begin{equation}
+  \sigma_z = \frac{\xi\, P}{2\pi\, z^2}\;\cos^{\xi+2}\!\alpha
+  \label{eq:froehlich}
+\end{equation}
+
+\begin{itemize}
+  \item $\xi = 3$: recupera Boussinesq exato (solo homogêneo isotrópico).
+  \item $\xi > 3$ (ex.: 4, 5, 6): solo mais \textbf{rígido} ou \textbf{pré-compactado} --- a tensão se concentra mais na vertical, penetra mais fundo e se espalha menos lateralmente.
+  \item $\xi < 3$ (ex.: 2): solo mais \textbf{mole} --- a tensão se dissipa mais rapidamente e se espalha mais lateralmente.
+\end{itemize}
+
+Consequência prática importante: \textbf{um solo já compactado (pé-de-grade, por exemplo) transmite mais tensão para camadas profundas}. O $\xi$ captura esse efeito sem necessidade de MEF.
+
+Na prática, $\xi$ é calibrado por tipo de solo ou estimado a partir da rigidez relativa das camadas. A função \texttt{stressTraffic()} do pacote R \texttt{soilphysics} aceita $\xi$ como parâmetro de entrada.
+
+%% ====================================================================
+\Section{TASC --- do pneu real ao campo de tensão (Keller, 2005)}
+
+Boussinesq/Froehlich resolvem para carga pontual. Para um pneu real, o modelo TASC (Tyres/Tracks And Soil Compaction) faz a ponte:
+
+\begin{enumerate}
+  \item Calcula a \textbf{área de contato} pneu--solo a partir de: largura do pneu, diâmetro, pressão de inflação e carga na roda.
+  \item A forma do contato não é circular --- é uma \textbf{super-elipse} (algo entre elipse e retângulo, controlada por um expoente de forma).
+  \item A \textbf{distribuição de pressão} dentro do contato não é uniforme --- é maior no centro e nas bordas dos talões.
+  \item O campo de tensão no solo é obtido por \textbf{integração numérica} de Boussinesq/Froehlich sobre essa área de contato.
+\end{enumerate}
+
+Em termos práticos, o TASC transforma a especificação de um pneu (ex.: 600/65R28 a 1,2\,bar com 3\,t de carga) em um campo de tensão tridimensional $\sigma(x,\,y,\,z)$ no perfil de solo.
+
+%% ====================================================================
+\Section{Pré-adensamento ($\sigma_p$) --- a memória mecânica do solo}
+
+%% --------------------------------------------------------------------
+\Subsection{O conceito}
+
+Todo solo possui uma ``memória'' da maior tensão efetiva que já suportou. Essa tensão é o \textbf{pré-adensamento} $\sigma_p$ (ou $p_c$ em algumas notações).
+
+Fisicamente:
+\begin{itemize}
+  \item Se a tensão aplicada $\sigma < \sigma_p$: o solo se deforma pouco e \textbf{recupera} quando a carga é removida (comportamento elástico, ao longo da linha de recompressão~$\kappa$).
+  \item Se $\sigma > \sigma_p$: o solo \textbf{colapsa} --- os grãos se rearranjam, a porosidade diminui irreversivelmente (comportamento plástico, ao longo da linha de compressão virgem~$\lambda$).
+\end{itemize}
+
+Analogia: dobrar um clipe de papel. Se se dobra pouco, ele volta à posição original. Se se ultrapassa o limite, ele fica deformado permanentemente. O $\sigma_p$ é esse limite.
+
+%% --------------------------------------------------------------------
+\Subsection{Origens do pré-adensamento}
+
+\begin{enumerate}
+  \item \textbf{Geológica:} peso de camadas de solo que já existiram acima e foram erodidas.
+  \item \textbf{Antrópica (tráfego):} passagens anteriores de máquinas --- a mais relevante neste contexto.
+  \item \textbf{Ciclos de umedecimento--secagem:} a sucção matricial gera tensões efetivas altas que ``pré-adensam'' o solo. \textbf{Muito importante nos trópicos.}
+  \item \textbf{Cimentação por óxidos:} óxidos de ferro e alumínio colam partículas, gerando resistência estrutural. Específico de solos tropicais (Latossolos).
+  \item \textbf{Atividade biológica:} raízes e fauna criam estrutura que resiste ao colapso.
+\end{enumerate}
+
+%% --------------------------------------------------------------------
+\Subsection{Medição: ensaio oedométrico}
+
+No \textbf{ensaio oedométrico} (ensaio de adensamento), aplica-se carga incremental a uma amostra confinada e mede-se a deformação. No gráfico $e$ (índice de vazios) vs.\ $\log\sigma'$ (tensão efetiva), o ponto de curvatura máxima é o $\sigma_p$ (método de Casagrande).
+
+Limitações práticas:
+\begin{itemize}
+  \item O ensaio leva dias.
+  \item Exige amostra indeformada.
+  \item Fornece o valor para \textbf{um ponto, uma profundidade, uma condição de umidade}.
+\end{itemize}
+
+%% --------------------------------------------------------------------
+\Subsection{PTFs --- Funções de Pedotransferência}
+
+Como não é viável realizar ensaio oedométrico em cada ponto do campo, utilizam-se regressões empíricas:
+\begin{equation}
+  \sigma_p = f\!\left(\text{argila},\;\text{umidade},\;\rho,\;\text{MO},\;\text{sucção}\right)
+  \label{eq:ptf}
+\end{equation}
+
+Exemplos já implementados no \texttt{soilphysics}:
+
+\begin{itemize}
+  \item \textbf{Horn \& Fleige (2003):} $\sigma_p$ a partir de textura + umidade + densidade. Base: solos europeus temperados.
+  \item \textbf{Severiano et al.\ (2013):} $\sigma_p$ para Latossolos brasileiros, função da sucção matricial por faixa de argila. Exemplo para faixa de argila 152\,g/kg:
+    \begin{equation}
+      \sigma_p = 129\;h^{0{,}15}
+    \end{equation}
+    onde $h$ é a sucção matricial (kPa).
+  \item \textbf{Imhoff et al.\ (2004):} $\sigma_p$ para Hapludox (Latossolo Vermelho):
+    \begin{equation}
+      \sigma_p = -566{,}764 + 442{,}891\,\rho + 4{,}338\,\text{CC} - 773{,}057\,w
+    \end{equation}
+    onde $\rho$ é a densidade (Mg/m$^3$), CC é a capacidade de campo (\%) e $w$ é a umidade gravimétrica (g/g).
+\end{itemize}
+
+%% ====================================================================
+\Section{A lógica do risco --- juntando carga e resistência}
+
+Toda ferramenta tipo Terranimo executa, para cada camada~$z$ do perfil:
+
+\begin{enumerate}
+  \item \textbf{Lado da carga:} dado o pneu (TASC) e a integração Boussinesq/Froehlich, calcula-se $\sigma_{\text{aplicada}}(z)$.
+  \item \textbf{Lado da resistência:} dada a textura, umidade, densidade e história do solo naquela camada, estima-se $\sigma_p(z)$ via PTF.
+  \item \textbf{Decisão:}
+    \begin{itemize}
+      \item $\sigma_{\text{aplicada}} > \sigma_p$ $\to$ \textbf{vermelho} (compactação adicional ocorrerá).
+      \item $\sigma_{\text{aplicada}} \approx \sigma_p$ $\to$ \textbf{amarelo} (risco).
+      \item $\sigma_{\text{aplicada}} < \sigma_p$ $\to$ \textbf{verde} (seguro).
+    \end{itemize}
+\end{enumerate}
+
+O conceito é simples. A dificuldade está nos \textbf{parâmetros de entrada} --- especialmente para solos tropicais.
+
+%% ====================================================================
+\Section{Por que o solo tropical é diferente}
+
+%% --------------------------------------------------------------------
+\Subsection{Mineralogia}
+
+\begin{itemize}
+  \item \textbf{Solos temperados:} dominados por argilominerais 2:1 (montmorillonita, ilita) --- alta CTC, alta plasticidade, comportamento bem previsto pela textura.
+  \item \textbf{Solos tropicais:} dominados por argilominerais 1:1 (caulinita) + \textbf{óxidos de ferro} (goethita, hematita) \textbf{e alumínio} (gibbsita).
+  \item Os óxidos atuam como \textbf{agentes cimentantes}: colam microagregados formando uma estrutura granular estável mesmo com alto teor de argila.
+\end{itemize}
+
+%% --------------------------------------------------------------------
+\Subsection{A ``argila que se comporta como areia''}
+
+Um Latossolo Vermelho com 70\% de argila pode apresentar:
+\begin{itemize}
+  \item \textbf{Comportamento mecânico} similar ao de uma areia: granular, alta permeabilidade, baixa plasticidade.
+  \item Isso ocorre porque os óxidos cimentam as partículas de argila em \textbf{microagregados} de 0,05--0,2\,mm que funcionam como grãos de areia.
+\end{itemize}
+
+Consequência direta: \textbf{uma PTF europeia que recebe ``70\% argila'' vai prever um solo plástico, coesivo, com alto $\sigma_p$}. Na realidade, esse Latossolo pode ser mais vulnerável à compactação do que o previsto, porque a microestrutura granular colapsa quando a cimentação é rompida.
+
+%% --------------------------------------------------------------------
+\Subsection{Ciclos de umedecimento--secagem intensos}
+
+Nos trópicos, a alternância entre estação seca (sucção matricial de centenas de kPa) e estação chuvosa (solo próximo à saturação) gera:
+
+\begin{itemize}
+  \item \textbf{Na seca:} sucção alta $\to$ tensão efetiva alta $\to$ pré-adensamento aparente. O solo parece mais resistente.
+  \item \textbf{Na chuva:} sucção cai $\to$ perde essa resistência aparente. O solo fica vulnerável.
+  \item \textbf{Efeito cumulativo:} os ciclos criam e destroem estrutura, gerando um $\sigma_p$ que \textbf{varia sazonalmente} de forma muito mais dramática que em climas temperados.
+\end{itemize}
+
+Isso significa que o $\sigma_p$ não é um número fixo --- depende de \textbf{quando} se está medindo (seca vs.\ chuva). Uma ferramenta embarcada precisa considerar a \textbf{umidade atual} do solo, não um valor tabelado.
+
+%% --------------------------------------------------------------------
+\Subsection{Estrutura hierárquica de agregação}
+
+Solos tropicais apresentam uma \textbf{hierarquia de agregação}:
+
+\begin{enumerate}
+  \item \textbf{Microagregados} ($< 0{,}25$\,mm) --- cimentados por óxidos, muito estáveis.
+  \item \textbf{Macroagregados} ($> 0{,}25$\,mm) --- mantidos por matéria orgânica, raízes e hifas --- mais frágeis.
+  \item \textbf{Macroporos} entre agregados --- responsáveis por aeração e drenagem.
+\end{enumerate}
+
+O tráfego de máquinas destrói primeiro os \textbf{macroporos} (entre macroagregados). Os microagregados resistem mais. Isso cria um padrão de compactação diferente: perda de macroporosidade sem grande mudança na microporosidade --- algo que um modelo baseado apenas em densidade ($\Delta\rho$) pode não capturar adequadamente.
+
+%% --------------------------------------------------------------------
+\Subsection{Implicações para o modelo brasileiro}
+
+Para um ``Terranimo brasileiro'' funcionar, as PTFs precisam considerar:
+
+\begin{enumerate}
+  \item \textbf{Não só textura, mas mineralogia} --- teor de Fe$_2$O$_3$, Al$_2$O$_3$, ou pelo menos a classe SiBCS (Latossolo vs.\ Argissolo já carrega informação mineralógica implícita).
+  \item \textbf{Sucção matricial atual} como variável de entrada (não apenas umidade gravimétrica).
+  \item \textbf{Índice de vazios e grau de saturação} --- capturam melhor o estado do solo tropical que a densidade isolada.
+  \item \textbf{Limites de Atterberg} (LL, LP, IP) --- o índice de plasticidade de um Latossolo caulinítico-oxídico é muito diferente de um solo 2:1 com mesma textura.
+\end{enumerate}
+
+%% ====================================================================
+\Section{Cadeia física para o software proposto}
+
+A cadeia completa, do pneu ao mapa de risco otimizado:
+
+\begin{enumerate}
+  \item \textbf{Pneu} (geometria, pressão, carga)
+    \begin{itemize}
+      \item[$\downarrow$] TASC (Keller, 2005)
+    \end{itemize}
+  \item \textbf{Área de contato + distribuição de pressão na superfície}
+    \begin{itemize}
+      \item[$\downarrow$] Boussinesq/Froehlich (integração numérica)
+    \end{itemize}
+  \item \textbf{Campo de tensão} $\sigma(x,\,y,\,z)$ no perfil
+    \begin{itemize}
+      \item[$\downarrow$] Comparação camada a camada
+    \end{itemize}
+  \item \textbf{Resistência do solo:} $\sigma_p(z) = \text{PTF}(\text{SiBCS, textura, óxidos, umidade atual, }\rho)$
+    \begin{itemize}
+      \item[$\downarrow$]
+    \end{itemize}
+  \item \textbf{Mapa de risco} (semáforo por camada e por posição GPS)
+    \begin{itemize}
+      \item[$\downarrow$] Soil2Cover (otimização de rota)
+    \end{itemize}
+  \item \textbf{Rota otimizada} que minimiza compactação acumulada.
+\end{enumerate}
+
+\end{document}
