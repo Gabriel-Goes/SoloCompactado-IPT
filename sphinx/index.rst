@@ -28,6 +28,7 @@ Público-alvo: engenheiros e tecnólogos com experiência em solos e geotecnia, 
    modelo_ponto_unico
    simulador_light
    simulador_3d
+   integracao_geoespacial
    leitura_resultados
    bloco1_validacao
    revisao_referencias
