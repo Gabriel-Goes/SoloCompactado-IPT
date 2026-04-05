@@ -1,7 +1,7 @@
 # Sprint 1: Mapa Satelital com Trator Navegavel Design
 
 **Spec**: [spec.md](/Users/wiser/projects/gabrielgoes/SoloCompactado-IPT/.specs/features/sprint-1-mapa-trator/spec.md)  
-**Status**: Draft
+**Status**: Completed
 
 ---
 
@@ -39,7 +39,7 @@ graph TD
 | System | Integration Method |
 | --- | --- |
 | `Leaflet` | Inclusao via CDN no HTML unico |
-| `Esri World Imagery` | Camada raster satelital principal configurada no `Leaflet` |
+| `Esri World Imagery` | Camada raster satelital principal configurada no `Leaflet`, com `maxNativeZoom` `16` |
 
 Nao ha componentes reutilizaveis no codigo local para mapa, navegacao ou renderizacao do trator. Esta sprint parte de implementacao nova e isolada em `prototipo/`.
 
@@ -183,13 +183,15 @@ Nao ha componentes reutilizaveis no codigo local para mapa, navegacao ou renderi
 | --- | --- | --- |
 | Biblioteca de mapa | `Leaflet` | Simples, compativel com HTML puro e suficiente para a Sprint 1 |
 | Camada satelital | `Esri World Imagery` | Entrega leitura satelital imediata sem aumentar a arquitetura da sprint |
+| Compatibilidade de tiles | `maxNativeZoom: 16` e sem `detectRetina` | Reduz risco de indisponibilidade de tiles em area rural mantendo ampliacao visual aceitavel |
 | Estrategia de entrega | Arquivo HTML unico | Alinha com o objetivo de abrir direto no navegador |
 | Camera | Trator fixo no centro + mapa recentrado | Reproduz a metafora de apps como Google Maps e Waze |
 | Estado de movimento | Loop com `requestAnimationFrame` | Permite movimento fluido e previsivel |
 | `ArrowDown` | Freio sem re | Menor ambiguidade na fisica da Sprint 1 |
 | Ativacao do debug | Tecla `D` | Contrato simples e testavel |
-| Zoom inicial | `17` | Escala apropriada para leitura local da fazenda e deslocamento curto |
+| Zoom inicial | `16` | Equilibrio melhor entre leitura local e disponibilidade real de tiles |
 | Rotacao | Girar apenas o trator na v1 | Menor complexidade e melhor legibilidade inicial |
+| Orientacao do trator | Compensar o eixo visual nativo do emoji e manter `heading` continuo | Evita desalinhamento visual e elimina salto ao cruzar `360°` |
 | Arquitetura de arquivos | Tudo em `prototipo/` | Decisao ja registrada nas sprints e no pedido do usuario |
 
 ---
@@ -199,12 +201,17 @@ Nao ha componentes reutilizaveis no codigo local para mapa, navegacao ou renderi
 - A implementacao deve evitar controles nativos do `Leaflet` que conflitem com a demo, como arrastar o mapa manualmente, zoom por scroll e teclado nativo da biblioteca.
 - O `Leaflet` sera usado como motor de renderizacao do mapa, nao como controlador da navegacao do usuario.
 - O movimento geografico do trator pode usar aproximacao local em metros para latitude/longitude, suficiente para a escala da demo.
-- O mapa deve iniciar na Fazenda Paladino com `zoom` `17`.
+- O mapa deve iniciar na Fazenda Paladino com `zoom` `16`.
 - A camada satelital principal deve ser `Esri World Imagery`.
+- A camada satelital deve ser configurada com `maxNativeZoom` `16`.
+- `detectRetina` nao deve ser usado nesta sprint.
 - A velocidade deve ter piso explicito em `0`.
+- A velocidade maxima da demo deve ser `50 m/s`.
 - `ArrowDown` deve apenas reduzir a velocidade ate `0`, sem gerar re.
 - O debug deve nascer desabilitado por padrao.
 - O debug deve ser alternado pela tecla `D`.
+- O `heading` interno do trator deve permanecer continuo, sem normalizacao obrigatoria a cada volta completa.
+- O overlay deve compensar a orientacao nativa do emoji de trator para manter a frente visual alinhada ao movimento.
 - O arquivo final da sprint deve ser criado em [index.html](/Users/wiser/projects/gabrielgoes/SoloCompactado-IPT/prototipo/index.html).
 
 ## Requirement Mapping
@@ -213,7 +220,7 @@ Nao ha componentes reutilizaveis no codigo local para mapa, navegacao ou renderi
 | --- | --- |
 | S1MAP-01 | `HTML Shell` garante o artefato `prototipo/index.html` |
 | S1MAP-02 | `Map Bootstrap` define centro inicial da Fazenda Paladino |
-| S1MAP-03 | `Map Bootstrap` define `zoom` inicial `17` |
+| S1MAP-03 | `Map Bootstrap` define `zoom` inicial `16` |
 | S1MAP-04 | `Map Bootstrap` configura `Esri World Imagery` |
 | S1MAP-05 | `Map Bootstrap` exibe erro visivel se a camada falhar |
 | S1MAP-06 | `HTML Shell` + `Overlay Renderer` mantem trator fixo no centro |
@@ -224,7 +231,7 @@ Nao ha componentes reutilizaveis no codigo local para mapa, navegacao ou renderi
 | S1MAP-11 | `HTML Shell` usa mapa full-screen sem paineis extras |
 | S1MAP-12 | `Overlay Renderer` garante marcador central evidente |
 | S1MAP-13 | `Map Bootstrap` desabilita interacoes nativas conflitantes do `Leaflet` |
-| S1MAP-14 | `Overlay Renderer` atualiza orientacao coerente |
+| S1MAP-14 | `Overlay Renderer` atualiza orientacao coerente, com compensacao do emoji e rotacao continua |
 | S1MAP-15 | `Movement Engine` elimina drift parado |
 | S1MAP-16 | `Input Controller` alterna debug com tecla `D` |
 | S1MAP-17 | `Overlay Renderer` exibe debug opcional |
