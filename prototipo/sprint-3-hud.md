@@ -1,5 +1,7 @@
 # Sprint 3: HUD de Leitura Operacional
 
+**Status**: Concluida
+
 ## Resumo
 A Sprint 3 deve introduzir o HUD visivel do prototipo, mantendo o mapa navegavel da Sprint 1 e os dados coletados da Sprint 2. O papel do HUD nesta fase e exclusivamente mostrar, em tempo real, o estado atual do trator, o resumo do terreno da celula atual e um resumo simples da missao de coleta.
 
@@ -107,17 +109,22 @@ Campos visiveis:
 - Manter o artefato principal e quaisquer arquivos auxiliares dentro de `prototipo/`.
 
 ## Criterios de Aceitacao
-- O HUD aparece de forma fixa ao lado do mapa.
-- A divisao `2/5` HUD e `3/5` mapa fica legivel em desktop.
-- Com o trator parado, o HUD mostra os valores atuais coerentes com a posicao inicial e a configuracao ativa.
-- Ao mover o trator para outra celula, os dados do bloco `Terreno Atual` mudam corretamente.
-- Ao gerar nova coleta, os dados do bloco `Missao` sao atualizados.
-- O contador de amostras cresce durante a missao.
-- O HUD permanece funcional sem travar ou prejudicar a navegacao do mapa.
-- Ao final da sprint, deve ser possivel demonstrar:
+- [x] O HUD aparece de forma fixa ao lado do mapa.
+- [x] A divisao `2/5` HUD e `3/5` mapa fica legivel em desktop.
+- [x] Com o trator parado, o HUD mostra os valores atuais coerentes com a posicao inicial e a configuracao ativa.
+- [x] Ao mover o trator para outra celula, os dados do bloco `Terreno Atual` mudam corretamente.
+- [x] Ao gerar nova coleta, os dados do bloco `Missao` sao atualizados.
+- [x] O contador de amostras cresce durante a missao.
+- [x] O HUD permanece funcional sem travar ou prejudicar a navegacao do mapa.
+- [x] Ao final da sprint, e possivel demonstrar:
   - o estado do trator,
   - o estado do terreno atual,
   - o andamento basico da missao.
+
+## Validacao Final
+- Implementacao revisada.
+- Testes manuais executados no navegador.
+- Resultado validado como concluido para a Sprint 3.
 
 ## Fora da Sprint
 - Semaforo de risco.

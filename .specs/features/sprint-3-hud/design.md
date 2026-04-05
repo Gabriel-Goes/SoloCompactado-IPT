@@ -1,7 +1,7 @@
 # Sprint 3: HUD de Leitura Operacional Design
 
 **Spec**: [spec.md](/Users/wiser/projects/gabrielgoes/SoloCompactado-IPT/.specs/features/sprint-3-hud/spec.md)  
-**Status**: Defined
+**Status**: Completed
 
 ---
 
@@ -391,6 +391,16 @@ Em largura reduzida ainda dentro do alvo desktop:
 3. Campos de terreno `null` continuam visiveis e explicitamente ausentes.
 4. Exportacao e limpeza continuam dentro do bloco `Missao`.
 5. O trator permanece centralizado apenas na area do mapa, mesmo com a nova coluna lateral.
+6. O HUD preserva mensagens transitorias de exportacao e limpeza sem perde-las no renderer por frame.
+7. O banner de erro do mapa deve respeitar a largura util de `#map-stage`.
+
+## Implementation Outcome
+
+- `#app-shell`, `#hud-sidebar` e `#map-stage` foram implementados no runtime.
+- O HUD final foi entregue com os blocos `Trator`, `Terreno Atual` e `Missao`.
+- `buildHudViewModel()` e `renderHud()` absorveram o renderer fragmentado anterior.
+- Exportacao, limpeza, restore e debug continuaram funcionais apos a refatoracao.
+- A validacao final foi feita por revisao e testes manuais no navegador.
 
 ## Source Context
 
