@@ -34,7 +34,7 @@ As variaveis do terreno desta sprint nao podem ser inventadas. Elas devem ser de
 
 - O sistema SHALL usar um dataset local pre-processado e versionado dentro de `prototipo/data/` como forma de entrega dos dados oficiais para o runtime da demo.
 - O sistema SHALL usar o Brazil Data Cube como fonte oficial unica para imagens e series temporais de terreno, preferencialmente por STAC API.
-- O recorte de dados SHALL ser limitado a area da regiao central da Fazenda Paladino, evitando download ou armazenamento desnecessario de dados fora da area usada na demo.
+- O recorte de dados SHALL ser limitado a um raio operacional de `7 km` em torno da regiao central da Fazenda Paladino, evitando download ou armazenamento desnecessario de dados fora da area usada na demo.
 - Quando uma variavel operacional de solo nao existir diretamente no BDC, o sistema SHALL registrar essa ausencia ou usar derivacao documentada a partir dessa fonte, e SHALL NOT inventar valores arbitrarios.
 - Os campos do `terrain_snapshot` SHALL existir no schema da amostra mesmo quando nao houver valor observavel direto, usando `null` com proveniencia `derived` ou `unavailable` quando aplicavel.
 - Quando o `BDC` nao fornecer valor observavel para uma variavel obrigatoria do schema, o sistema SHALL manter o campo como `null`, preservando a estrutura da amostra e sem sintetizar valor substituto.

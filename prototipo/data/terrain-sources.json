@@ -1,18 +1,18 @@
 {
   "farmId": "fazenda-paladino",
-  "datasetVersion": "2026-04-05-paladino-bdc-1km-v1",
+  "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
   "generatedAt": "2026-04-05T12:00:00.000Z",
   "areaBounds": {
-    "north": -13.089090888250091,
-    "south": -13.10705711174991,
-    "east": -45.837005937227154,
-    "west": -45.85545206277285
+    "north": -13.035192217750629,
+    "south": -13.160955782249372,
+    "east": -45.781667560590094,
+    "west": -45.91079043940991
   },
   "center": {
     "lat": -13.098074,
     "lng": -45.846229
   },
-  "radiusMeters": 1000,
+  "radiusMeters": 7000,
   "sources": {
     "bdc": {
       "collectionId": "S2-16D-2",
@@ -41,7 +41,7 @@
     "sigma_p": "unavailable"
   },
   "notes": [
-    "O recorte esta limitado a um raio de 1 km em torno do centro usado pela demo na Fazenda Paladino.",
+    "O recorte esta limitado a um raio de 7 km em torno do centro usado pela demo na Fazenda Paladino.",
     "Campos sem valor oficial extraido no recorte local permanecem null e nunca sao inventados.",
     "A Sprint 2 usa apenas o BDC como fonte oficial de dados de terreno."
   ]

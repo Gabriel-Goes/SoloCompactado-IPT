@@ -105,7 +105,7 @@ Se houver interface adicional, ela deve ser apenas operacional:
 
 ## Implementacao
 - Manter o `Leaflet` como base do mapa.
-- Inicializar a area da fazenda com uma grade de celulas de tamanho fixo.
+- Inicializar a area da fazenda com uma grade de celulas de tamanho fixo cobrindo um raio operacional de `7 km`.
 - Resolver, a cada atualizacao do trator, em qual celula ele esta.
 - Buscar os dados do terreno vinculados a essa celula a partir do `BDC`.
 - Montar o snapshot completo da coleta.

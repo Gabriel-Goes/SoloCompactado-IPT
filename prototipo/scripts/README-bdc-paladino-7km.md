@@ -1,22 +1,22 @@
-# Extracao 1 km Fazenda Paladino via BDC
+# Extracao 7 km Fazenda Paladino via BDC
 
 Centro utilizado:
 
 - latitude: `-13.098074`
 - longitude: `-45.846229`
-- raio: `1000 m`
+- raio: `7000 m`
 
 Bounding box aproximado do recorte:
 
-- west: `-45.85545206277285`
-- south: `-13.10705711174991`
-- east: `-45.837005937227154`
-- north: `-13.089090888250091`
+- west: `-45.91079043940991`
+- south: `-13.160955782249372`
+- east: `-45.781667560590094`
+- north: `-13.035192217750629`
 
 ## O que ja foi extraido
 
 - `BDC`:
-  - arquivo gerado em [bdc-paladino-1km-items.json](/Users/wiser/projects/gabrielgoes/SoloCompactado-IPT/prototipo/data/bdc-paladino-1km-items.json)
+  - arquivo gerado em [bdc-paladino-7km-items.json](/Users/wiser/projects/gabrielgoes/SoloCompactado-IPT/prototipo/data/bdc-paladino-7km-items.json)
   - colecao usada: `S2-16D-2`
   - o arquivo lista itens reais da STAC API que cobrem o recorte e seus assets principais (`NDVI`, `SCL`, `B03`, `thumbnail`)
 
@@ -36,4 +36,4 @@ Bounding box aproximado do recorte:
 
 ## Observacao
 
-O runtime atual do prototipo ainda nao foi expandido para usar o recorte radial de `1 km` completo; o primeiro insumo oficial salvo localmente e o inventario de itens do `BDC`.
+O runtime atual do prototipo ja foi expandido para usar o recorte radial de `7 km`; o inventario oficial salvo localmente e o arquivo [bdc-paladino-7km-items.json](/Users/wiser/projects/gabrielgoes/SoloCompactado-IPT/prototipo/data/bdc-paladino-7km-items.json).
