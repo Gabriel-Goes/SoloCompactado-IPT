@@ -8,10 +8,10 @@ Esta sprint existe para transformar os dados ja produzidos nas Sprints 1 e 2 em 
 
 ## Goals
 
-- [ ] Evoluir `prototipo/index.html` para exibir um HUD lateral fixo sem quebrar a navegacao da Sprint 1.
-- [ ] Expor no HUD os blocos `Trator`, `Terreno Atual` e `Missao` usando os dados ja mantidos pelo runtime da Sprint 2.
-- [ ] Garantir leitura operacional clara em desktop com divisao `2/5` HUD e `3/5` mapa.
-- [ ] Exibir no HUD os campos de terreno obrigatorios mesmo quando o valor vier `null`, preservando transparencia sobre indisponibilidade de dados do BDC.
+- [x] Evoluir `prototipo/index.html` para exibir um HUD lateral fixo sem quebrar a navegacao da Sprint 1.
+- [x] Expor no HUD os blocos `Trator`, `Terreno Atual` e `Missao` usando os dados ja mantidos pelo runtime da Sprint 2.
+- [x] Garantir leitura operacional clara em desktop com divisao `2/5` HUD e `3/5` mapa.
+- [x] Exibir no HUD os campos de terreno obrigatorios mesmo quando o valor vier `null`, preservando transparencia sobre indisponibilidade de dados do BDC.
 
 ## Out of Scope
 
@@ -120,30 +120,30 @@ A Sprint 3 deve reaproveitar, sem alterar o contrato das sprints anteriores, o r
 
 | Requirement ID | Story | Phase | Status |
 | --- | --- | --- | --- |
-| S3HUD-01 | P1: Visualizar estado atual do trator e da missao enquanto navego | Specify | Defined |
-| S3HUD-02 | P1: Visualizar estado atual do trator e da missao enquanto navego | Specify | Defined |
-| S3HUD-03 | P1: Visualizar estado atual do trator e da missao enquanto navego | Specify | Defined |
-| S3HUD-04 | P1: Visualizar estado atual do trator e da missao enquanto navego | Specify | Defined |
-| S3HUD-05 | P1: Visualizar estado atual do trator e da missao enquanto navego | Specify | Defined |
-| S3HUD-06 | P1: Visualizar estado atual do trator e da missao enquanto navego | Specify | Defined |
-| S3HUD-07 | P1: Visualizar estado atual do trator e da missao enquanto navego | Specify | Defined |
-| S3HUD-08 | P1: Visualizar estado atual do trator e da missao enquanto navego | Specify | Defined |
-| S3HUD-09 | P1: Visualizar estado atual do trator e da missao enquanto navego | Specify | Defined |
-| S3HUD-10 | P2: Exibir o snapshot da celula atual do terreno sem esconder indisponibilidade de dados | Specify | Defined |
-| S3HUD-11 | P2: Exibir o snapshot da celula atual do terreno sem esconder indisponibilidade de dados | Specify | Defined |
-| S3HUD-12 | P2: Exibir o snapshot da celula atual do terreno sem esconder indisponibilidade de dados | Specify | Defined |
-| S3HUD-13 | P2: Exibir o snapshot da celula atual do terreno sem esconder indisponibilidade de dados | Specify | Defined |
-| S3HUD-14 | P2: Exibir o snapshot da celula atual do terreno sem esconder indisponibilidade de dados | Specify | Defined |
-| S3HUD-15 | P2: Exibir o snapshot da celula atual do terreno sem esconder indisponibilidade de dados | Specify | Defined |
-| S3HUD-16 | P2: Exibir o snapshot da celula atual do terreno sem esconder indisponibilidade de dados | Specify | Defined |
-| S3HUD-17 | P3: Manter densidade visual enxuta e leitura rapida para demonstracao | Specify | Defined |
-| S3HUD-18 | P3: Manter densidade visual enxuta e leitura rapida para demonstracao | Specify | Defined |
-| S3HUD-19 | P3: Manter densidade visual enxuta e leitura rapida para demonstracao | Specify | Defined |
-| S3HUD-20 | P3: Manter densidade visual enxuta e leitura rapida para demonstracao | Specify | Defined |
-| S3HUD-21 | P3: Manter densidade visual enxuta e leitura rapida para demonstracao | Specify | Defined |
-| S3HUD-22 | P3: Manter densidade visual enxuta e leitura rapida para demonstracao | Specify | Defined |
-| S3HUD-23 | P3: Manter densidade visual enxuta e leitura rapida para demonstracao | Specify | Defined |
-| S3HUD-24 | P3: Manter densidade visual enxuta e leitura rapida para demonstracao | Specify | Defined |
+| S3HUD-01 | P1: Visualizar estado atual do trator e da missao enquanto navego | Execute | Completed |
+| S3HUD-02 | P1: Visualizar estado atual do trator e da missao enquanto navego | Execute | Completed |
+| S3HUD-03 | P1: Visualizar estado atual do trator e da missao enquanto navego | Execute | Completed |
+| S3HUD-04 | P1: Visualizar estado atual do trator e da missao enquanto navego | Execute | Completed |
+| S3HUD-05 | P1: Visualizar estado atual do trator e da missao enquanto navego | Execute | Completed |
+| S3HUD-06 | P1: Visualizar estado atual do trator e da missao enquanto navego | Execute | Completed |
+| S3HUD-07 | P1: Visualizar estado atual do trator e da missao enquanto navego | Execute | Completed |
+| S3HUD-08 | P1: Visualizar estado atual do trator e da missao enquanto navego | Execute | Completed |
+| S3HUD-09 | P1: Visualizar estado atual do trator e da missao enquanto navego | Execute | Completed |
+| S3HUD-10 | P2: Exibir o snapshot da celula atual do terreno sem esconder indisponibilidade de dados | Execute | Completed |
+| S3HUD-11 | P2: Exibir o snapshot da celula atual do terreno sem esconder indisponibilidade de dados | Execute | Completed |
+| S3HUD-12 | P2: Exibir o snapshot da celula atual do terreno sem esconder indisponibilidade de dados | Execute | Completed |
+| S3HUD-13 | P2: Exibir o snapshot da celula atual do terreno sem esconder indisponibilidade de dados | Execute | Completed |
+| S3HUD-14 | P2: Exibir o snapshot da celula atual do terreno sem esconder indisponibilidade de dados | Execute | Completed |
+| S3HUD-15 | P2: Exibir o snapshot da celula atual do terreno sem esconder indisponibilidade de dados | Execute | Completed |
+| S3HUD-16 | P2: Exibir o snapshot da celula atual do terreno sem esconder indisponibilidade de dados | Execute | Completed |
+| S3HUD-17 | P3: Manter densidade visual enxuta e leitura rapida para demonstracao | Execute | Completed |
+| S3HUD-18 | P3: Manter densidade visual enxuta e leitura rapida para demonstracao | Execute | Completed |
+| S3HUD-19 | P3: Manter densidade visual enxuta e leitura rapida para demonstracao | Execute | Completed |
+| S3HUD-20 | P3: Manter densidade visual enxuta e leitura rapida para demonstracao | Execute | Completed |
+| S3HUD-21 | P3: Manter densidade visual enxuta e leitura rapida para demonstracao | Execute | Completed |
+| S3HUD-22 | P3: Manter densidade visual enxuta e leitura rapida para demonstracao | Execute | Completed |
+| S3HUD-23 | P3: Manter densidade visual enxuta e leitura rapida para demonstracao | Execute | Completed |
+| S3HUD-24 | P3: Manter densidade visual enxuta e leitura rapida para demonstracao | Execute | Completed |
 
 **Coverage:** 24 total, 24 defined, 0 unmapped.
 
@@ -153,17 +153,23 @@ A Sprint 3 deve reaproveitar, sem alterar o contrato das sprints anteriores, o r
 
 Como saberemos que a sprint foi bem-sucedida:
 
-- [ ] [index.html](/Users/wiser/projects/gabrielgoes/SoloCompactado-IPT/prototipo/index.html) continua abrindo localmente e preserva navegacao e coleta das Sprints 1 e 2.
-- [ ] O layout desktop mostra HUD lateral fixo e mapa simultaneamente, com divisao aproximada `2/5` e `3/5`.
-- [ ] O trator continua centralizado na viewport do mapa mesmo depois da introducao do HUD lateral.
-- [ ] O HUD exibe os tres blocos `Trator`, `Terreno Atual` e `Missao`.
-- [ ] O bloco `Trator` mostra os campos operacionais contratados nesta sprint.
-- [ ] O bloco `Terreno Atual` mostra o conjunto fixo de variaveis da Sprint 2, inclusive quando os valores estiverem `null`.
-- [ ] O bloco `Missao` mostra o resumo da sessao atual e se atualiza conforme novas amostras sao registradas.
-- [ ] Mudar de celula no mapa atualiza imediatamente o bloco `Terreno Atual`.
-- [ ] Registrar nova amostra atualiza imediatamente o bloco `Missao`.
-- [ ] O HUD permanece legivel, enxuto e neutro, sem elementos de risco, recomendacao ou analise futura.
-- [ ] O HUD convive com o debug da Sprint 1 e com a persistencia/restauracao da Sprint 2 sem quebrar a demo.
+- [x] [index.html](/Users/wiser/projects/gabrielgoes/SoloCompactado-IPT/prototipo/index.html) continua abrindo localmente e preserva navegacao e coleta das Sprints 1 e 2.
+- [x] O layout desktop mostra HUD lateral fixo e mapa simultaneamente, com divisao aproximada `2/5` e `3/5`.
+- [x] O trator continua centralizado na viewport do mapa mesmo depois da introducao do HUD lateral.
+- [x] O HUD exibe os tres blocos `Trator`, `Terreno Atual` e `Missao`.
+- [x] O bloco `Trator` mostra os campos operacionais contratados nesta sprint.
+- [x] O bloco `Terreno Atual` mostra o conjunto fixo de variaveis da Sprint 2, inclusive quando os valores estiverem `null`.
+- [x] O bloco `Missao` mostra o resumo da sessao atual e se atualiza conforme novas amostras sao registradas.
+- [x] Mudar de celula no mapa atualiza imediatamente o bloco `Terreno Atual`.
+- [x] Registrar nova amostra atualiza imediatamente o bloco `Missao`.
+- [x] O HUD permanece legivel, enxuto e neutro, sem elementos de risco, recomendacao ou analise futura.
+- [x] O HUD convive com o debug da Sprint 1 e com a persistencia/restauracao da Sprint 2 sem quebrar a demo.
+
+## Final Validation
+
+- [x] Implementacao revisada.
+- [x] Testes manuais executados.
+- [x] Resultado validado em navegador.
 
 ## Source Context
 
