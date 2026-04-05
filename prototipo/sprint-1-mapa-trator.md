@@ -47,7 +47,7 @@ Criar um arquivo `.html` autonomo que:
 - O artefato principal desta sprint deve ser criado dentro de `prototipo/`.
 - Estrutura minima esperada:
   - `prototipo/sprint-1-mapa-trator.md`
-  - `prototipo/sprint1_mapa_trator.html`
+  - `prototipo/index.html`
 - Se houver assets locais desta sprint, eles tambem devem ficar organizados sob `prototipo/`.
 
 ## Implementacao
@@ -55,6 +55,9 @@ Criar um arquivo `.html` autonomo que:
 - Criar uma viewport principal que simula um app de navegacao.
 - Inicializar o `Leaflet` com centro em `[-13.098074, -45.846229]`.
 - Configurar uma camada de tiles satelitais compativel com uso no navegador.
+- Definir `zoom` inicial fixo em `17`.
+- Usar `Esri World Imagery` como camada satelital principal.
+- Se a camada satelital falhar, exibir estado de erro visivel no mapa, sem fallback automatico para outro provedor nesta sprint.
 - Manter o trator fixo no centro da viewport como elemento visual sobreposto ao mapa.
 - Implementar estado de navegacao em JavaScript:
   - latitude/longitude logica ou posicao equivalente no mapa,
@@ -65,7 +68,8 @@ Criar um arquivo `.html` autonomo que:
   - `ArrowUp` para avancar,
   - `ArrowLeft` para virar a esquerda,
   - `ArrowRight` para virar a direita,
-  - `ArrowDown` para desacelerar ou recuar, conforme a regra final da implementacao.
+  - `ArrowDown` para frear/desacelerar, sem implementacao de re nesta sprint.
+- Mapear a tecla `D` para ativar/desativar o painel de debug.
 - Atualizar a cena com loop de animacao usando `requestAnimationFrame`.
 - Recentrar o mapa continuamente conforme o movimento do trator, preservando o trator visualmente fixo.
 - Aplicar rotacao no icone/emoji do trator para refletir a direcao atual.
@@ -73,7 +77,7 @@ Criar um arquivo `.html` autonomo que:
 
 ## Interfaces e artefatos
 - Arquivo sugerido:
-  - `prototipo/sprint1_mapa_trator.html`
+  - `prototipo/index.html`
 - Estrutura interna minima:
   - container do mapa `Leaflet`,
   - camada visual do trator sobre o centro,
@@ -81,7 +85,7 @@ Criar um arquivo `.html` autonomo que:
 - Dependencias externas permitidas:
   - `Leaflet CSS`
   - `Leaflet JS`
-  - provedor de tiles satelitais compativel
+  - `Esri World Imagery`
 
 ## Criterios de aceitacao
 - O arquivo abre diretamente no navegador.
@@ -104,5 +108,8 @@ Criar um arquivo `.html` autonomo que:
 ## Assumptions
 - A Sprint 1 prioriza validar navegacao e linguagem visual.
 - A localizacao padrao sera fixa na Fazenda Paladino.
+- O `zoom` inicial padrao sera `17`.
 - O prototipo sera desktop-first com controle por teclado.
+- `ArrowDown` sera usado apenas como freio nesta sprint.
+- O painel de debug sera alternado pela tecla `D`.
 - O primeiro objetivo e acertar movimento, centralizacao e percepcao de mapa real antes de adicionar dados agronomicos.
