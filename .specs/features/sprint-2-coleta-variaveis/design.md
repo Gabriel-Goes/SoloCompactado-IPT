@@ -12,7 +12,7 @@ A Sprint 2 sera implementada como evolucao direta de [index.html](/Users/wiser/p
 Para manter o prototipo abrindo localmente no navegador e, ao mesmo tempo, respeitar a exigencia de nao inventar dados de terreno, o design separa a solucao em dois niveis:
 
 - runtime local no navegador: navega, resolve celula atual, coleta snapshots, persiste em `localStorage` e exporta `JSON`;
-- dataset local pre-recortado: arquivos gerados a partir de fontes oficiais do `Brazil Data Cube`, limitados a area central da Fazenda Paladino.
+- dataset local pre-recortado: arquivos gerados a partir de fontes oficiais do `Brazil Data Cube`, limitados a um raio operacional de `7 km` em torno da area central da Fazenda Paladino.
 
 O `Brazil Data Cube` sera a fonte oficial unica para contexto espacial, temporal e indices auxiliares por celula. O prototipo nao consultara essa fonte bruta diretamente a cada frame; ele carregara um recorte local preparado para a regiao da demo.
 
