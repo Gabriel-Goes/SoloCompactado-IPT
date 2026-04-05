@@ -22,7 +22,7 @@ Criar a camada visual do HUD para acompanhar a navegacao e a coleta de dados em 
 - A Sprint 3 deve continuar evoluindo o mesmo artefato principal criado nas sprints anteriores.
 - Estrutura minima esperada:
   - `prototipo/sprint-3-hud.md`
-  - `prototipo/sprint1_mapa_trator.html`
+  - `prototipo/index.html`
   - `prototipo/data/` para exemplos exportados, se forem mantidos no repositorio
 - O HUD nao deve ser planejado como arquivo solto fora de `prototipo/`; a implementacao deve permanecer concentrada nessa pasta.
 
