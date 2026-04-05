@@ -1,7 +1,7 @@
 # Sprint 3: HUD de Leitura Operacional Tasks
 
 **Design**: [design.md](/Users/wiser/projects/gabrielgoes/SoloCompactado-IPT/.specs/features/sprint-3-hud/design.md)  
-**Status**: Defined
+**Status**: Completed
 
 ---
 
@@ -42,9 +42,9 @@ T7 -> T8 -> T9 -> T10
 
 **Done when**:
 
-- [ ] O HTML possui estrutura equivalente a `#hud-sidebar` e `#map-stage`
-- [ ] O mapa deixa de dividir a mesma camada estrutural do HUD
-- [ ] O arquivo principal continua sendo `prototipo/index.html`
+- [x] O HTML possui estrutura equivalente a `#hud-sidebar` e `#map-stage`
+- [x] O mapa deixa de dividir a mesma camada estrutural do HUD
+- [x] O arquivo principal continua sendo `prototipo/index.html`
 
 **Commit**: `feat(prototipo): refatora shell do index para layout com hud`
 
@@ -65,9 +65,9 @@ T7 -> T8 -> T9 -> T10
 
 **Done when**:
 
-- [ ] O HUD lateral fica fixo e visivel em desktop
-- [ ] O mapa ocupa a area principal restante
-- [ ] A divisao lateral permanece legivel sem colapso visual severo
+- [x] O HUD lateral fica fixo e visivel em desktop
+- [x] O mapa ocupa a area principal restante
+- [x] A divisao lateral permanece legivel sem colapso visual severo
 
 **Commit**: `feat(prototipo): ajusta css do layout lateral do hud`
 
@@ -88,9 +88,9 @@ T7 -> T8 -> T9 -> T10
 
 **Done when**:
 
-- [ ] O trator continua centralizado na viewport do mapa
-- [ ] O debug continua funcional sem invadir o HUD principal
-- [ ] O mapa segue navegavel com o layout lateral ativo
+- [x] O trator continua centralizado na viewport do mapa
+- [x] O debug continua funcional sem invadir o HUD principal
+- [x] O mapa segue navegavel com o layout lateral ativo
 
 **Commit**: `feat(prototipo): ancora overlays na area do mapa`
 
@@ -111,9 +111,9 @@ T7 -> T8 -> T9 -> T10
 
 **Done when**:
 
-- [ ] O HUD exibe `machine_preset`, `route_speed`, `heading`, `wheel_load`, `inflation_pressure`, `tyre_width` e `track_gauge`
-- [ ] Os valores refletem o estado ativo do trator
-- [ ] O bloco continua coerente com a missao restaurada ou inicializada
+- [x] O HUD exibe `machine_preset`, `route_speed`, `heading`, `wheel_load`, `inflation_pressure`, `tyre_width` e `track_gauge`
+- [x] Os valores refletem o estado ativo do trator
+- [x] O bloco continua coerente com a missao restaurada ou inicializada
 
 **Commit**: `feat(prototipo): adiciona bloco de trator no hud`
 
@@ -134,10 +134,10 @@ T7 -> T8 -> T9 -> T10
 
 **Done when**:
 
-- [ ] O HUD exibe `cell_id`, `clay_content`, `water_content`, `matric_suction`, `bulk_density`, `conc_factor` e `sigma_p`
-- [ ] `currentCell` e a fonte primaria do bloco
-- [ ] Campos `null` aparecem de forma legivel, sem valor inventado
-- [ ] O bloco nao colapsa quando todos os campos de terreno estao indisponiveis
+- [x] O HUD exibe `cell_id`, `clay_content`, `water_content`, `matric_suction`, `bulk_density`, `conc_factor` e `sigma_p`
+- [x] `currentCell` e a fonte primaria do bloco
+- [x] Campos `null` aparecem de forma legivel, sem valor inventado
+- [x] O bloco nao colapsa quando todos os campos de terreno estao indisponiveis
 
 **Commit**: `feat(prototipo): adiciona bloco de terreno atual no hud`
 
@@ -158,9 +158,9 @@ T7 -> T8 -> T9 -> T10
 
 **Done when**:
 
-- [ ] O bloco `Missao` exibe `mission_id` resumido, total de amostras, ultimo `sampling_reason`, timestamp da ultima coleta e `lat/lng`
-- [ ] Os botoes de exportar e limpar continuam acessiveis
-- [ ] O status textual da missao continua funcional
+- [x] O bloco `Missao` exibe `mission_id` resumido, total de amostras, ultimo `sampling_reason`, timestamp da ultima coleta e `lat/lng`
+- [x] Os botoes de exportar e limpar continuam acessiveis
+- [x] O status textual da missao continua funcional
 
 **Commit**: `feat(prototipo): integra bloco de missao ao hud`
 
@@ -181,9 +181,9 @@ T7 -> T8 -> T9 -> T10
 
 **Done when**:
 
-- [ ] Existe um `HudViewModel` derivado de `runtimeState` e `tractorState`
-- [ ] O HUD atualiza os tres blocos de forma centralizada
-- [ ] O renderer substitui ou absorve `renderMissionPanel()` sem duplicar fonte de verdade
+- [x] Existe um `HudViewModel` derivado de `runtimeState` e `tractorState`
+- [x] O HUD atualiza os tres blocos de forma centralizada
+- [x] O renderer substitui ou absorve `renderMissionPanel()` sem duplicar fonte de verdade
 
 **Commit**: `feat(prototipo): consolida renderer e view model do hud`
 
@@ -204,10 +204,10 @@ T7 -> T8 -> T9 -> T10
 
 **Done when**:
 
-- [ ] Entrar em nova celula atualiza imediatamente o bloco `Terreno Atual`
-- [ ] Registrar nova amostra atualiza imediatamente o bloco `Missao`
-- [ ] Reload com sessao restaurada mostra HUD coerente sem depender de nova coleta
-- [ ] O debug continua coexistindo com o HUD
+- [x] Entrar em nova celula atualiza imediatamente o bloco `Terreno Atual`
+- [x] Registrar nova amostra atualiza imediatamente o bloco `Missao`
+- [x] Reload com sessao restaurada mostra HUD coerente sem depender de nova coleta
+- [x] O debug continua coexistindo com o HUD
 
 **Commit**: `feat(prototipo): integra hud ao fluxo de runtime e restore`
 
@@ -228,10 +228,10 @@ T7 -> T8 -> T9 -> T10
 
 **Done when**:
 
-- [ ] O HUD usa composicao vertical com hierarquia clara
-- [ ] O visual permanece neutro, sem semaforo nem elementos de risco
-- [ ] Estados de ausencia de dado ficam legiveis
-- [ ] Nao existem mini mapa, mini trilha, graficos ou componentes futuros fora de escopo
+- [x] O HUD usa composicao vertical com hierarquia clara
+- [x] O visual permanece neutro, sem semaforo nem elementos de risco
+- [x] Estados de ausencia de dado ficam legiveis
+- [x] Nao existem mini mapa, mini trilha, graficos ou componentes futuros fora de escopo
 
 **Commit**: `feat(prototipo): refina apresentacao visual do hud`
 
@@ -252,9 +252,9 @@ T7 -> T8 -> T9 -> T10
 
 **Done when**:
 
-- [ ] O HUD atende aos criterios de sucesso da sprint
-- [ ] Nao ha regressao visivel da Sprint 1 na centralizacao do trator e navegacao
-- [ ] Nao ha regressao visivel da Sprint 2 em exportacao, limpeza e restore
+- [x] O HUD atende aos criterios de sucesso da sprint
+- [x] Nao ha regressao visivel da Sprint 1 na centralizacao do trator e navegacao
+- [x] Nao ha regressao visivel da Sprint 2 em exportacao, limpeza e restore
 
 **Commit**: `feat(prototipo): valida criterios finais da sprint 3`
 

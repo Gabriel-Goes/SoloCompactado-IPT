@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Protótipo Sprint 2 | Coleta de Variáveis</title>
+    <title>Protótipo Sprint 3 | HUD Operacional</title>
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -50,12 +50,37 @@
       }
 
       #app {
+        width: 100vw;
+        height: 100vh;
+      }
+
+      #app-shell {
         position: relative;
+        display: flex;
         width: 100vw;
         height: 100vh;
         background:
           radial-gradient(circle at top left, rgba(255, 255, 255, 0.28), transparent 28%),
           linear-gradient(180deg, rgba(54, 70, 58, 0.14), rgba(214, 209, 196, 0.04));
+      }
+
+      #hud-sidebar {
+        position: relative;
+        flex: 0 0 40%;
+        min-width: 320px;
+        width: 40%;
+        padding: 18px;
+        overflow-y: auto;
+        border-right: 1px solid rgba(255, 255, 255, 0.08);
+        background:
+          linear-gradient(180deg, rgba(18, 22, 20, 0.88), rgba(29, 35, 32, 0.82)),
+          radial-gradient(circle at top, rgba(255, 209, 102, 0.12), transparent 42%);
+      }
+
+      #map-stage {
+        position: relative;
+        flex: 1 1 auto;
+        min-width: 0;
       }
 
       #map {
@@ -138,6 +163,44 @@
         box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
       }
 
+      #hud-shell {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        min-height: 100%;
+      }
+
+      #hud-header {
+        padding: 18px 18px 16px;
+      }
+
+      #hud-header .eyebrow {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+
+      #hud-header h1 {
+        margin: 0 0 8px;
+        font-size: 24px;
+        line-height: 1.05;
+        color: var(--text);
+      }
+
+      #hud-header p {
+        margin: 0;
+        font-size: 13px;
+        line-height: 1.5;
+        color: var(--muted);
+      }
+
+      .hud-block {
+        padding: 16px;
+      }
+
       #hud-hint {
         position: absolute;
         left: 18px;
@@ -165,12 +228,9 @@
       }
 
       #mission-panel {
-        position: absolute;
-        top: 18px;
-        left: 18px;
-        z-index: 550;
-        width: min(360px, calc(100vw - 36px));
-        padding: 16px;
+        position: relative;
+        width: 100%;
+        z-index: auto;
       }
 
       .panel-grid {
@@ -204,6 +264,10 @@
 
       .metric-wide {
         grid-column: 1 / -1;
+      }
+
+      .hud-empty {
+        color: var(--muted);
       }
 
       .panel-actions {
@@ -294,7 +358,7 @@
         left: 50%;
         z-index: 600;
         display: none;
-        width: min(540px, calc(100vw - 32px));
+        width: min(540px, calc(100% - 32px));
         padding: 14px 16px;
         transform: translateX(-50%);
         border: 1px solid rgba(255, 255, 255, 0.1);
@@ -322,6 +386,16 @@
       }
 
       @media (max-width: 720px) {
+        #hud-sidebar {
+          padding: 14px;
+          border-right: 0;
+          border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        #hud-header h1 {
+          font-size: 22px;
+        }
+
         #tractor-overlay {
           width: 66px;
           height: 66px;
@@ -331,92 +405,178 @@
           font-size: 36px;
         }
 
-        #mission-panel,
-        #debug-overlay,
-        #hud-hint {
-          width: calc(100vw - 28px);
-          left: 14px;
-          right: 14px;
+        #app-shell {
+          display: block;
         }
 
-        #debug-overlay {
-          top: auto;
-          bottom: 210px;
-          min-width: unset;
-        }
-
-        #hud-hint {
-          min-width: unset;
-          max-width: unset;
+        #hud-sidebar,
+        #map-stage {
+          width: 100%;
+          max-width: none;
+          min-width: 0;
         }
       }
     </style>
   </head>
   <body>
     <div id="app">
-      <div id="map" aria-label="Mapa satelital da Fazenda Paladino"></div>
+      <div id="app-shell">
+        <aside id="hud-sidebar" aria-label="Area lateral do HUD">
+          <div id="hud-shell">
+            <header id="hud-header" class="floating-panel">
+              <span class="eyebrow">Sprint 3</span>
+              <h1>HUD Operacional</h1>
+              <p>Leitura em tempo real do trator, da celula atual e da missao ativa sobre a Fazenda Paladino.</p>
+            </header>
 
-      <div id="tractor-overlay" aria-hidden="true">
-        <div class="tractor-core" id="tractor-core">
-          <div class="tractor-ring"></div>
-          <div class="tractor-heading"></div>
-          <div class="tractor-emoji">🚜</div>
-        </div>
-      </div>
+            <section id="hud-tractor" class="floating-panel hud-block" aria-label="Bloco de trator">
+              <strong class="panel-title">Trator</strong>
+              <div class="panel-grid">
+                <div class="metric metric-wide">
+                  <span class="metric-label">Preset</span>
+                  <span id="tractor-machine-preset" class="metric-value">-</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Velocidade</span>
+                  <span id="tractor-route-speed" class="metric-value">-</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Heading</span>
+                  <span id="tractor-heading" class="metric-value">-</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Carga por Roda</span>
+                  <span id="tractor-wheel-load" class="metric-value">-</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Pressao</span>
+                  <span id="tractor-inflation-pressure" class="metric-value">-</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Largura do Pneu</span>
+                  <span id="tractor-tyre-width" class="metric-value">-</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Bitola</span>
+                  <span id="tractor-track-gauge" class="metric-value">-</span>
+                </div>
+              </div>
+            </section>
 
-      <section id="mission-panel" class="floating-panel" aria-label="Painel operacional da missão">
-        <span id="mission-status" class="panel-status status-warning">Carregando dataset</span>
-        <strong class="panel-title">Missão de Coleta</strong>
-        <div class="panel-grid">
-          <div class="metric">
-            <span class="metric-label">Célula Atual</span>
-            <span id="mission-cell-id" class="metric-value">-</span>
-          </div>
-          <div class="metric">
-            <span class="metric-label">Amostras</span>
-            <span id="mission-sample-count" class="metric-value">0</span>
-          </div>
-          <div class="metric">
-            <span class="metric-label">Última Coleta</span>
-            <span id="mission-last-reason" class="metric-value">-</span>
-          </div>
-          <div class="metric">
-            <span class="metric-label">Storage</span>
-            <span id="mission-storage" class="metric-value">-</span>
-          </div>
-          <div class="metric metric-wide">
-            <span class="metric-label">Mission ID</span>
-            <span id="mission-id" class="metric-value">-</span>
-          </div>
-        </div>
-        <div class="panel-actions">
-          <button id="mission-export" type="button">Exportar JSON</button>
-          <button id="mission-clear" type="button">Limpar Dados</button>
-        </div>
-        <p id="mission-message" class="panel-note">
-          O dataset local sera usado para resolver a célula atual e armazenar snapshots do solo e do trator.
-        </p>
-      </section>
+            <section id="hud-terrain" class="floating-panel hud-block" aria-label="Bloco de terreno atual">
+              <strong class="panel-title">Terreno Atual</strong>
+              <div class="panel-grid">
+                <div class="metric metric-wide">
+                  <span class="metric-label">Cell ID</span>
+                  <span id="terrain-cell-id" class="metric-value">-</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Clay Content</span>
+                  <span id="terrain-clay-content" class="metric-value">-</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Water Content</span>
+                  <span id="terrain-water-content" class="metric-value">-</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Matric Suction</span>
+                  <span id="terrain-matric-suction" class="metric-value">-</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Bulk Density</span>
+                  <span id="terrain-bulk-density" class="metric-value">-</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Conc Factor</span>
+                  <span id="terrain-conc-factor" class="metric-value">-</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Sigma P</span>
+                  <span id="terrain-sigma-p" class="metric-value">-</span>
+                </div>
+              </div>
+            </section>
 
-      <div id="map-error" role="alert" aria-live="polite">
-        <strong>Falha operacional</strong>
-        <span id="map-error-message">Nao foi possivel inicializar a demo.</span>
-      </div>
+            <section id="mission-panel" class="floating-panel hud-block" aria-label="Painel operacional da missão">
+              <span id="mission-status" class="panel-status status-warning">Carregando dataset</span>
+              <strong class="panel-title">Missão</strong>
+              <div class="panel-grid">
+                <div class="metric metric-wide">
+                  <span class="metric-label">Mission ID</span>
+                  <span id="mission-id" class="metric-value">-</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Amostras</span>
+                  <span id="mission-sample-count" class="metric-value">0</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Ultima Coleta</span>
+                  <span id="mission-last-reason" class="metric-value">-</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Timestamp</span>
+                  <span id="mission-last-timestamp" class="metric-value">-</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Latitude</span>
+                  <span id="mission-lat" class="metric-value">-</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Longitude</span>
+                  <span id="mission-lng" class="metric-value">-</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Célula Atual</span>
+                  <span id="mission-cell-id" class="metric-value">-</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Storage</span>
+                  <span id="mission-storage" class="metric-value">-</span>
+                </div>
+              </div>
+              <div class="panel-actions">
+                <button id="mission-export" type="button">Exportar JSON</button>
+                <button id="mission-clear" type="button">Limpar Dados</button>
+              </div>
+              <p id="mission-message" class="panel-note">
+                O dataset local sera usado para resolver a célula atual e armazenar snapshots do solo e do trator.
+              </p>
+            </section>
+          </div>
+        </aside>
 
-      <div id="debug-overlay" class="floating-panel" hidden>
-        <p class="debug-title">Debug da Navegacao</p>
-        <div class="debug-row"><span>Latitude</span><span id="debug-lat">-</span></div>
-        <div class="debug-row"><span>Longitude</span><span id="debug-lng">-</span></div>
-        <div class="debug-row"><span>Heading</span><span id="debug-heading">-</span></div>
-        <div class="debug-row"><span>Velocidade</span><span id="debug-speed">-</span></div>
-        <div class="debug-row"><span>Teclas</span><span id="debug-keys">-</span></div>
-        <div class="debug-row"><span>Célula</span><span id="debug-cell">-</span></div>
-        <div class="debug-row"><span>Storage</span><span id="debug-storage">-</span></div>
-      </div>
+        <main id="map-stage" aria-label="Area do mapa e overlays">
+          <div id="map" aria-label="Mapa satelital da Fazenda Paladino"></div>
 
-      <div id="hud-hint" class="floating-panel">
-        <strong>Controle do Trator</strong>
-        <span>Use ↑ para avançar, ←/→ para esterçar, ↓ para frear e D para alternar o debug.</span>
+          <div id="tractor-overlay" aria-hidden="true">
+            <div class="tractor-core" id="tractor-core">
+              <div class="tractor-ring"></div>
+              <div class="tractor-heading"></div>
+              <div class="tractor-emoji">🚜</div>
+            </div>
+          </div>
+
+          <div id="map-error" role="alert" aria-live="polite">
+            <strong>Falha operacional</strong>
+            <span id="map-error-message">Nao foi possivel inicializar a demo.</span>
+          </div>
+
+          <div id="debug-overlay" class="floating-panel" hidden>
+            <p class="debug-title">Debug da Navegacao</p>
+            <div class="debug-row"><span>Latitude</span><span id="debug-lat">-</span></div>
+            <div class="debug-row"><span>Longitude</span><span id="debug-lng">-</span></div>
+            <div class="debug-row"><span>Heading</span><span id="debug-heading">-</span></div>
+            <div class="debug-row"><span>Velocidade</span><span id="debug-speed">-</span></div>
+            <div class="debug-row"><span>Teclas</span><span id="debug-keys">-</span></div>
+            <div class="debug-row"><span>Célula</span><span id="debug-cell">-</span></div>
+            <div class="debug-row"><span>Storage</span><span id="debug-storage">-</span></div>
+          </div>
+
+          <div id="hud-hint" class="floating-panel">
+            <strong>Controle do Trator</strong>
+            <span>Use ↑ para avançar, ←/→ para esterçar, ↓ para frear e D para alternar o debug.</span>
+          </div>
+        </main>
       </div>
     </div>
 
@@ -2348,7 +2508,8 @@
           storageAvailable: true,
           storageError: null,
           mapTileFailed: false,
-          latestSample: null
+          latestSample: null,
+          uiMessage: null
         };
 
         const app = document.getElementById("app");
@@ -2357,10 +2518,29 @@
         const mapError = document.getElementById("map-error");
         const mapErrorMessage = document.getElementById("map-error-message");
 
+        const tractorMachinePreset = document.getElementById("tractor-machine-preset");
+        const tractorRouteSpeed = document.getElementById("tractor-route-speed");
+        const tractorHeading = document.getElementById("tractor-heading");
+        const tractorWheelLoad = document.getElementById("tractor-wheel-load");
+        const tractorInflationPressure = document.getElementById("tractor-inflation-pressure");
+        const tractorTyreWidth = document.getElementById("tractor-tyre-width");
+        const tractorTrackGauge = document.getElementById("tractor-track-gauge");
+
+        const terrainCellId = document.getElementById("terrain-cell-id");
+        const terrainClayContent = document.getElementById("terrain-clay-content");
+        const terrainWaterContent = document.getElementById("terrain-water-content");
+        const terrainMatricSuction = document.getElementById("terrain-matric-suction");
+        const terrainBulkDensity = document.getElementById("terrain-bulk-density");
+        const terrainConcFactor = document.getElementById("terrain-conc-factor");
+        const terrainSigmaP = document.getElementById("terrain-sigma-p");
+
         const missionStatus = document.getElementById("mission-status");
         const missionCellId = document.getElementById("mission-cell-id");
         const missionSampleCount = document.getElementById("mission-sample-count");
         const missionLastReason = document.getElementById("mission-last-reason");
+        const missionLastTimestamp = document.getElementById("mission-last-timestamp");
+        const missionLat = document.getElementById("mission-lat");
+        const missionLng = document.getElementById("mission-lng");
         const missionStorage = document.getElementById("mission-storage");
         const missionId = document.getElementById("mission-id");
         const missionMessage = document.getElementById("mission-message");
@@ -2384,12 +2564,84 @@
           missionMessage.textContent = message;
         }
 
+        function pushUiMessage(message, ttlMs) {
+          runtimeState.uiMessage = {
+            text: message,
+            expiresAt: Date.now() + ttlMs
+          };
+        }
+
+        function getUiMessage() {
+          if (!runtimeState.uiMessage) {
+            return null;
+          }
+
+          if (Date.now() > runtimeState.uiMessage.expiresAt) {
+            runtimeState.uiMessage = null;
+            return null;
+          }
+
+          return runtimeState.uiMessage.text;
+        }
+
         function setMissionStatus(type, text) {
           missionStatus.className = "panel-status";
           missionStatus.classList.add(
             type === "error" ? "status-error" : type === "warning" ? "status-warning" : "status-ok"
           );
           missionStatus.textContent = text;
+        }
+
+        function formatHudNumber(value, suffix, fractionDigits) {
+          if (value === null || value === undefined || Number.isNaN(value)) {
+            return "Nao disponivel";
+          }
+
+          const formatted =
+            typeof fractionDigits === "number" ? Number(value).toFixed(fractionDigits) : String(value);
+
+          return suffix ? formatted + " " + suffix : formatted;
+        }
+
+        function formatHudLatLng(value) {
+          if (value === null || value === undefined || Number.isNaN(value)) {
+            return "-";
+          }
+
+          return Number(value).toFixed(6);
+        }
+
+        function summarizeMissionId(value) {
+          if (!value) {
+            return "-";
+          }
+
+          return value.length > 18 ? value.slice(0, 18) + "..." : value;
+        }
+
+        function formatTimestamp(value) {
+          if (!value) {
+            return "-";
+          }
+
+          const date = new Date(value);
+          if (Number.isNaN(date.getTime())) {
+            return "-";
+          }
+
+          return date.toLocaleString("pt-BR", {
+            hour12: false,
+            day: "2-digit",
+            month: "2-digit",
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit"
+          });
+        }
+
+        function setHudMetric(element, value, isEmpty) {
+          element.textContent = value;
+          element.classList.toggle("hud-empty", Boolean(isEmpty));
         }
 
         if (!window.L) {
@@ -2693,6 +2945,70 @@
               : null;
         }
 
+        function buildHudViewModel() {
+          const activeTractor = getActiveTractorConfig();
+          const currentCell = runtimeState.currentCell;
+          const latestTerrainSnapshot =
+            runtimeState.latestSample &&
+            currentCell &&
+            runtimeState.latestSample.cell_id === currentCell.cellId
+              ? runtimeState.latestSample.terrain_snapshot
+              : null;
+
+          const terrainSource = currentCell
+            ? latestTerrainSnapshot || buildTerrainSnapshot(currentCell)
+            : {
+                cell_id: "fora do recorte",
+                clay_content: null,
+                water_content: null,
+                matric_suction: null,
+                bulk_density: null,
+                conc_factor: null,
+                sigma_p: null
+              };
+
+          const mission = runtimeState.mission;
+
+          return {
+            tractor: {
+              machine_preset: activeTractor.machine_preset || "-",
+              route_speed: formatHudNumber(activeTractor.route_speed, "m/s", 2),
+              heading: formatHudNumber((((tractorState.headingDeg % 360) + 360) % 360), "°", 1),
+              wheel_load: formatHudNumber(activeTractor.wheel_load, "kg", 0),
+              inflation_pressure: formatHudNumber(activeTractor.inflation_pressure, "kPa", 0),
+              tyre_width: formatHudNumber(activeTractor.tyre_width, "m", 2),
+              track_gauge: formatHudNumber(activeTractor.track_gauge, "m", 2)
+            },
+            terrain: {
+              cell_id: terrainSource.cell_id || "fora do recorte",
+              clay_content: formatHudNumber(terrainSource.clay_content, "", 2),
+              water_content: formatHudNumber(terrainSource.water_content, "", 2),
+              matric_suction: formatHudNumber(terrainSource.matric_suction, "", 2),
+              bulk_density: formatHudNumber(terrainSource.bulk_density, "", 2),
+              conc_factor: formatHudNumber(terrainSource.conc_factor, "", 2),
+              sigma_p: formatHudNumber(terrainSource.sigma_p, "", 2)
+            },
+            mission: {
+              mission_id: summarizeMissionId(mission ? mission.mission_id : null),
+              sample_count: mission ? String(mission.counters.sample_count) : "0",
+              last_sampling_reason: runtimeState.latestSample
+                ? runtimeState.latestSample.sampling_reason
+                : "-",
+              last_sample_timestamp: formatTimestamp(
+                runtimeState.latestSample ? runtimeState.latestSample.timestamp : null
+              ),
+              lat: formatHudLatLng(tractorState.position.lat),
+              lng: formatHudLatLng(tractorState.position.lng),
+              cell_id: currentCell ? currentCell.cellId : "fora do recorte",
+              storage: runtimeState.storageAvailable
+                ? runtimeState.storageError
+                  ? "memoria + alerta"
+                  : "localStorage ativo"
+                : "somente memoria"
+            }
+          };
+        }
+
         function isInsideBounds(position, bounds) {
           return (
             position.lat <= bounds.north &&
@@ -2829,10 +3145,10 @@
             link.click();
             document.body.removeChild(link);
             window.URL.revokeObjectURL(url);
-            setMissionMessage("Exportacao concluida com sucesso.");
+            pushUiMessage("Exportacao concluida com sucesso.", 2500);
           } catch (error) {
             setMissionStatus("error", "Falha ao exportar");
-            setMissionMessage("Nao foi possivel exportar o JSON da missao.");
+            pushUiMessage("Nao foi possivel exportar o JSON da missao.", 3000);
           }
         }
 
@@ -2849,30 +3165,85 @@
           runtimeState.mission = createMission();
           runtimeState.mission.current_cell_id = runtimeState.currentCell ? runtimeState.currentCell.cellId : null;
           persistMission();
-          setMissionMessage("Sessao local reiniciada.");
+          pushUiMessage("Sessao local reiniciada.", 2500);
         }
 
-        function renderMissionPanel() {
-          const mission = runtimeState.mission;
-          missionCellId.textContent = runtimeState.currentCell ? runtimeState.currentCell.cellId : "fora do recorte";
-          missionSampleCount.textContent = mission ? String(mission.counters.sample_count) : "0";
-          missionLastReason.textContent = runtimeState.latestSample
-            ? runtimeState.latestSample.sampling_reason
-            : "-";
-          missionId.textContent = mission
-            ? mission.mission_id.length > 18
-              ? mission.mission_id.slice(0, 18) + "..."
-              : mission.mission_id
-            : "-";
+        function renderHud() {
+          const hudViewModel = buildHudViewModel();
 
-          const storageText = runtimeState.storageAvailable
-            ? runtimeState.storageError
-              ? "memoria + alerta"
-              : "localStorage ativo"
-            : "somente memoria";
-          missionStorage.textContent = storageText;
+          setHudMetric(tractorMachinePreset, hudViewModel.tractor.machine_preset, false);
+          setHudMetric(tractorRouteSpeed, hudViewModel.tractor.route_speed, false);
+          setHudMetric(tractorHeading, hudViewModel.tractor.heading, false);
+          setHudMetric(tractorWheelLoad, hudViewModel.tractor.wheel_load, false);
+          setHudMetric(tractorInflationPressure, hudViewModel.tractor.inflation_pressure, false);
+          setHudMetric(tractorTyreWidth, hudViewModel.tractor.tyre_width, false);
+          setHudMetric(tractorTrackGauge, hudViewModel.tractor.track_gauge, false);
 
-          if (runtimeState.datasetError) {
+          setHudMetric(terrainCellId, hudViewModel.terrain.cell_id, false);
+          setHudMetric(
+            terrainClayContent,
+            hudViewModel.terrain.clay_content,
+            hudViewModel.terrain.clay_content === "Nao disponivel"
+          );
+          setHudMetric(
+            terrainWaterContent,
+            hudViewModel.terrain.water_content,
+            hudViewModel.terrain.water_content === "Nao disponivel"
+          );
+          setHudMetric(
+            terrainMatricSuction,
+            hudViewModel.terrain.matric_suction,
+            hudViewModel.terrain.matric_suction === "Nao disponivel"
+          );
+          setHudMetric(
+            terrainBulkDensity,
+            hudViewModel.terrain.bulk_density,
+            hudViewModel.terrain.bulk_density === "Nao disponivel"
+          );
+          setHudMetric(
+            terrainConcFactor,
+            hudViewModel.terrain.conc_factor,
+            hudViewModel.terrain.conc_factor === "Nao disponivel"
+          );
+          setHudMetric(
+            terrainSigmaP,
+            hudViewModel.terrain.sigma_p,
+            hudViewModel.terrain.sigma_p === "Nao disponivel"
+          );
+
+          setHudMetric(missionId, hudViewModel.mission.mission_id, hudViewModel.mission.mission_id === "-");
+          setHudMetric(missionSampleCount, hudViewModel.mission.sample_count, false);
+          setHudMetric(
+            missionLastReason,
+            hudViewModel.mission.last_sampling_reason,
+            hudViewModel.mission.last_sampling_reason === "-"
+          );
+          setHudMetric(
+            missionLastTimestamp,
+            hudViewModel.mission.last_sample_timestamp,
+            hudViewModel.mission.last_sample_timestamp === "-"
+          );
+          setHudMetric(missionLat, hudViewModel.mission.lat, false);
+          setHudMetric(missionLng, hudViewModel.mission.lng, false);
+          setHudMetric(missionCellId, hudViewModel.mission.cell_id, false);
+          setHudMetric(missionStorage, hudViewModel.mission.storage, false);
+
+          const transientMessage = getUiMessage();
+
+          if (transientMessage) {
+            if (runtimeState.datasetError) {
+              setMissionStatus("error", "Dataset invalido");
+            } else if (!runtimeState.storageAvailable) {
+              setMissionStatus("warning", "Sem persistencia");
+            } else if (runtimeState.storageError) {
+              setMissionStatus("warning", "Persistencia parcial");
+            } else if (runtimeState.currentCell) {
+              setMissionStatus("ok", "Coleta ativa");
+            } else {
+              setMissionStatus("warning", "Fora do recorte");
+            }
+            setMissionMessage(transientMessage);
+          } else if (runtimeState.datasetError) {
             setMissionStatus("error", "Dataset invalido");
             setMissionMessage(runtimeState.datasetError);
           } else if (!runtimeState.storageAvailable) {
@@ -2997,7 +3368,8 @@
             runtimeState.mission.current_cell_id = runtimeState.currentCell
               ? runtimeState.currentCell.cellId
               : null;
-            renderMissionPanel();
+            map.invalidateSize(false);
+            renderHud();
           } catch (error) {
             runtimeState.datasetError = error.message;
             runtimeState.datasetReady = false;
@@ -3009,12 +3381,16 @@
 
         missionExportButton.addEventListener("click", function () {
           downloadMissionExport();
-          renderMissionPanel();
+          renderHud();
         });
 
         missionClearButton.addEventListener("click", function () {
           resetMission();
-          renderMissionPanel();
+          renderHud();
+        });
+
+        window.addEventListener("resize", function () {
+          map.invalidateSize(false);
         });
 
         attachKeyboardControls();
@@ -3035,13 +3411,13 @@
           setCameraPosition();
           renderTractorOverlay();
           updateSampling(deltaMs, timestamp);
-          renderMissionPanel();
+          renderHud();
           renderDebug();
 
           window.requestAnimationFrame(tick);
         }
 
-        renderMissionPanel();
+        renderHud();
         window.requestAnimationFrame(tick);
       })();
     </script>
