@@ -8,9 +8,9 @@ Esta sprint existe para validar o nucleo da experiencia interativa: mapa satelit
 
 ## Goals
 
-- [ ] Entregar o arquivo `prototipo/index.html` que abra diretamente no navegador sem build nem backend.
-- [ ] Permitir navegacao fluida sobre a Fazenda Paladino com trator centralizado e controle por setas do teclado.
-- [ ] Fazer a experiencia comunicar claramente a analogia com Google Maps/Waze em menos de 1 minuto de uso.
+- [x] Entregar o arquivo `prototipo/index.html` que abra diretamente no navegador sem build nem backend.
+- [x] Permitir navegacao fluida sobre a Fazenda Paladino com trator centralizado e controle por setas do teclado.
+- [x] Fazer a experiencia comunicar claramente a analogia com Google Maps/Waze em menos de 1 minuto de uso.
 
 ## Out of Scope
 
@@ -38,8 +38,8 @@ Explicitamente excluido nesta sprint para evitar desvio de escopo.
 
 1. WHEN o usuario abrir `prototipo/index.html` no navegador THEN o sistema SHALL carregar a pagina sem build nem backend.
 2. WHEN o usuario abrir `prototipo/index.html` no navegador THEN o sistema SHALL carregar um mapa centrado em `[-13.098074, -45.846229]`, referente a Fazenda Paladino.
-3. WHEN o mapa for exibido THEN o sistema SHALL inicializar o mapa com `zoom` `17`.
-4. WHEN o mapa for exibido THEN o sistema SHALL mostrar a camada satelital `Esri World Imagery`, comunicando lugar real.
+3. WHEN o mapa for exibido THEN o sistema SHALL inicializar o mapa com `zoom` `16`.
+4. WHEN o mapa for exibido THEN o sistema SHALL mostrar a camada satelital `Esri World Imagery`, comunicando lugar real, com `maxNativeZoom` `16`.
 5. WHEN a camada satelital nao puder ser carregada THEN o sistema SHALL exibir erro diagnostico visivel no mapa.
 6. WHEN o usuario visualizar a cena THEN o sistema SHALL manter o trator visivelmente centralizado na viewport do mapa.
 7. WHEN o usuario pressionar `ArrowUp` THEN o sistema SHALL avancar o trator na direcao atual e recenter o mapa continuamente.
@@ -62,7 +62,7 @@ Explicitamente excluido nesta sprint para evitar desvio de escopo.
 1. WHEN a viewport for carregada THEN o sistema SHALL usar composicao visual com mapa ocupando praticamente toda a tela, sem paineis extras nesta sprint.
 2. WHEN a viewport for carregada THEN o sistema SHALL exibir um marcador central evidente para o trator acima do mapa.
 3. WHEN a viewport for carregada THEN o sistema SHALL desabilitar interacoes nativas do `Leaflet` que conflitem com a demo, incluindo drag manual, scroll zoom e teclado nativo.
-4. WHEN o trator mudar de direcao THEN o sistema SHALL atualizar sua rotacao visual de forma coerente com o movimento.
+4. WHEN o trator mudar de direcao THEN o sistema SHALL atualizar sua rotacao visual de forma coerente com o movimento, preservando a frente visual do trator alinhada com a direcao da navegacao.
 5. WHEN o usuario permanecer parado THEN o sistema SHALL manter a cena estavel, sem drift involuntario do mapa.
 
 **Independent Test**: Abrir a demo e verificar, sem instrucao adicional, que o elemento central parece um veiculo guiado sobre um mapa.
@@ -92,6 +92,7 @@ Explicitamente excluido nesta sprint para evitar desvio de escopo.
 - WHEN o usuario pressionar teclas de direcao simultaneas THEN o sistema SHALL aplicar uma regra deterministica de movimento sem travar a navegacao.
 - WHEN o mapa atingir o limite visual dos tiles carregados THEN o sistema SHALL continuar funcionalmente estavel, sem quebrar a interface.
 - WHEN o usuario pressionar `ArrowDown` com velocidade zero THEN o sistema SHALL manter o trator parado, sem entrar em re.
+- WHEN o `heading` ultrapassar `360°` ou `0°` THEN o sistema SHALL manter a rotacao visual continua, sem salto perceptivel.
 
 ---
 
@@ -99,24 +100,24 @@ Explicitamente excluido nesta sprint para evitar desvio de escopo.
 
 | Requirement ID | Story | Phase | Status |
 | --- | --- | --- | --- |
-| S1MAP-01 | P1: Navegar uma fazenda real com o trator centralizado | Execute | Pending |
-| S1MAP-02 | P1: Navegar uma fazenda real com o trator centralizado | Execute | Pending |
-| S1MAP-03 | P1: Navegar uma fazenda real com o trator centralizado | Execute | Pending |
-| S1MAP-04 | P1: Navegar uma fazenda real com o trator centralizado | Execute | Pending |
-| S1MAP-05 | P1: Navegar uma fazenda real com o trator centralizado | Execute | Pending |
-| S1MAP-06 | P1: Navegar uma fazenda real com o trator centralizado | Execute | Pending |
-| S1MAP-07 | P1: Navegar uma fazenda real com o trator centralizado | Execute | Pending |
-| S1MAP-08 | P1: Navegar uma fazenda real com o trator centralizado | Execute | Pending |
-| S1MAP-09 | P1: Navegar uma fazenda real com o trator centralizado | Execute | Pending |
-| S1MAP-10 | P1: Navegar uma fazenda real com o trator centralizado | Execute | Pending |
-| S1MAP-11 | P2: Reforcar a legibilidade da navegacao | Execute | Pending |
-| S1MAP-12 | P2: Reforcar a legibilidade da navegacao | Execute | Pending |
-| S1MAP-13 | P2: Reforcar a legibilidade da navegacao | Execute | Pending |
-| S1MAP-14 | P2: Reforcar a legibilidade da navegacao | Execute | Pending |
-| S1MAP-15 | P2: Reforcar a legibilidade da navegacao | Execute | Pending |
-| S1MAP-16 | P3: Expor debug minimo para desenvolvimento | Execute | Pending |
-| S1MAP-17 | P3: Expor debug minimo para desenvolvimento | Execute | Pending |
-| S1MAP-18 | P3: Expor debug minimo para desenvolvimento | Execute | Pending |
+| S1MAP-01 | P1: Navegar uma fazenda real com o trator centralizado | Execute | Completed |
+| S1MAP-02 | P1: Navegar uma fazenda real com o trator centralizado | Execute | Completed |
+| S1MAP-03 | P1: Navegar uma fazenda real com o trator centralizado | Execute | Completed |
+| S1MAP-04 | P1: Navegar uma fazenda real com o trator centralizado | Execute | Completed |
+| S1MAP-05 | P1: Navegar uma fazenda real com o trator centralizado | Execute | Completed |
+| S1MAP-06 | P1: Navegar uma fazenda real com o trator centralizado | Execute | Completed |
+| S1MAP-07 | P1: Navegar uma fazenda real com o trator centralizado | Execute | Completed |
+| S1MAP-08 | P1: Navegar uma fazenda real com o trator centralizado | Execute | Completed |
+| S1MAP-09 | P1: Navegar uma fazenda real com o trator centralizado | Execute | Completed |
+| S1MAP-10 | P1: Navegar uma fazenda real com o trator centralizado | Execute | Completed |
+| S1MAP-11 | P2: Reforcar a legibilidade da navegacao | Execute | Completed |
+| S1MAP-12 | P2: Reforcar a legibilidade da navegacao | Execute | Completed |
+| S1MAP-13 | P2: Reforcar a legibilidade da navegacao | Execute | Completed |
+| S1MAP-14 | P2: Reforcar a legibilidade da navegacao | Execute | Completed |
+| S1MAP-15 | P2: Reforcar a legibilidade da navegacao | Execute | Completed |
+| S1MAP-16 | P3: Expor debug minimo para desenvolvimento | Execute | Completed |
+| S1MAP-17 | P3: Expor debug minimo para desenvolvimento | Execute | Completed |
+| S1MAP-18 | P3: Expor debug minimo para desenvolvimento | Execute | Completed |
 
 **Coverage:** 18 total, 18 mapped to tasks, 0 unmapped.
 
@@ -126,16 +127,19 @@ Explicitamente excluido nesta sprint para evitar desvio de escopo.
 
 Como saberemos que a sprint foi bem-sucedida:
 
-- [ ] O arquivo [index.html](/Users/wiser/projects/gabrielgoes/SoloCompactado-IPT/prototipo/index.html) existe dentro de `prototipo/` e abre localmente no navegador.
-- [ ] O mapa inicializa na Fazenda Paladino com `zoom` `17`.
-- [ ] O mapa carrega a camada `Esri World Imagery` ou exibe erro diagnostico visivel se ela falhar.
-- [ ] O trator permanece centralizado durante a navegacao.
-- [ ] As setas do teclado produzem movimento previsivel e fluido.
-- [ ] O mapa ocupa praticamente toda a tela e o trator aparece como marcador central evidente.
-- [ ] Interacoes nativas do `Leaflet` que conflitam com a demo permanecem desabilitadas.
-- [ ] `ArrowDown` atua como freio e nao como re.
-- [ ] A tecla `D` alterna o modo de debug.
-- [ ] A experiencia ja pode ser demonstrada como base da navegacao do prototipo maior.
+- [x] O arquivo [index.html](/Users/wiser/projects/gabrielgoes/SoloCompactado-IPT/prototipo/index.html) existe dentro de `prototipo/` e abre localmente no navegador.
+- [x] O mapa inicializa na Fazenda Paladino com `zoom` `16`.
+- [x] O mapa carrega a camada `Esri World Imagery` ou exibe erro diagnostico visivel se ela falhar.
+- [x] A camada satelital opera com `maxNativeZoom` `16`, evitando dependencia de tiles mais detalhados para a demo.
+- [x] O trator permanece centralizado durante a navegacao.
+- [x] As setas do teclado produzem movimento previsivel e fluido.
+- [x] A demo utiliza velocidade maxima de `50 m/s` para exploracao rapida do mapa.
+- [x] O mapa ocupa praticamente toda a tela e o trator aparece como marcador central evidente.
+- [x] Interacoes nativas do `Leaflet` que conflitam com a demo permanecem desabilitadas.
+- [x] `ArrowDown` atua como freio e nao como re.
+- [x] A orientacao visual do trator permanece coerente com a direcao do movimento, inclusive apos voltas completas.
+- [x] A tecla `D` alterna o modo de debug.
+- [x] A experiencia ja pode ser demonstrada como base da navegacao do prototipo maior.
 
 ## Source Context
 

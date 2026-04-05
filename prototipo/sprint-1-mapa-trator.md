@@ -3,6 +3,8 @@
 ## Resumo
 A Sprint 1 tem uma missao unica e clara: entregar um prototipo minimo em HTML + JavaScript, aberto direto no navegador, que mostra uma fazenda real em mapa satelital e um trator controlavel pelas setas do teclado.
 
+**Status atual**: Concluida.
+
 Nesta fase, o foco nao e HUD, calculo de compactacao ou telemetria. O objetivo e validar a base visual e a mecanica principal de navegacao: trator centralizado, mapa se movendo por baixo dele e sensacao de deslocamento sobre uma fazenda real.
 
 ## Objetivo da Sprint
@@ -55,14 +57,17 @@ Criar um arquivo `.html` autonomo que:
 - Criar uma viewport principal que simula um app de navegacao.
 - Inicializar o `Leaflet` com centro em `[-13.098074, -45.846229]`.
 - Configurar uma camada de tiles satelitais compativel com uso no navegador.
-- Definir `zoom` inicial fixo em `17`.
+- Definir `zoom` inicial fixo em `16`.
 - Usar `Esri World Imagery` como camada satelital principal.
+- Configurar `maxNativeZoom` em `16` para permitir ampliacao visual sem solicitar tiles inexistentes acima da disponibilidade nativa.
+- Nao usar `detectRetina` nesta sprint, para evitar requisicoes mais agressivas de tiles em regioes rurais.
 - Se a camada satelital falhar, exibir estado de erro visivel no mapa, sem fallback automatico para outro provedor nesta sprint.
 - Manter o trator fixo no centro da viewport como elemento visual sobreposto ao mapa.
 - Implementar estado de navegacao em JavaScript:
   - latitude/longitude logica ou posicao equivalente no mapa,
   - direcao `heading`,
   - velocidade atual,
+  - velocidade maxima de demonstracao em `50 m/s`,
   - flags de teclas pressionadas.
 - Mapear controles:
   - `ArrowUp` para avancar,
@@ -72,7 +77,9 @@ Criar um arquivo `.html` autonomo que:
 - Mapear a tecla `D` para ativar/desativar o painel de debug.
 - Atualizar a cena com loop de animacao usando `requestAnimationFrame`.
 - Recentrar o mapa continuamente conforme o movimento do trator, preservando o trator visualmente fixo.
-- Aplicar rotacao no icone/emoji do trator para refletir a direcao atual.
+- Aplicar rotacao no icone/emoji do trator para refletir a direcao atual, com compensacao da orientacao nativa do emoji.
+- Manter a rotacao do trator continua ao ultrapassar `360°`, sem reset visual perceptivel.
+- Posicionar o indicador visual de heading na frente real do trator, acompanhando a mesma rotacao do conjunto.
 - Manter a rotacao do mapa desabilitada na v1 para reduzir complexidade.
 
 ## Interfaces e artefatos
@@ -88,14 +95,16 @@ Criar um arquivo `.html` autonomo que:
   - `Esri World Imagery`
 
 ## Criterios de aceitacao
-- O arquivo abre diretamente no navegador.
-- O mapa inicia na regiao da Fazenda Paladino.
-- O fundo visual e satelital e comunica lugar real.
-- O trator permanece centralizado o tempo todo.
-- As setas do teclado controlam o deslocamento de forma estavel.
-- O mapa se move sob o trator com fluidez perceptivel.
-- A navegacao funciona sem travamentos ou saltos bruscos.
-- A experiencia ja comunica claramente a metafora de dirigir o trator por uma fazenda real.
+- [x] O arquivo abre diretamente no navegador.
+- [x] O mapa inicia na regiao da Fazenda Paladino.
+- [x] O fundo visual e satelital e comunica lugar real.
+- [x] O trator permanece centralizado o tempo todo.
+- [x] As setas do teclado controlam o deslocamento de forma estavel.
+- [x] O trator responde com velocidade suficiente para uma demo exploratoria em area aberta.
+- [x] A frente visual do trator fica coerente com a direcao do movimento.
+- [x] O mapa se move sob o trator com fluidez perceptivel.
+- [x] A navegacao funciona sem travamentos ou saltos bruscos.
+- [x] A experiencia ja comunica claramente a metafora de dirigir o trator por uma fazenda real.
 
 ## Fora da Sprint
 - HUD lateral com metricas.
@@ -108,8 +117,12 @@ Criar um arquivo `.html` autonomo que:
 ## Assumptions
 - A Sprint 1 prioriza validar navegacao e linguagem visual.
 - A localizacao padrao sera fixa na Fazenda Paladino.
-- O `zoom` inicial padrao sera `17`.
+- O `zoom` inicial padrao sera `16`.
+- A camada `Esri World Imagery` sera usada com `maxNativeZoom` `16`.
+- `detectRetina` nao sera usado nesta sprint.
 - O prototipo sera desktop-first com controle por teclado.
 - `ArrowDown` sera usado apenas como freio nesta sprint.
 - O painel de debug sera alternado pela tecla `D`.
+- A velocidade maxima da demo sera `50 m/s`.
+- O `heading` interno sera continuo, e o debug exibira o valor normalizado apenas para leitura.
 - O primeiro objetivo e acertar movimento, centralizacao e percepcao de mapa real antes de adicionar dados agronomicos.
