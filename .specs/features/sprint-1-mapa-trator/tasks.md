@@ -1,7 +1,7 @@
 # Sprint 1: Mapa Satelital com Trator Navegavel Tasks
 
 **Design**: [design.md](/Users/wiser/projects/gabrielgoes/SoloCompactado-IPT/.specs/features/sprint-1-mapa-trator/design.md)  
-**Status**: Draft
+**Status**: Completed
 
 ---
 
@@ -42,9 +42,9 @@ T7 -> T8 -> T9
 
 **Done when**:
 
-- [ ] O arquivo `prototipo/index.html` existe
-- [ ] A pagina possui os containers previstos no design
-- [ ] A abertura do arquivo nao depende de build nem backend
+- [x] O arquivo `prototipo/index.html` existe
+- [x] A pagina possui os containers previstos no design
+- [x] A abertura do arquivo nao depende de build nem backend
 
 **Commit**: `feat(prototipo): cria shell base do index da sprint 1`
 
@@ -52,7 +52,7 @@ T7 -> T8 -> T9
 
 ### T2: Integrar Leaflet e inicializacao do mapa
 
-**What**: Adicionar `Leaflet` via CDN e inicializar o mapa na Fazenda Paladino com `zoom` `17`.
+**What**: Adicionar `Leaflet` via CDN e inicializar o mapa na Fazenda Paladino com `zoom` `16`.
 **Where**: `prototipo/index.html`
 **Depends on**: T1
 **Reuses**: padrao definido em [design.md](/Users/wiser/projects/gabrielgoes/SoloCompactado-IPT/.specs/features/sprint-1-mapa-trator/design.md)
@@ -65,9 +65,9 @@ T7 -> T8 -> T9
 
 **Done when**:
 
-- [ ] `Leaflet CSS` e `Leaflet JS` sao carregados no HTML
-- [ ] O mapa inicia em `[-13.098074, -45.846229]`
-- [ ] O `zoom` inicial e `17`
+- [x] `Leaflet CSS` e `Leaflet JS` sao carregados no HTML
+- [x] O mapa inicia em `[-13.098074, -45.846229]`
+- [x] O `zoom` inicial e `16`
 
 **Commit**: `feat(prototipo): inicializa leaflet na fazenda paladino`
 
@@ -75,7 +75,7 @@ T7 -> T8 -> T9
 
 ### T3: Configurar camada satelital e estado de erro
 
-**What**: Configurar `Esri World Imagery` como camada principal e exibir erro diagnostico visivel se a camada falhar.
+**What**: Configurar `Esri World Imagery` como camada principal, com `maxNativeZoom` `16`, e exibir erro diagnostico visivel se a camada falhar.
 **Where**: `prototipo/index.html`
 **Depends on**: T2
 **Reuses**: estrategia de erro em [design.md](/Users/wiser/projects/gabrielgoes/SoloCompactado-IPT/.specs/features/sprint-1-mapa-trator/design.md)
@@ -88,9 +88,10 @@ T7 -> T8 -> T9
 
 **Done when**:
 
-- [ ] O mapa usa `Esri World Imagery`
-- [ ] A falha de carregamento do mapa produz mensagem visivel
-- [ ] Nao existe fallback automatico para outro provedor
+- [x] O mapa usa `Esri World Imagery`
+- [x] A camada usa `maxNativeZoom` `16`
+- [x] A falha de carregamento do mapa produz mensagem visivel
+- [x] Nao existe fallback automatico para outro provedor
 
 **Commit**: `feat(prototipo): adiciona camada satelital e erro visivel`
 
@@ -98,7 +99,7 @@ T7 -> T8 -> T9
 
 ### T4: Implementar o overlay central do trator [P]
 
-**What**: Criar o elemento visual do trator centralizado e preparar rotacao via CSS/JS.
+**What**: Criar o elemento visual do trator centralizado e preparar rotacao via CSS/JS, com frente visual coerente.
 **Where**: `prototipo/index.html`
 **Depends on**: T3
 **Reuses**: definicao de overlay em [design.md](/Users/wiser/projects/gabrielgoes/SoloCompactado-IPT/.specs/features/sprint-1-mapa-trator/design.md)
@@ -111,9 +112,10 @@ T7 -> T8 -> T9
 
 **Done when**:
 
-- [ ] O trator aparece fixo no centro da viewport
-- [ ] O mapa pode se mover sem deslocar o overlay
-- [ ] A rotacao do overlay pode ser atualizada por `heading`
+- [x] O trator aparece fixo no centro da viewport
+- [x] O mapa pode se mover sem deslocar o overlay
+- [x] A rotacao do overlay pode ser atualizada por `heading`
+- [x] A frente visual do trator e o indicador de direcao ficam alinhados ao movimento
 
 **Commit**: `feat(prototipo): adiciona overlay central do trator`
 
@@ -134,9 +136,9 @@ T7 -> T8 -> T9
 
 **Done when**:
 
-- [ ] As teclas direcionais atualizam estado interno de input
-- [ ] A tecla `D` alterna um estado booleano de debug
-- [ ] O sistema recupera controle apos clique se o foco do teclado se perder
+- [x] As teclas direcionais atualizam estado interno de input
+- [x] A tecla `D` alterna um estado booleano de debug
+- [x] O sistema recupera controle apos clique se o foco do teclado se perder
 
 **Commit**: `feat(prototipo): captura teclado e alterna debug`
 
@@ -144,7 +146,7 @@ T7 -> T8 -> T9
 
 ### T6: Implementar estado do trator e motor de movimento [P]
 
-**What**: Criar `TractorState` e atualizar posicao, velocidade, heading e freio sem re.
+**What**: Criar `TractorState` e atualizar posicao, velocidade, heading continuo e freio sem re.
 **Where**: `prototipo/index.html`
 **Depends on**: T3
 **Reuses**: `Movement Engine` definido em [design.md](/Users/wiser/projects/gabrielgoes/SoloCompactado-IPT/.specs/features/sprint-1-mapa-trator/design.md)
@@ -157,10 +159,12 @@ T7 -> T8 -> T9
 
 **Done when**:
 
-- [ ] `ArrowUp` acelera o trator
-- [ ] `ArrowLeft` e `ArrowRight` alteram o `heading`
-- [ ] `ArrowDown` reduz a velocidade ate `0`
-- [ ] O estado nunca entra em velocidade negativa
+- [x] `ArrowUp` acelera o trator
+- [x] `ArrowLeft` e `ArrowRight` alteram o `heading`
+- [x] `ArrowDown` reduz a velocidade ate `0`
+- [x] O estado nunca entra em velocidade negativa
+- [x] A velocidade maxima chega a `50 m/s`
+- [x] O `heading` nao sofre reset visual ao cruzar `360°`
 
 **Commit**: `feat(prototipo): implementa estado e movimento do trator`
 
@@ -181,9 +185,9 @@ T7 -> T8 -> T9
 
 **Done when**:
 
-- [ ] O mapa recentra continuamente conforme a posicao logica do trator
-- [ ] O overlay do trator permanece fixo no centro
-- [ ] O movimento e atualizado por `requestAnimationFrame`
+- [x] O mapa recentra continuamente conforme a posicao logica do trator
+- [x] O overlay do trator permanece fixo no centro
+- [x] O movimento e atualizado por `requestAnimationFrame`
 
 **Commit**: `feat(prototipo): integra loop de animacao e camera`
 
@@ -204,9 +208,9 @@ T7 -> T8 -> T9
 
 **Done when**:
 
-- [ ] O painel nasce oculto por padrao
-- [ ] A tecla `D` exibe e oculta o debug
-- [ ] O painel mostra pelo menos coordenadas atuais e `heading`
+- [x] O painel nasce oculto por padrao
+- [x] A tecla `D` exibe e oculta o debug
+- [x] O painel mostra pelo menos coordenadas atuais e `heading`
 
 **Commit**: `feat(prototipo): adiciona painel de debug`
 
@@ -227,9 +231,9 @@ T7 -> T8 -> T9
 
 **Done when**:
 
-- [ ] Scroll zoom, drag manual e teclado nativo do `Leaflet` nao interferem na demo
-- [ ] A composicao visual remete a app de mapa
-- [ ] A sprint pode ser verificada manualmente contra todos os criterios de sucesso
+- [x] Scroll zoom, drag manual e teclado nativo do `Leaflet` nao interferem na demo
+- [x] A composicao visual remete a app de mapa
+- [x] A sprint pode ser verificada manualmente contra todos os criterios de sucesso
 
 **Commit**: `feat(prototipo): finaliza ux e validacao da sprint 1`
 
