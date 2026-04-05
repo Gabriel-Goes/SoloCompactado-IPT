@@ -1,0 +1,274 @@
+{
+  "farmId": "fazenda-paladino",
+  "datasetVersion": "2026-04-05-paladino-center-v1",
+  "cellSizeMeters": 100,
+  "bounds": {
+    "north": -13.096724,
+    "south": -13.099424,
+    "east": -45.844849,
+    "west": -45.847609
+  },
+  "cells": [
+    {
+      "cellId": "paladino-r1-c1",
+      "datasetVersion": "2026-04-05-paladino-center-v1",
+      "center": { "lat": -13.097174, "lng": -45.847149 },
+      "bounds": { "north": -13.096724, "south": -13.097624, "east": -45.846689, "west": -45.847609 },
+      "thematicClass": {
+        "source": "mapbiomas",
+        "value": null
+      },
+      "terrainSnapshotBase": {
+        "cell_id": "paladino-r1-c1",
+        "clay_content": null,
+        "water_content": null,
+        "matric_suction": null,
+        "bulk_density": null,
+        "conc_factor": null,
+        "sigma_p": null,
+        "thematic_class": null
+      },
+      "provenance": {
+        "thematic_class": "official",
+        "clay_content": "unavailable",
+        "water_content": "unavailable",
+        "matric_suction": "unavailable",
+        "bulk_density": "unavailable",
+        "conc_factor": "unavailable",
+        "sigma_p": "unavailable"
+      }
+    },
+    {
+      "cellId": "paladino-r1-c2",
+      "datasetVersion": "2026-04-05-paladino-center-v1",
+      "center": { "lat": -13.097174, "lng": -45.846229 },
+      "bounds": { "north": -13.096724, "south": -13.097624, "east": -45.845769, "west": -45.846689 },
+      "thematicClass": {
+        "source": "mapbiomas",
+        "value": null
+      },
+      "terrainSnapshotBase": {
+        "cell_id": "paladino-r1-c2",
+        "clay_content": null,
+        "water_content": null,
+        "matric_suction": null,
+        "bulk_density": null,
+        "conc_factor": null,
+        "sigma_p": null,
+        "thematic_class": null
+      },
+      "provenance": {
+        "thematic_class": "official",
+        "clay_content": "unavailable",
+        "water_content": "unavailable",
+        "matric_suction": "unavailable",
+        "bulk_density": "unavailable",
+        "conc_factor": "unavailable",
+        "sigma_p": "unavailable"
+      }
+    },
+    {
+      "cellId": "paladino-r1-c3",
+      "datasetVersion": "2026-04-05-paladino-center-v1",
+      "center": { "lat": -13.097174, "lng": -45.845309 },
+      "bounds": { "north": -13.096724, "south": -13.097624, "east": -45.844849, "west": -45.845769 },
+      "thematicClass": {
+        "source": "mapbiomas",
+        "value": null
+      },
+      "terrainSnapshotBase": {
+        "cell_id": "paladino-r1-c3",
+        "clay_content": null,
+        "water_content": null,
+        "matric_suction": null,
+        "bulk_density": null,
+        "conc_factor": null,
+        "sigma_p": null,
+        "thematic_class": null
+      },
+      "provenance": {
+        "thematic_class": "official",
+        "clay_content": "unavailable",
+        "water_content": "unavailable",
+        "matric_suction": "unavailable",
+        "bulk_density": "unavailable",
+        "conc_factor": "unavailable",
+        "sigma_p": "unavailable"
+      }
+    },
+    {
+      "cellId": "paladino-r2-c1",
+      "datasetVersion": "2026-04-05-paladino-center-v1",
+      "center": { "lat": -13.098074, "lng": -45.847149 },
+      "bounds": { "north": -13.097624, "south": -13.098524, "east": -45.846689, "west": -45.847609 },
+      "thematicClass": {
+        "source": "mapbiomas",
+        "value": null
+      },
+      "terrainSnapshotBase": {
+        "cell_id": "paladino-r2-c1",
+        "clay_content": null,
+        "water_content": null,
+        "matric_suction": null,
+        "bulk_density": null,
+        "conc_factor": null,
+        "sigma_p": null,
+        "thematic_class": null
+      },
+      "provenance": {
+        "thematic_class": "official",
+        "clay_content": "unavailable",
+        "water_content": "unavailable",
+        "matric_suction": "unavailable",
+        "bulk_density": "unavailable",
+        "conc_factor": "unavailable",
+        "sigma_p": "unavailable"
+      }
+    },
+    {
+      "cellId": "paladino-r2-c2",
+      "datasetVersion": "2026-04-05-paladino-center-v1",
+      "center": { "lat": -13.098074, "lng": -45.846229 },
+      "bounds": { "north": -13.097624, "south": -13.098524, "east": -45.845769, "west": -45.846689 },
+      "thematicClass": {
+        "source": "mapbiomas",
+        "value": null
+      },
+      "terrainSnapshotBase": {
+        "cell_id": "paladino-r2-c2",
+        "clay_content": null,
+        "water_content": null,
+        "matric_suction": null,
+        "bulk_density": null,
+        "conc_factor": null,
+        "sigma_p": null,
+        "thematic_class": null
+      },
+      "provenance": {
+        "thematic_class": "official",
+        "clay_content": "unavailable",
+        "water_content": "unavailable",
+        "matric_suction": "unavailable",
+        "bulk_density": "unavailable",
+        "conc_factor": "unavailable",
+        "sigma_p": "unavailable"
+      }
+    },
+    {
+      "cellId": "paladino-r2-c3",
+      "datasetVersion": "2026-04-05-paladino-center-v1",
+      "center": { "lat": -13.098074, "lng": -45.845309 },
+      "bounds": { "north": -13.097624, "south": -13.098524, "east": -45.844849, "west": -45.845769 },
+      "thematicClass": {
+        "source": "mapbiomas",
+        "value": null
+      },
+      "terrainSnapshotBase": {
+        "cell_id": "paladino-r2-c3",
+        "clay_content": null,
+        "water_content": null,
+        "matric_suction": null,
+        "bulk_density": null,
+        "conc_factor": null,
+        "sigma_p": null,
+        "thematic_class": null
+      },
+      "provenance": {
+        "thematic_class": "official",
+        "clay_content": "unavailable",
+        "water_content": "unavailable",
+        "matric_suction": "unavailable",
+        "bulk_density": "unavailable",
+        "conc_factor": "unavailable",
+        "sigma_p": "unavailable"
+      }
+    },
+    {
+      "cellId": "paladino-r3-c1",
+      "datasetVersion": "2026-04-05-paladino-center-v1",
+      "center": { "lat": -13.098974, "lng": -45.847149 },
+      "bounds": { "north": -13.098524, "south": -13.099424, "east": -45.846689, "west": -45.847609 },
+      "thematicClass": {
+        "source": "mapbiomas",
+        "value": null
+      },
+      "terrainSnapshotBase": {
+        "cell_id": "paladino-r3-c1",
+        "clay_content": null,
+        "water_content": null,
+        "matric_suction": null,
+        "bulk_density": null,
+        "conc_factor": null,
+        "sigma_p": null,
+        "thematic_class": null
+      },
+      "provenance": {
+        "thematic_class": "official",
+        "clay_content": "unavailable",
+        "water_content": "unavailable",
+        "matric_suction": "unavailable",
+        "bulk_density": "unavailable",
+        "conc_factor": "unavailable",
+        "sigma_p": "unavailable"
+      }
+    },
+    {
+      "cellId": "paladino-r3-c2",
+      "datasetVersion": "2026-04-05-paladino-center-v1",
+      "center": { "lat": -13.098974, "lng": -45.846229 },
+      "bounds": { "north": -13.098524, "south": -13.099424, "east": -45.845769, "west": -45.846689 },
+      "thematicClass": {
+        "source": "mapbiomas",
+        "value": null
+      },
+      "terrainSnapshotBase": {
+        "cell_id": "paladino-r3-c2",
+        "clay_content": null,
+        "water_content": null,
+        "matric_suction": null,
+        "bulk_density": null,
+        "conc_factor": null,
+        "sigma_p": null,
+        "thematic_class": null
+      },
+      "provenance": {
+        "thematic_class": "official",
+        "clay_content": "unavailable",
+        "water_content": "unavailable",
+        "matric_suction": "unavailable",
+        "bulk_density": "unavailable",
+        "conc_factor": "unavailable",
+        "sigma_p": "unavailable"
+      }
+    },
+    {
+      "cellId": "paladino-r3-c3",
+      "datasetVersion": "2026-04-05-paladino-center-v1",
+      "center": { "lat": -13.098974, "lng": -45.845309 },
+      "bounds": { "north": -13.098524, "south": -13.099424, "east": -45.844849, "west": -45.845769 },
+      "thematicClass": {
+        "source": "mapbiomas",
+        "value": null
+      },
+      "terrainSnapshotBase": {
+        "cell_id": "paladino-r3-c3",
+        "clay_content": null,
+        "water_content": null,
+        "matric_suction": null,
+        "bulk_density": null,
+        "conc_factor": null,
+        "sigma_p": null,
+        "thematic_class": null
+      },
+      "provenance": {
+        "thematic_class": "official",
+        "clay_content": "unavailable",
+        "water_content": "unavailable",
+        "matric_suction": "unavailable",
+        "bulk_density": "unavailable",
+        "conc_factor": "unavailable",
+        "sigma_p": "unavailable"
+      }
+    }
+  ]
+}

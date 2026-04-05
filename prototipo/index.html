@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Protótipo Sprint 1 | Trator na Fazenda</title>
+    <title>Protótipo Sprint 2 | Coleta de Variáveis</title>
     <link
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -14,13 +14,17 @@
       :root {
         color-scheme: light;
         --bg: #d6d1c4;
-        --panel: rgba(24, 28, 26, 0.78);
-        --panel-border: rgba(255, 255, 255, 0.16);
+        --panel: rgba(24, 28, 26, 0.82);
+        --panel-soft: rgba(31, 37, 34, 0.72);
+        --panel-border: rgba(255, 255, 255, 0.14);
         --text: #eef5ef;
         --muted: rgba(238, 245, 239, 0.72);
         --accent: #ffd166;
+        --accent-strong: #f4b942;
         --tractor-shadow: rgba(18, 22, 20, 0.24);
-        --error: rgba(134, 28, 28, 0.9);
+        --error: rgba(134, 28, 28, 0.92);
+        --warning: rgba(166, 117, 19, 0.9);
+        --ok: rgba(29, 98, 65, 0.92);
       }
 
       * {
@@ -39,6 +43,10 @@
 
       body {
         position: relative;
+      }
+
+      button {
+        font: inherit;
       }
 
       #app {
@@ -121,14 +129,7 @@
         background: linear-gradient(180deg, var(--accent), rgba(255, 209, 102, 0.16));
       }
 
-      #hud-hint {
-        position: absolute;
-        left: 18px;
-        bottom: 18px;
-        z-index: 450;
-        min-width: 280px;
-        max-width: 420px;
-        padding: 12px 14px;
+      .floating-panel {
         border: 1px solid var(--panel-border);
         border-radius: 14px;
         background: var(--panel);
@@ -137,7 +138,18 @@
         box-shadow: 0 16px 40px rgba(0, 0, 0, 0.18);
       }
 
-      #hud-hint strong {
+      #hud-hint {
+        position: absolute;
+        left: 18px;
+        bottom: 18px;
+        z-index: 450;
+        min-width: 280px;
+        max-width: 420px;
+        padding: 12px 14px;
+      }
+
+      #hud-hint strong,
+      .panel-title {
         display: block;
         margin-bottom: 6px;
         font-size: 13px;
@@ -152,19 +164,104 @@
         color: var(--muted);
       }
 
+      #mission-panel {
+        position: absolute;
+        top: 18px;
+        left: 18px;
+        z-index: 550;
+        width: min(360px, calc(100vw - 36px));
+        padding: 16px;
+      }
+
+      .panel-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+
+      .metric {
+        padding: 10px 12px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        background: var(--panel-soft);
+      }
+
+      .metric-label {
+        display: block;
+        margin-bottom: 4px;
+        font-size: 11px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .metric-value {
+        display: block;
+        font-size: 15px;
+        font-weight: 600;
+      }
+
+      .metric-wide {
+        grid-column: 1 / -1;
+      }
+
+      .panel-actions {
+        display: flex;
+        gap: 10px;
+      }
+
+      .panel-actions button {
+        flex: 1;
+        padding: 10px 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--text);
+        cursor: pointer;
+      }
+
+      .panel-actions button:hover {
+        background: rgba(255, 255, 255, 0.14);
+      }
+
+      .panel-note {
+        margin-top: 12px;
+        font-size: 12px;
+        line-height: 1.45;
+        color: var(--muted);
+      }
+
+      .panel-status {
+        display: inline-block;
+        margin-bottom: 10px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        font-size: 11px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      .status-ok {
+        background: var(--ok);
+      }
+
+      .status-warning {
+        background: var(--warning);
+      }
+
+      .status-error {
+        background: var(--error);
+      }
+
       #debug-overlay {
         position: absolute;
         top: 18px;
         right: 18px;
         z-index: 550;
-        min-width: 260px;
+        min-width: 280px;
         padding: 14px 16px;
-        border: 1px solid var(--panel-border);
-        border-radius: 14px;
         background: rgba(20, 22, 27, 0.84);
-        color: var(--text);
-        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.24);
-        backdrop-filter: blur(14px);
       }
 
       #debug-overlay[hidden] {
@@ -234,17 +331,23 @@
           font-size: 36px;
         }
 
+        #mission-panel,
+        #debug-overlay,
         #hud-hint {
+          width: calc(100vw - 28px);
+          left: 14px;
           right: 14px;
-          min-width: unset;
         }
 
         #debug-overlay {
           top: auto;
-          right: 14px;
-          bottom: 96px;
-          left: 14px;
+          bottom: 210px;
           min-width: unset;
+        }
+
+        #hud-hint {
+          min-width: unset;
+          max-width: unset;
         }
       }
     </style>
@@ -261,21 +364,57 @@
         </div>
       </div>
 
+      <section id="mission-panel" class="floating-panel" aria-label="Painel operacional da missão">
+        <span id="mission-status" class="panel-status status-warning">Carregando dataset</span>
+        <strong class="panel-title">Missão de Coleta</strong>
+        <div class="panel-grid">
+          <div class="metric">
+            <span class="metric-label">Célula Atual</span>
+            <span id="mission-cell-id" class="metric-value">-</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Amostras</span>
+            <span id="mission-sample-count" class="metric-value">0</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Última Coleta</span>
+            <span id="mission-last-reason" class="metric-value">-</span>
+          </div>
+          <div class="metric">
+            <span class="metric-label">Storage</span>
+            <span id="mission-storage" class="metric-value">-</span>
+          </div>
+          <div class="metric metric-wide">
+            <span class="metric-label">Mission ID</span>
+            <span id="mission-id" class="metric-value">-</span>
+          </div>
+        </div>
+        <div class="panel-actions">
+          <button id="mission-export" type="button">Exportar JSON</button>
+          <button id="mission-clear" type="button">Limpar Dados</button>
+        </div>
+        <p id="mission-message" class="panel-note">
+          O dataset local sera usado para resolver a célula atual e armazenar snapshots do solo e do trator.
+        </p>
+      </section>
+
       <div id="map-error" role="alert" aria-live="polite">
-        <strong>Falha na camada satelital</strong>
-        <span id="map-error-message">Nao foi possivel carregar a camada Esri World Imagery.</span>
+        <strong>Falha operacional</strong>
+        <span id="map-error-message">Nao foi possivel inicializar a demo.</span>
       </div>
 
-      <div id="debug-overlay" hidden>
+      <div id="debug-overlay" class="floating-panel" hidden>
         <p class="debug-title">Debug da Navegacao</p>
         <div class="debug-row"><span>Latitude</span><span id="debug-lat">-</span></div>
         <div class="debug-row"><span>Longitude</span><span id="debug-lng">-</span></div>
         <div class="debug-row"><span>Heading</span><span id="debug-heading">-</span></div>
         <div class="debug-row"><span>Velocidade</span><span id="debug-speed">-</span></div>
         <div class="debug-row"><span>Teclas</span><span id="debug-keys">-</span></div>
+        <div class="debug-row"><span>Célula</span><span id="debug-cell">-</span></div>
+        <div class="debug-row"><span>Storage</span><span id="debug-storage">-</span></div>
       </div>
 
-      <div id="hud-hint">
+      <div id="hud-hint" class="floating-panel">
         <strong>Controle do Trator</strong>
         <span>Use ↑ para avançar, ←/→ para esterçar, ↓ para frear e D para alternar o debug.</span>
       </div>
@@ -286,12 +425,305 @@
       integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
       crossorigin=""
     ></script>
+
+    <script id="terrain-sources-data" type="application/json">
+      {
+        "farmId": "fazenda-paladino",
+        "datasetVersion": "2026-04-05-paladino-center-v1",
+        "generatedAt": "2026-04-05T12:00:00.000Z",
+        "areaBounds": {
+          "north": -13.096724,
+          "south": -13.099424,
+          "east": -45.844849,
+          "west": -45.847609
+        },
+        "sources": {
+          "mapbiomas": {
+            "collectionId": "collection10_1",
+            "assetId": "projects/mapbiomas-public/assets/brazil/lulc/collection10_1/mapbiomas_brazil_collection10_1_coverage_v1",
+            "description": "Fonte primaria configurada para classe tematica oficial de uso e cobertura da terra."
+          },
+          "bdc": {
+            "collectionId": "S2-16D-2",
+            "stacUrl": "https://data.inpe.br/bdc/stac/v1/",
+            "description": "Fonte complementar configurada para contexto espacial e temporal adicional."
+          }
+        },
+        "fieldProvenance": {
+          "thematic_class": "official",
+          "clay_content": "unavailable",
+          "water_content": "unavailable",
+          "matric_suction": "unavailable",
+          "bulk_density": "unavailable",
+          "conc_factor": "unavailable",
+          "sigma_p": "unavailable"
+        },
+        "notes": [
+          "O recorte esta limitado a regiao central usada pela demo na Fazenda Paladino.",
+          "Campos sem valor oficial extraido no recorte local permanecem null e nunca sao inventados."
+        ]
+      }
+    </script>
+
+    <script id="terrain-grid-data" type="application/json">
+      {
+        "farmId": "fazenda-paladino",
+        "datasetVersion": "2026-04-05-paladino-center-v1",
+        "cellSizeMeters": 100,
+        "bounds": {
+          "north": -13.096724,
+          "south": -13.099424,
+          "east": -45.844849,
+          "west": -45.847609
+        },
+        "cells": [
+          {
+            "cellId": "paladino-r1-c1",
+            "datasetVersion": "2026-04-05-paladino-center-v1",
+            "center": { "lat": -13.097174, "lng": -45.847149 },
+            "bounds": { "north": -13.096724, "south": -13.097624, "east": -45.846689, "west": -45.847609 },
+            "thematicClass": { "source": "mapbiomas", "value": null },
+            "terrainSnapshotBase": {
+              "cell_id": "paladino-r1-c1",
+              "clay_content": null,
+              "water_content": null,
+              "matric_suction": null,
+              "bulk_density": null,
+              "conc_factor": null,
+              "sigma_p": null,
+              "thematic_class": null
+            },
+            "provenance": {
+              "thematic_class": "official",
+              "clay_content": "unavailable",
+              "water_content": "unavailable",
+              "matric_suction": "unavailable",
+              "bulk_density": "unavailable",
+              "conc_factor": "unavailable",
+              "sigma_p": "unavailable"
+            }
+          },
+          {
+            "cellId": "paladino-r1-c2",
+            "datasetVersion": "2026-04-05-paladino-center-v1",
+            "center": { "lat": -13.097174, "lng": -45.846229 },
+            "bounds": { "north": -13.096724, "south": -13.097624, "east": -45.845769, "west": -45.846689 },
+            "thematicClass": { "source": "mapbiomas", "value": null },
+            "terrainSnapshotBase": {
+              "cell_id": "paladino-r1-c2",
+              "clay_content": null,
+              "water_content": null,
+              "matric_suction": null,
+              "bulk_density": null,
+              "conc_factor": null,
+              "sigma_p": null,
+              "thematic_class": null
+            },
+            "provenance": {
+              "thematic_class": "official",
+              "clay_content": "unavailable",
+              "water_content": "unavailable",
+              "matric_suction": "unavailable",
+              "bulk_density": "unavailable",
+              "conc_factor": "unavailable",
+              "sigma_p": "unavailable"
+            }
+          },
+          {
+            "cellId": "paladino-r1-c3",
+            "datasetVersion": "2026-04-05-paladino-center-v1",
+            "center": { "lat": -13.097174, "lng": -45.845309 },
+            "bounds": { "north": -13.096724, "south": -13.097624, "east": -45.844849, "west": -45.845769 },
+            "thematicClass": { "source": "mapbiomas", "value": null },
+            "terrainSnapshotBase": {
+              "cell_id": "paladino-r1-c3",
+              "clay_content": null,
+              "water_content": null,
+              "matric_suction": null,
+              "bulk_density": null,
+              "conc_factor": null,
+              "sigma_p": null,
+              "thematic_class": null
+            },
+            "provenance": {
+              "thematic_class": "official",
+              "clay_content": "unavailable",
+              "water_content": "unavailable",
+              "matric_suction": "unavailable",
+              "bulk_density": "unavailable",
+              "conc_factor": "unavailable",
+              "sigma_p": "unavailable"
+            }
+          },
+          {
+            "cellId": "paladino-r2-c1",
+            "datasetVersion": "2026-04-05-paladino-center-v1",
+            "center": { "lat": -13.098074, "lng": -45.847149 },
+            "bounds": { "north": -13.097624, "south": -13.098524, "east": -45.846689, "west": -45.847609 },
+            "thematicClass": { "source": "mapbiomas", "value": null },
+            "terrainSnapshotBase": {
+              "cell_id": "paladino-r2-c1",
+              "clay_content": null,
+              "water_content": null,
+              "matric_suction": null,
+              "bulk_density": null,
+              "conc_factor": null,
+              "sigma_p": null,
+              "thematic_class": null
+            },
+            "provenance": {
+              "thematic_class": "official",
+              "clay_content": "unavailable",
+              "water_content": "unavailable",
+              "matric_suction": "unavailable",
+              "bulk_density": "unavailable",
+              "conc_factor": "unavailable",
+              "sigma_p": "unavailable"
+            }
+          },
+          {
+            "cellId": "paladino-r2-c2",
+            "datasetVersion": "2026-04-05-paladino-center-v1",
+            "center": { "lat": -13.098074, "lng": -45.846229 },
+            "bounds": { "north": -13.097624, "south": -13.098524, "east": -45.845769, "west": -45.846689 },
+            "thematicClass": { "source": "mapbiomas", "value": null },
+            "terrainSnapshotBase": {
+              "cell_id": "paladino-r2-c2",
+              "clay_content": null,
+              "water_content": null,
+              "matric_suction": null,
+              "bulk_density": null,
+              "conc_factor": null,
+              "sigma_p": null,
+              "thematic_class": null
+            },
+            "provenance": {
+              "thematic_class": "official",
+              "clay_content": "unavailable",
+              "water_content": "unavailable",
+              "matric_suction": "unavailable",
+              "bulk_density": "unavailable",
+              "conc_factor": "unavailable",
+              "sigma_p": "unavailable"
+            }
+          },
+          {
+            "cellId": "paladino-r2-c3",
+            "datasetVersion": "2026-04-05-paladino-center-v1",
+            "center": { "lat": -13.098074, "lng": -45.845309 },
+            "bounds": { "north": -13.097624, "south": -13.098524, "east": -45.844849, "west": -45.845769 },
+            "thematicClass": { "source": "mapbiomas", "value": null },
+            "terrainSnapshotBase": {
+              "cell_id": "paladino-r2-c3",
+              "clay_content": null,
+              "water_content": null,
+              "matric_suction": null,
+              "bulk_density": null,
+              "conc_factor": null,
+              "sigma_p": null,
+              "thematic_class": null
+            },
+            "provenance": {
+              "thematic_class": "official",
+              "clay_content": "unavailable",
+              "water_content": "unavailable",
+              "matric_suction": "unavailable",
+              "bulk_density": "unavailable",
+              "conc_factor": "unavailable",
+              "sigma_p": "unavailable"
+            }
+          },
+          {
+            "cellId": "paladino-r3-c1",
+            "datasetVersion": "2026-04-05-paladino-center-v1",
+            "center": { "lat": -13.098974, "lng": -45.847149 },
+            "bounds": { "north": -13.098524, "south": -13.099424, "east": -45.846689, "west": -45.847609 },
+            "thematicClass": { "source": "mapbiomas", "value": null },
+            "terrainSnapshotBase": {
+              "cell_id": "paladino-r3-c1",
+              "clay_content": null,
+              "water_content": null,
+              "matric_suction": null,
+              "bulk_density": null,
+              "conc_factor": null,
+              "sigma_p": null,
+              "thematic_class": null
+            },
+            "provenance": {
+              "thematic_class": "official",
+              "clay_content": "unavailable",
+              "water_content": "unavailable",
+              "matric_suction": "unavailable",
+              "bulk_density": "unavailable",
+              "conc_factor": "unavailable",
+              "sigma_p": "unavailable"
+            }
+          },
+          {
+            "cellId": "paladino-r3-c2",
+            "datasetVersion": "2026-04-05-paladino-center-v1",
+            "center": { "lat": -13.098974, "lng": -45.846229 },
+            "bounds": { "north": -13.098524, "south": -13.099424, "east": -45.845769, "west": -45.846689 },
+            "thematicClass": { "source": "mapbiomas", "value": null },
+            "terrainSnapshotBase": {
+              "cell_id": "paladino-r3-c2",
+              "clay_content": null,
+              "water_content": null,
+              "matric_suction": null,
+              "bulk_density": null,
+              "conc_factor": null,
+              "sigma_p": null,
+              "thematic_class": null
+            },
+            "provenance": {
+              "thematic_class": "official",
+              "clay_content": "unavailable",
+              "water_content": "unavailable",
+              "matric_suction": "unavailable",
+              "bulk_density": "unavailable",
+              "conc_factor": "unavailable",
+              "sigma_p": "unavailable"
+            }
+          },
+          {
+            "cellId": "paladino-r3-c3",
+            "datasetVersion": "2026-04-05-paladino-center-v1",
+            "center": { "lat": -13.098974, "lng": -45.845309 },
+            "bounds": { "north": -13.098524, "south": -13.099424, "east": -45.844849, "west": -45.845769 },
+            "thematicClass": { "source": "mapbiomas", "value": null },
+            "terrainSnapshotBase": {
+              "cell_id": "paladino-r3-c3",
+              "clay_content": null,
+              "water_content": null,
+              "matric_suction": null,
+              "bulk_density": null,
+              "conc_factor": null,
+              "sigma_p": null,
+              "thematic_class": null
+            },
+            "provenance": {
+              "thematic_class": "official",
+              "clay_content": "unavailable",
+              "water_content": "unavailable",
+              "matric_suction": "unavailable",
+              "bulk_density": "unavailable",
+              "conc_factor": "unavailable",
+              "sigma_p": "unavailable"
+            }
+          }
+        ]
+      }
+    </script>
+
     <script>
       (function () {
         const FARM_CENTER = { lat: -13.098074, lng: -45.846229 };
         const INITIAL_ZOOM = 16;
         const METERS_PER_DEGREE_LAT = 111320;
         const MAX_DELTA_MS = 48;
+        const SAMPLE_INTERVAL_MS = 1000;
+        const STORAGE_KEY = "solo-compactado:mission";
+        const STORAGE_KEY_DATASET_VERSION = "solo-compactado:dataset-version";
 
         const tractorState = {
           position: { ...FARM_CENTER },
@@ -300,19 +732,32 @@
           maxSpeedMps: 50,
           turnRateDegPerSec: 110,
           accelerationMps2: 16,
-          brakeRateMps2: 20,
+          brakeRateMps2: 20
         };
 
         const inputState = {
           up: false,
           down: false,
           left: false,
-          right: false,
+          right: false
         };
 
         const debugState = {
           enabled: false,
-          lastFrameMs: 0,
+          lastFrameMs: 0
+        };
+
+        const runtimeState = {
+          datasetReady: false,
+          datasetError: null,
+          terrainGrid: null,
+          terrainManifest: null,
+          mission: null,
+          currentCell: null,
+          storageAvailable: true,
+          storageError: null,
+          mapTileFailed: false,
+          latestSample: null
         };
 
         const app = document.getElementById("app");
@@ -321,20 +766,95 @@
         const mapError = document.getElementById("map-error");
         const mapErrorMessage = document.getElementById("map-error-message");
 
+        const missionStatus = document.getElementById("mission-status");
+        const missionCellId = document.getElementById("mission-cell-id");
+        const missionSampleCount = document.getElementById("mission-sample-count");
+        const missionLastReason = document.getElementById("mission-last-reason");
+        const missionStorage = document.getElementById("mission-storage");
+        const missionId = document.getElementById("mission-id");
+        const missionMessage = document.getElementById("mission-message");
+        const missionExportButton = document.getElementById("mission-export");
+        const missionClearButton = document.getElementById("mission-clear");
+
         const debugLat = document.getElementById("debug-lat");
         const debugLng = document.getElementById("debug-lng");
         const debugHeading = document.getElementById("debug-heading");
         const debugSpeed = document.getElementById("debug-speed");
         const debugKeys = document.getElementById("debug-keys");
+        const debugCell = document.getElementById("debug-cell");
+        const debugStorage = document.getElementById("debug-storage");
 
-        function showFatalError(message) {
+        function showOperationalError(message) {
           mapError.classList.add("visible");
           mapErrorMessage.textContent = message;
         }
 
+        function setMissionMessage(message) {
+          missionMessage.textContent = message;
+        }
+
+        function setMissionStatus(type, text) {
+          missionStatus.className = "panel-status";
+          missionStatus.classList.add(
+            type === "error" ? "status-error" : type === "warning" ? "status-warning" : "status-ok"
+          );
+          missionStatus.textContent = text;
+        }
+
         if (!window.L) {
-          showFatalError("Leaflet nao foi carregado. Verifique a conexao e recarregue a pagina.");
+          showOperationalError("Leaflet nao foi carregado. Verifique a conexao e recarregue a pagina.");
+          setMissionStatus("error", "Leaflet ausente");
+          setMissionMessage("A navegacao nao pode iniciar sem Leaflet.");
           return;
+        }
+
+        function readEmbeddedJson(scriptId) {
+          const node = document.getElementById(scriptId);
+          if (!node) {
+            throw new Error("Bloco de dados nao encontrado: " + scriptId);
+          }
+
+          try {
+            return JSON.parse(node.textContent);
+          } catch (error) {
+            throw new Error("Falha ao interpretar JSON embutido em " + scriptId + ".");
+          }
+        }
+
+        function validateTerrainDataset(grid, manifest) {
+          if (!grid || !manifest) {
+            return { valid: false, reason: "Dataset local ausente." };
+          }
+
+          if (grid.farmId !== "fazenda-paladino" || manifest.farmId !== "fazenda-paladino") {
+            return { valid: false, reason: "O dataset nao referencia a Fazenda Paladino." };
+          }
+
+          if (!grid.datasetVersion || grid.datasetVersion !== manifest.datasetVersion) {
+            return { valid: false, reason: "Dataset com versao inconsistente entre grade e manifesto." };
+          }
+
+          if (!Array.isArray(grid.cells) || grid.cells.length === 0) {
+            return { valid: false, reason: "A grade local nao contem celulas." };
+          }
+
+          const invalidCell = grid.cells.find(function (cell) {
+            return !cell.cellId || !cell.bounds || !cell.terrainSnapshotBase || !cell.provenance;
+          });
+
+          if (invalidCell) {
+            return { valid: false, reason: "Existe ao menos uma celula invalida no dataset local." };
+          }
+
+          return { valid: true, reason: null };
+        }
+
+        function loadTerrainGrid() {
+          return readEmbeddedJson("terrain-grid-data");
+        }
+
+        function loadTerrainSources() {
+          return readEmbeddedJson("terrain-sources-data");
         }
 
         function createMap() {
@@ -349,21 +869,25 @@
             boxZoom: false,
             keyboard: false,
             tap: false,
-            touchZoom: false,
+            touchZoom: false
           });
 
           const esriWorldImagery = L.tileLayer(
             "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
             {
               maxZoom: 19,
-              maxNativeZoom: 16,
+              maxNativeZoom: 16
             }
           );
 
           esriWorldImagery.on("tileerror", function () {
-            showFatalError(
+            runtimeState.mapTileFailed = true;
+            showOperationalError(
               "Nao foi possivel carregar a camada Esri World Imagery. A demo permanece aberta para diagnostico."
             );
+            if (!runtimeState.datasetError) {
+              setMissionStatus("warning", "Mapa com falha");
+            }
           });
 
           esriWorldImagery.addTo(map);
@@ -376,6 +900,14 @@
           return Math.min(Math.max(value, min), max);
         }
 
+        function createId(prefix) {
+          if (window.crypto && typeof window.crypto.randomUUID === "function") {
+            return prefix + "-" + window.crypto.randomUUID();
+          }
+
+          return prefix + "-" + Date.now() + "-" + Math.random().toString(16).slice(2);
+        }
+
         function moveForward(position, headingDeg, distanceMeters) {
           const headingRad = (headingDeg * Math.PI) / 180;
           const deltaNorthMeters = Math.cos(headingRad) * distanceMeters;
@@ -385,7 +917,7 @@
             METERS_PER_DEGREE_LAT * Math.cos((position.lat * Math.PI) / 180);
           const lng = position.lng + deltaEastMeters / Math.max(metersPerDegreeLng, 1);
 
-          return { lat, lng };
+          return { lat: lat, lng: lng };
         }
 
         function attachKeyboardControls() {
@@ -424,6 +956,353 @@
           app.addEventListener("pointerdown", function () {
             window.focus();
           });
+        }
+
+        function getActiveTractorConfig() {
+          return {
+            machine_preset: "Trator médio",
+            wheel_load: 3000,
+            mass_total: 12000,
+            inflation_pressure: 100,
+            tyre_width: 0.52,
+            track_gauge: 2.2,
+            route_speed: Number(tractorState.speedMps.toFixed(2))
+          };
+        }
+
+        function createMission() {
+          const now = new Date().toISOString();
+          return {
+            mission_id: createId("mission"),
+            started_at: now,
+            updated_at: now,
+            farm_id: runtimeState.terrainManifest.farmId,
+            dataset_version: runtimeState.terrainManifest.datasetVersion,
+            active_tractor_config: getActiveTractorConfig(),
+            terrain_manifest: runtimeState.terrainManifest,
+            terrain_grid_meta: {
+              cell_size_meters: runtimeState.terrainGrid.cellSizeMeters,
+              bounds: runtimeState.terrainGrid.bounds,
+              source_ref: "embedded:terrain-grid-data"
+            },
+            current_cell_id: null,
+            samples: [],
+            counters: {
+              sample_count: 0
+            },
+            sampling: {
+              last_sample_at_ms: 0,
+              last_sample_cell_id: null,
+              last_logical_key: null
+            }
+          };
+        }
+
+        function cloneSampleSafe(value) {
+          return JSON.parse(JSON.stringify(value));
+        }
+
+        function appendSample(sample) {
+          runtimeState.mission.samples.push(sample);
+          runtimeState.mission.counters.sample_count = runtimeState.mission.samples.length;
+          runtimeState.mission.updated_at = sample.timestamp;
+          runtimeState.mission.current_cell_id = sample.cell_id;
+          runtimeState.mission.sampling.last_sample_cell_id = sample.cell_id;
+          runtimeState.latestSample = sample;
+          persistMission();
+        }
+
+        function detectStorageAvailability() {
+          try {
+            const probe = "__solo_compactado_probe__";
+            window.localStorage.setItem(probe, "1");
+            window.localStorage.removeItem(probe);
+            runtimeState.storageAvailable = true;
+            runtimeState.storageError = null;
+          } catch (error) {
+            runtimeState.storageAvailable = false;
+            runtimeState.storageError = "localStorage indisponivel";
+          }
+        }
+
+        function persistMission() {
+          if (!runtimeState.mission) {
+            return;
+          }
+
+          runtimeState.mission.active_tractor_config = getActiveTractorConfig();
+          runtimeState.mission.updated_at = new Date().toISOString();
+
+          if (!runtimeState.storageAvailable) {
+            return;
+          }
+
+          try {
+            window.localStorage.setItem(STORAGE_KEY, JSON.stringify(runtimeState.mission));
+            window.localStorage.setItem(STORAGE_KEY_DATASET_VERSION, runtimeState.mission.dataset_version);
+            runtimeState.storageError = null;
+          } catch (error) {
+            runtimeState.storageAvailable = false;
+            runtimeState.storageError = "Falha ao persistir a missao.";
+          }
+        }
+
+        function loadPersistedMission() {
+          if (!runtimeState.storageAvailable) {
+            return null;
+          }
+
+          try {
+            const raw = window.localStorage.getItem(STORAGE_KEY);
+            if (!raw) {
+              return null;
+            }
+
+            return JSON.parse(raw);
+          } catch (error) {
+            runtimeState.storageError = "Falha ao restaurar a missao persistida.";
+            return null;
+          }
+        }
+
+        function clearPersistedMission() {
+          if (!runtimeState.storageAvailable) {
+            return;
+          }
+
+          try {
+            window.localStorage.removeItem(STORAGE_KEY);
+            window.localStorage.removeItem(STORAGE_KEY_DATASET_VERSION);
+          } catch (error) {
+            runtimeState.storageError = "Falha ao limpar a missao persistida.";
+          }
+        }
+
+        function restoreOrCreateMission() {
+          const persisted = loadPersistedMission();
+
+          if (!persisted) {
+            runtimeState.mission = createMission();
+            persistMission();
+            return;
+          }
+
+          if (persisted.dataset_version !== runtimeState.terrainManifest.datasetVersion) {
+            runtimeState.mission = createMission();
+            runtimeState.storageError =
+              "Missao anterior ignorada por incompatibilidade com dataset_version atual.";
+            persistMission();
+            return;
+          }
+
+          runtimeState.mission = persisted;
+          runtimeState.latestSample =
+            persisted.samples && persisted.samples.length > 0
+              ? persisted.samples[persisted.samples.length - 1]
+              : null;
+        }
+
+        function isInsideBounds(position, bounds) {
+          return (
+            position.lat <= bounds.north &&
+            position.lat >= bounds.south &&
+            position.lng <= bounds.east &&
+            position.lng >= bounds.west
+          );
+        }
+
+        function resolveCell(position, grid) {
+          if (!grid || !isInsideBounds(position, grid.bounds)) {
+            return null;
+          }
+
+          return (
+            grid.cells.find(function (cell) {
+              return isInsideBounds(position, cell.bounds);
+            }) || null
+          );
+        }
+
+        function buildTerrainSnapshot(cell) {
+          return {
+            cell_id: cell.cellId,
+            clay_content: cell.terrainSnapshotBase.clay_content,
+            water_content: cell.terrainSnapshotBase.water_content,
+            matric_suction: cell.terrainSnapshotBase.matric_suction,
+            bulk_density: cell.terrainSnapshotBase.bulk_density,
+            conc_factor: cell.terrainSnapshotBase.conc_factor,
+            sigma_p: cell.terrainSnapshotBase.sigma_p,
+            thematic_class: cell.terrainSnapshotBase.thematic_class,
+            provenance: cloneSampleSafe(cell.provenance)
+          };
+        }
+
+        function createSample(reason, currentCell, logicalNowMs) {
+          return {
+            sample_id: createId("sample"),
+            timestamp: new Date().toISOString(),
+            mission_id: runtimeState.mission.mission_id,
+            tractor_position: {
+              lat: Number(tractorState.position.lat.toFixed(6)),
+              lng: Number(tractorState.position.lng.toFixed(6))
+            },
+            heading: Number(tractorState.headingDeg.toFixed(2)),
+            speed: Number(tractorState.speedMps.toFixed(2)),
+            cell_id: currentCell.cellId,
+            sampling_reason: reason,
+            terrain_snapshot: buildTerrainSnapshot(currentCell),
+            tractor_snapshot: getActiveTractorConfig(),
+            logical_time_ms: logicalNowMs
+          };
+        }
+
+        function updateSampling(_deltaMs, timestamp) {
+          if (!runtimeState.datasetReady || !runtimeState.mission) {
+            return;
+          }
+
+          runtimeState.currentCell = resolveCell(tractorState.position, runtimeState.terrainGrid);
+          runtimeState.mission.current_cell_id = runtimeState.currentCell ? runtimeState.currentCell.cellId : null;
+          runtimeState.mission.active_tractor_config = getActiveTractorConfig();
+
+          if (!runtimeState.currentCell) {
+            return;
+          }
+
+          const moving = tractorState.speedMps > 0;
+          const samplingState = runtimeState.mission.sampling;
+          let sampleReason = null;
+          const currentCellId = runtimeState.currentCell.cellId;
+
+          if (moving && samplingState.last_sample_cell_id !== currentCellId) {
+            sampleReason = "cell-change";
+          } else if (
+            moving &&
+            samplingState.last_sample_cell_id === currentCellId &&
+            timestamp - samplingState.last_sample_at_ms >= SAMPLE_INTERVAL_MS
+          ) {
+            sampleReason = "time-tick";
+          }
+
+          if (!sampleReason) {
+            return;
+          }
+
+          const logicalKey =
+            sampleReason + ":" + currentCellId + ":" + Math.floor(timestamp / SAMPLE_INTERVAL_MS);
+          if (samplingState.last_logical_key === logicalKey) {
+            return;
+          }
+
+          const sample = createSample(sampleReason, runtimeState.currentCell, timestamp);
+          samplingState.last_sample_at_ms = timestamp;
+          samplingState.last_logical_key = logicalKey;
+          appendSample(sample);
+        }
+
+        function buildMissionExport() {
+          return {
+            mission: {
+              mission_id: runtimeState.mission.mission_id,
+              started_at: runtimeState.mission.started_at,
+              updated_at: runtimeState.mission.updated_at,
+              farm_id: runtimeState.mission.farm_id,
+              dataset_version: runtimeState.mission.dataset_version,
+              counters: runtimeState.mission.counters,
+              current_cell_id: runtimeState.mission.current_cell_id
+            },
+            terrain_manifest: runtimeState.terrainManifest,
+            terrain_grid_meta: runtimeState.mission.terrain_grid_meta,
+            active_tractor_config: runtimeState.mission.active_tractor_config,
+            samples: runtimeState.mission.samples
+          };
+        }
+
+        function downloadMissionExport() {
+          if (!runtimeState.mission) {
+            setMissionStatus("warning", "Sem missao");
+            setMissionMessage("Nao ha missao ativa para exportar.");
+            return;
+          }
+
+          try {
+            const payload = buildMissionExport();
+            const blob = new Blob([JSON.stringify(payload, null, 2)], {
+              type: "application/json"
+            });
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = "missao-" + runtimeState.mission.mission_id + ".json";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            window.URL.revokeObjectURL(url);
+            setMissionMessage("Exportacao concluida com sucesso.");
+          } catch (error) {
+            setMissionStatus("error", "Falha ao exportar");
+            setMissionMessage("Nao foi possivel exportar o JSON da missao.");
+          }
+        }
+
+        function resetMission() {
+          if (!runtimeState.datasetReady || !runtimeState.terrainManifest || !runtimeState.terrainGrid) {
+            setMissionStatus("error", "Sem dataset");
+            setMissionMessage("Nao e possivel reiniciar a missao sem dataset valido.");
+            return;
+          }
+
+          clearPersistedMission();
+          runtimeState.latestSample = null;
+          runtimeState.currentCell = resolveCell(tractorState.position, runtimeState.terrainGrid);
+          runtimeState.mission = createMission();
+          runtimeState.mission.current_cell_id = runtimeState.currentCell ? runtimeState.currentCell.cellId : null;
+          persistMission();
+          setMissionMessage("Sessao local reiniciada.");
+        }
+
+        function renderMissionPanel() {
+          const mission = runtimeState.mission;
+          missionCellId.textContent = runtimeState.currentCell ? runtimeState.currentCell.cellId : "fora do recorte";
+          missionSampleCount.textContent = mission ? String(mission.counters.sample_count) : "0";
+          missionLastReason.textContent = runtimeState.latestSample
+            ? runtimeState.latestSample.sampling_reason
+            : "-";
+          missionId.textContent = mission
+            ? mission.mission_id.length > 18
+              ? mission.mission_id.slice(0, 18) + "..."
+              : mission.mission_id
+            : "-";
+
+          const storageText = runtimeState.storageAvailable
+            ? runtimeState.storageError
+              ? "memoria + alerta"
+              : "localStorage ativo"
+            : "somente memoria";
+          missionStorage.textContent = storageText;
+
+          if (runtimeState.datasetError) {
+            setMissionStatus("error", "Dataset invalido");
+            setMissionMessage(runtimeState.datasetError);
+          } else if (!runtimeState.storageAvailable) {
+            setMissionStatus("warning", "Sem persistencia");
+            setMissionMessage("Coleta ativa apenas em memoria. A sessao nao sera restaurada no reload.");
+          } else if (runtimeState.storageError) {
+            setMissionStatus("warning", "Persistencia parcial");
+            setMissionMessage(runtimeState.storageError);
+          } else if (runtimeState.currentCell) {
+            setMissionStatus("ok", "Coleta ativa");
+            setMissionMessage(
+              "A missão está coletando snapshots em " +
+                runtimeState.currentCell.cellId +
+                " com dataset " +
+                runtimeState.terrainManifest.datasetVersion +
+                "."
+            );
+          } else {
+            setMissionStatus("warning", "Fora do recorte");
+            setMissionMessage("O trator saiu da grade local. A navegacao continua, mas a coleta pausa.");
+          }
         }
 
         function updateTractorState(deltaMs) {
@@ -472,9 +1351,7 @@
         function setCameraPosition() {
           map.setView([tractorState.position.lat, tractorState.position.lng], map.getZoom(), {
             animate: false,
-            pan: {
-              animate: false,
-            },
+            pan: { animate: false }
           });
         }
 
@@ -483,7 +1360,9 @@
         }
 
         function renderDebug() {
-          if (!debugState.enabled) return;
+          if (!debugState.enabled) {
+            return;
+          }
 
           debugLat.textContent = tractorState.position.lat.toFixed(6);
           debugLng.textContent = tractorState.position.lng.toFixed(6);
@@ -498,7 +1377,57 @@
               return entry[0];
             })
             .join(", ") || "nenhuma";
+          debugCell.textContent = runtimeState.currentCell ? runtimeState.currentCell.cellId : "fora";
+          debugStorage.textContent = runtimeState.storageAvailable ? "ok" : "memory";
         }
+
+        function initializeRuntime() {
+          try {
+            runtimeState.terrainGrid = loadTerrainGrid();
+            runtimeState.terrainManifest = loadTerrainSources();
+            const validation = validateTerrainDataset(
+              runtimeState.terrainGrid,
+              runtimeState.terrainManifest
+            );
+
+            if (!validation.valid) {
+              runtimeState.datasetError = validation.reason;
+              runtimeState.datasetReady = false;
+              setMissionStatus("error", "Dataset invalido");
+              setMissionMessage(validation.reason);
+              showOperationalError(validation.reason);
+              return;
+            }
+
+            runtimeState.datasetReady = true;
+            detectStorageAvailability();
+            restoreOrCreateMission();
+            runtimeState.currentCell = resolveCell(tractorState.position, runtimeState.terrainGrid);
+            runtimeState.mission.current_cell_id = runtimeState.currentCell
+              ? runtimeState.currentCell.cellId
+              : null;
+            renderMissionPanel();
+          } catch (error) {
+            runtimeState.datasetError = error.message;
+            runtimeState.datasetReady = false;
+            setMissionStatus("error", "Falha no dataset");
+            setMissionMessage(error.message);
+            showOperationalError(error.message);
+          }
+        }
+
+        missionExportButton.addEventListener("click", function () {
+          downloadMissionExport();
+          renderMissionPanel();
+        });
+
+        missionClearButton.addEventListener("click", function () {
+          resetMission();
+          renderMissionPanel();
+        });
+
+        attachKeyboardControls();
+        initializeRuntime();
 
         let lastTimestamp = null;
 
@@ -514,14 +1443,14 @@
           updateTractorState(deltaMs);
           setCameraPosition();
           renderTractorOverlay();
+          updateSampling(deltaMs, timestamp);
+          renderMissionPanel();
           renderDebug();
 
           window.requestAnimationFrame(tick);
         }
 
-        attachKeyboardControls();
-        renderTractorOverlay();
-        setCameraPosition();
+        renderMissionPanel();
         window.requestAnimationFrame(tick);
       })();
     </script>
