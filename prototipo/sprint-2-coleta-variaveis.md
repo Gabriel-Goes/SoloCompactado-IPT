@@ -27,7 +27,7 @@ Criar um arquivo `.html` autonomo que:
 - A Sprint 2 deve evoluir a arquitetura criada na Sprint 1 sem criar arquivos principais fora de `prototipo/`.
 - Estrutura minima esperada:
   - `prototipo/sprint-2-coleta-variaveis.md`
-  - `prototipo/sprint1_mapa_trator.html`
+  - `prototipo/index.html`
   - `prototipo/data/` para arquivos exportados ou exemplos de sessao, se necessario
 - Se houver exemplos de `JSON` exportado ou arquivos auxiliares de grade/celulas, eles devem ficar dentro de `prototipo/`.
 
@@ -107,25 +107,26 @@ Se houver interface adicional, ela deve ser apenas operacional:
 - Manter o `Leaflet` como base do mapa.
 - Inicializar a area da fazenda com uma grade de celulas de tamanho fixo.
 - Resolver, a cada atualizacao do trator, em qual celula ele esta.
-- Buscar os dados do terreno vinculados a essa celula.
+- Buscar os dados do terreno vinculados a essa celula a partir do `BDC`.
 - Montar o snapshot completo da coleta.
+- Preencher com dado real do `BDC` o que estiver disponivel e manter `null` com proveniencia adequada para o que o `BDC` nao fornecer.
 - Acrescentar a coleta no historico em memoria.
 - Sincronizar o historico com o `localStorage`.
 - Expor a exportacao da sessao em formato `JSON`.
 - Manter o codigo-fonte principal do prototipo dentro de `prototipo/`.
 
 ## Criterios de Aceitacao
-- Navegar entre duas ou mais celulas distintas deve gerar registros com `cell_id` diferentes.
-- Permanecer em movimento dentro da mesma celula deve gerar registros por tempo.
-- Alterar uma variavel do trator durante a missao deve refletir apenas nos registros posteriores a mudanca.
-- Recarregar a pagina deve manter a missao salva no `localStorage`.
-- Exportar os dados deve gerar um `JSON` com metadados da missao e lista de amostras.
-- Limpar os dados deve reiniciar a sessao local sem residuos.
-- Ao final da sprint, deve estar demonstrado que o sistema consegue:
-  - localizar o trator no mapa,
-  - identificar a regiao atual,
-  - extrair as variaveis do terreno dessa regiao,
-  - salvar junto as variaveis vigentes do trator.
+- [x] Navegar entre duas ou mais celulas distintas deve gerar registros com `cell_id` diferentes.
+- [x] Permanecer em movimento dentro da mesma celula deve gerar registros por tempo.
+- [x] Alterar uma variavel do trator durante a missao deve refletir apenas nos registros posteriores a mudanca.
+- [x] Recarregar a pagina deve manter a missao salva no `localStorage`.
+- [x] Exportar os dados deve gerar um `JSON` com metadados da missao e lista de amostras.
+- [x] Limpar os dados deve reiniciar a sessao local sem residuos.
+- [x] Ao final da sprint, deve estar demonstrado que o sistema consegue:
+  - [x] localizar o trator no mapa,
+  - [x] identificar a regiao atual,
+  - [x] extrair as variaveis do terreno dessa regiao com dado real do `BDC` quando disponivel e `null` quando indisponivel,
+  - [x] salvar junto as variaveis vigentes do trator.
 
 ## Fora da Sprint
 - HUD lateral com visualizacao executiva.
@@ -138,6 +139,7 @@ Se houver interface adicional, ela deve ser apenas operacional:
 ## Assumptions
 - O terreno sera modelado por grade de celulas, nao por poligonos manuais.
 - As variaveis do solo nesta sprint serao um resumo por superficie, nao perfil completo por camada.
+- O `BDC` sera a unica fonte oficial de dados de terreno desta sprint.
 - O armazenamento principal sera no `localStorage`.
 - A exportacao em `JSON` sera usada como artefato de validacao da sprint.
 - A coleta sera hibrida: por mudanca de celula e por tempo.

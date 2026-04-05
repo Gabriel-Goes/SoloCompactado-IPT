@@ -1,27 +1,38 @@
 {
   "farmId": "fazenda-paladino",
-  "datasetVersion": "2026-04-05-paladino-center-v1",
+  "datasetVersion": "2026-04-05-paladino-bdc-1km-v1",
   "generatedAt": "2026-04-05T12:00:00.000Z",
   "areaBounds": {
-    "north": -13.096724,
-    "south": -13.099424,
-    "east": -45.844849,
-    "west": -45.847609
+    "north": -13.089090888250091,
+    "south": -13.10705711174991,
+    "east": -45.837005937227154,
+    "west": -45.85545206277285
   },
+  "center": {
+    "lat": -13.098074,
+    "lng": -45.846229
+  },
+  "radiusMeters": 1000,
   "sources": {
-    "mapbiomas": {
-      "collectionId": "collection10_1",
-      "assetId": "projects/mapbiomas-public/assets/brazil/lulc/collection10_1/mapbiomas_brazil_collection10_1_coverage_v1",
-      "description": "Fonte primaria configurada para classe tematica oficial de uso e cobertura da terra."
-    },
     "bdc": {
       "collectionId": "S2-16D-2",
       "stacUrl": "https://data.inpe.br/bdc/stac/v1/",
-      "description": "Fonte complementar configurada para contexto espacial e temporal adicional."
+      "description": "Fonte oficial unica configurada para contexto espacial, temporal e indices auxiliares.",
+      "selectedObservation": {
+        "itemId": "S2-16D_V2_030019_20260306",
+        "datetime": "2026-03-06T00:00:00.000000Z",
+        "cloudCover": 1.47,
+        "assets": {
+          "NDVI": "https://data.inpe.br/bdc/data/s2-16d/v2/030/019/2026/03/06/S2-16D_V2_030019_20260306_NDVI.tif",
+          "SCL": "https://data.inpe.br/bdc/data/s2-16d/v2/030/019/2026/03/06/S2-16D_V2_030019_20260306_SCL.tif",
+          "B03": "https://data.inpe.br/bdc/data/s2-16d/v2/030/019/2026/03/06/S2-16D_V2_030019_20260306_B03.tif",
+          "thumbnail": "https://data.inpe.br/bdc/data/s2-16d/v2/030/019/2026/03/06/S2-16D_V2_030019_20260306.png"
+        }
+      }
     }
   },
   "fieldProvenance": {
-    "thematic_class": "official",
+    "thematic_class": "unavailable",
     "clay_content": "unavailable",
     "water_content": "unavailable",
     "matric_suction": "unavailable",
@@ -30,7 +41,8 @@
     "sigma_p": "unavailable"
   },
   "notes": [
-    "O recorte esta limitado a regiao central usada pela demo na Fazenda Paladino.",
-    "Campos sem valor oficial extraido no recorte local permanecem null e nunca sao inventados."
+    "O recorte esta limitado a um raio de 1 km em torno do centro usado pela demo na Fazenda Paladino.",
+    "Campos sem valor oficial extraido no recorte local permanecem null e nunca sao inventados.",
+    "A Sprint 2 usa apenas o BDC como fonte oficial de dados de terreno."
   ]
 }
