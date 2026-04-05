@@ -219,3 +219,36 @@ Arquivos gerados (exemplo):
 - `outputs/prototipo_trajeto_3d/evolucao_compactacao_passadas.csv`
 - `outputs/prototipo_trajeto_3d/perfil_sigma_crit.csv`
 - `outputs/prototipo_trajeto_3d/parametros_simulacao_3d.csv`
+
+## Integração geoespacial com MapBiomas e BDC
+
+Foi adicionado um utilitário de pré-processamento offline para enriquecer trilhas GPS/RTK com classes de uso e cobertura do solo:
+
+- Script: `src/enriquecer_uso_cobertura.py`
+- Objetivo: cruzar cada ponto do trajeto com rasters locais do MapBiomas e do BDC
+- Saída: CSV enriquecido para treino ou inferência do modelo de compactação
+
+Exemplo:
+
+```bash
+python3 src/enriquecer_uso_cobertura.py \
+  --route-csv data/exemplo_rota_rtk.csv \
+  --output-csv outputs/rota_enriquecida.csv \
+  --x-col x_m \
+  --y-col y_m \
+  --route-crs EPSG:31983 \
+  --window-radius-m 15 \
+  --mapbiomas mapbiomas::data/mapbiomas_uso_cobertura_2024.tif \
+  --bdc bdc::data/bdc_lulc_2024.tif
+```
+
+O fluxo recomendado é:
+
+1. recortar previamente os rasters temáticos para a área operacional;
+2. enriquecer as trilhas com `src/enriquecer_uso_cobertura.py`;
+3. alimentar o modelo com classes do pixel, classe modal em vizinhança e transições ao longo do trajeto;
+4. executar lookup local no computador de bordo, sem dependência de API online durante a operação.
+
+Documentação adicional:
+
+- [Arquitetura de integração MapBiomas + BDC](docs/integracao_mapbiomas_bdc.md)
