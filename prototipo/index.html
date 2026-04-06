@@ -233,6 +233,69 @@
         z-index: auto;
       }
 
+      #hud-compaction {
+        padding: 16px;
+      }
+
+      .compaction-list {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .compaction-row {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px 12px;
+        padding: 10px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        font-size: 12px;
+        line-height: 1.45;
+      }
+
+      .compaction-row:first-child {
+        padding-top: 0;
+        border-top: 0;
+      }
+
+      .compaction-row:last-child {
+        padding-bottom: 0;
+      }
+
+      .compaction-depth {
+        flex: 0 0 64px;
+        font-weight: 600;
+        color: var(--text);
+      }
+
+      .compaction-risk {
+        flex: 0 0 92px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+
+      .compaction-detail {
+        color: var(--muted);
+        white-space: nowrap;
+      }
+
+      .risk-critical {
+        color: #e05c5c;
+      }
+
+      .risk-warning {
+        color: var(--accent);
+      }
+
+      .risk-safe {
+        color: #6dbf67;
+      }
+
+      .risk-unavailable {
+        color: var(--muted);
+      }
+
       .panel-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -471,6 +534,15 @@
           max-width: none;
           min-width: 0;
         }
+
+        .compaction-depth,
+        .compaction-risk {
+          flex-basis: auto;
+        }
+
+        .compaction-detail {
+          white-space: normal;
+        }
       }
     </style>
   </head>
@@ -549,6 +621,54 @@
                 <div class="metric">
                   <span class="metric-label">Sigma P</span>
                   <span id="terrain-sigma-p" class="metric-value">-</span>
+                </div>
+              </div>
+            </section>
+
+            <section id="hud-compaction" class="floating-panel hud-block" aria-label="Bloco de compactacao por camada">
+              <strong class="panel-title">Compactacao por Camada</strong>
+              <div class="compaction-list" role="list" aria-label="Perfil de compactacao por camada">
+                <div class="compaction-row" role="listitem">
+                  <span id="compaction-depth-0" class="compaction-depth">0-10 cm</span>
+                  <span id="compaction-risk-0" class="compaction-risk risk-unavailable">—</span>
+                  <span id="compaction-sigma-0" class="compaction-detail">σ: —</span>
+                  <span id="compaction-sigmap-0" class="compaction-detail">σp: —</span>
+                  <span id="compaction-deformation-0" class="compaction-detail">Δρ: —</span>
+                </div>
+                <div class="compaction-row" role="listitem">
+                  <span id="compaction-depth-1" class="compaction-depth">10-20 cm</span>
+                  <span id="compaction-risk-1" class="compaction-risk risk-unavailable">—</span>
+                  <span id="compaction-sigma-1" class="compaction-detail">σ: —</span>
+                  <span id="compaction-sigmap-1" class="compaction-detail">σp: —</span>
+                  <span id="compaction-deformation-1" class="compaction-detail">Δρ: —</span>
+                </div>
+                <div class="compaction-row" role="listitem">
+                  <span id="compaction-depth-2" class="compaction-depth">20-30 cm</span>
+                  <span id="compaction-risk-2" class="compaction-risk risk-unavailable">—</span>
+                  <span id="compaction-sigma-2" class="compaction-detail">σ: —</span>
+                  <span id="compaction-sigmap-2" class="compaction-detail">σp: —</span>
+                  <span id="compaction-deformation-2" class="compaction-detail">Δρ: —</span>
+                </div>
+                <div class="compaction-row" role="listitem">
+                  <span id="compaction-depth-3" class="compaction-depth">30-40 cm</span>
+                  <span id="compaction-risk-3" class="compaction-risk risk-unavailable">—</span>
+                  <span id="compaction-sigma-3" class="compaction-detail">σ: —</span>
+                  <span id="compaction-sigmap-3" class="compaction-detail">σp: —</span>
+                  <span id="compaction-deformation-3" class="compaction-detail">Δρ: —</span>
+                </div>
+                <div class="compaction-row" role="listitem">
+                  <span id="compaction-depth-4" class="compaction-depth">40-50 cm</span>
+                  <span id="compaction-risk-4" class="compaction-risk risk-unavailable">—</span>
+                  <span id="compaction-sigma-4" class="compaction-detail">σ: —</span>
+                  <span id="compaction-sigmap-4" class="compaction-detail">σp: —</span>
+                  <span id="compaction-deformation-4" class="compaction-detail">Δρ: —</span>
+                </div>
+                <div class="compaction-row" role="listitem">
+                  <span id="compaction-depth-5" class="compaction-depth">50-60 cm</span>
+                  <span id="compaction-risk-5" class="compaction-risk risk-unavailable">—</span>
+                  <span id="compaction-sigma-5" class="compaction-detail">σ: —</span>
+                  <span id="compaction-sigmap-5" class="compaction-detail">σp: —</span>
+                  <span id="compaction-deformation-5" class="compaction-detail">Δρ: —</span>
                 </div>
               </div>
             </section>
@@ -2641,6 +2761,7 @@
           mission: null,
           currentCell: null,
           currentTerrainPixel: null,
+          currentCompactionProfile: null,
           storageAvailable: true,
           storageError: null,
           mapTileFailed: false,
@@ -2669,6 +2790,15 @@
         const terrainBulkDensity = document.getElementById("terrain-bulk-density");
         const terrainConcFactor = document.getElementById("terrain-conc-factor");
         const terrainSigmaP = document.getElementById("terrain-sigma-p");
+        const compactionRows = Array.from({ length: 6 }, function (_value, index) {
+          return {
+            depth: document.getElementById("compaction-depth-" + index),
+            risk: document.getElementById("compaction-risk-" + index),
+            sigma: document.getElementById("compaction-sigma-" + index),
+            sigmaP: document.getElementById("compaction-sigmap-" + index),
+            deformation: document.getElementById("compaction-deformation-" + index)
+          };
+        });
 
         const missionStatus = document.getElementById("mission-status");
         const missionCellId = document.getElementById("mission-cell-id");
@@ -2778,6 +2908,82 @@
         function setHudMetric(element, value, isEmpty) {
           element.textContent = value;
           element.classList.toggle("hud-empty", Boolean(isEmpty));
+        }
+
+        function setCompactionRisk(element, value, riskClass) {
+          element.textContent = value;
+          element.classList.remove("risk-critical", "risk-warning", "risk-safe", "risk-unavailable");
+          element.classList.add("risk-" + (riskClass || "unavailable"));
+        }
+
+        function formatCompactionStress(value) {
+          if (value === null || value === undefined || Number.isNaN(value)) {
+            return "—";
+          }
+
+          return Number(value).toFixed(0) + " kPa";
+        }
+
+        function formatCompactionDensity(value) {
+          if (value === null || value === undefined || Number.isNaN(value)) {
+            return "—";
+          }
+
+          return Number(value).toFixed(3);
+        }
+
+        function buildCompactionHudRows(profile, accumulatorLayers) {
+          return COMPACTION_DEPTH_RANGES.map(function (defaultDepthRange, index) {
+            const layer = profile && profile[index] ? profile[index] : null;
+
+            if (!layer) {
+              return {
+                depth_range: defaultDepthRange,
+                risk_text: "—",
+                risk_class: "unavailable",
+                sigma_aplicada: "σ: —",
+                sigma_p: "σp: —",
+                deformation: "Δρ: —"
+              };
+            }
+
+            const layerAvailable = layer.provenance === "derived";
+            const riskClass = layerAvailable && layer.risk_class ? layer.risk_class : "unavailable";
+            let riskText = "—";
+
+            if (riskClass === "safe") {
+              riskText = "○ SAFE";
+            } else if (riskClass === "warning") {
+              riskText = "● WARNING";
+            } else if (riskClass === "critical") {
+              riskText = "● CRITICAL";
+            }
+
+            let deformationText = "Δρ: —";
+            if (layerAvailable) {
+              if (layer.delta_bulk_density === 0) {
+                deformationText = "Δρ: 0 (elástico)";
+              } else if (layer.delta_bulk_density !== null && layer.delta_bulk_density !== undefined) {
+                const accumulatorLayer = accumulatorLayers && accumulatorLayers[index] ? accumulatorLayers[index] : null;
+                const estimatedBulkDensity =
+                  accumulatorLayer &&
+                  accumulatorLayer.bulk_density_estimated !== null &&
+                  accumulatorLayer.bulk_density_estimated !== undefined
+                    ? accumulatorLayer.bulk_density_estimated
+                    : layer.bulk_density;
+                deformationText = "ρest: " + formatCompactionDensity(estimatedBulkDensity);
+              }
+            }
+
+            return {
+              depth_range: layer.depth_range || defaultDepthRange,
+              risk_text: riskText,
+              risk_class: riskClass,
+              sigma_aplicada: "σ: " + formatCompactionStress(layer.sigma_aplicada_kpa),
+              sigma_p: layerAvailable ? "σp: " + formatCompactionStress(layer.sigma_p_kpa) : "σp: —",
+              deformation: deformationText
+            };
+          });
         }
 
         if (!window.L) {
@@ -2915,6 +3121,42 @@
           vegetation_dense: { clay_content: 0.45, water_content: 0.35, bulk_density: 1.15 },
           vegetation_sparse: { clay_content: 0.35, water_content: 0.28, bulk_density: 1.30 },
           bare_soil: { clay_content: 0.30, water_content: 0.18, bulk_density: 1.45 }
+        };
+
+        const COMPACTION_DEPTH_RANGES = [
+          "0-10 cm",
+          "10-20 cm",
+          "20-30 cm",
+          "30-40 cm",
+          "40-50 cm",
+          "50-60 cm"
+        ];
+
+        const COMPACTION_PROFILE_TEMPLATES = {
+          vegetation_dense: [
+            { depth_top: 0.00, depth_bot: 0.10, clay_delta: 0.00, bd_delta: 0.00, xi: 5 },
+            { depth_top: 0.10, depth_bot: 0.20, clay_delta: 0.05, bd_delta: 0.05, xi: 5 },
+            { depth_top: 0.20, depth_bot: 0.30, clay_delta: 0.10, bd_delta: 0.08, xi: 4 },
+            { depth_top: 0.30, depth_bot: 0.40, clay_delta: 0.13, bd_delta: 0.10, xi: 4 },
+            { depth_top: 0.40, depth_bot: 0.50, clay_delta: 0.15, bd_delta: 0.12, xi: 4 },
+            { depth_top: 0.50, depth_bot: 0.60, clay_delta: 0.15, bd_delta: 0.13, xi: 4 }
+          ],
+          vegetation_sparse: [
+            { depth_top: 0.00, depth_bot: 0.10, clay_delta: 0.00, bd_delta: 0.00, xi: 5 },
+            { depth_top: 0.10, depth_bot: 0.20, clay_delta: 0.04, bd_delta: 0.06, xi: 5 },
+            { depth_top: 0.20, depth_bot: 0.30, clay_delta: 0.08, bd_delta: 0.10, xi: 4 },
+            { depth_top: 0.30, depth_bot: 0.40, clay_delta: 0.11, bd_delta: 0.12, xi: 4 },
+            { depth_top: 0.40, depth_bot: 0.50, clay_delta: 0.13, bd_delta: 0.14, xi: 4 },
+            { depth_top: 0.50, depth_bot: 0.60, clay_delta: 0.13, bd_delta: 0.15, xi: 4 }
+          ],
+          bare_soil: [
+            { depth_top: 0.00, depth_bot: 0.10, clay_delta: 0.00, bd_delta: 0.00, xi: 4 },
+            { depth_top: 0.10, depth_bot: 0.20, clay_delta: 0.04, bd_delta: 0.07, xi: 4 },
+            { depth_top: 0.20, depth_bot: 0.30, clay_delta: 0.08, bd_delta: 0.10, xi: 4 },
+            { depth_top: 0.30, depth_bot: 0.40, clay_delta: 0.10, bd_delta: 0.15, xi: 3 },
+            { depth_top: 0.40, depth_bot: 0.50, clay_delta: 0.12, bd_delta: 0.13, xi: 4 },
+            { depth_top: 0.50, depth_bot: 0.60, clay_delta: 0.12, bd_delta: 0.13, xi: 4 }
+          ]
         };
 
         let bdcOverlayLayer = null;
@@ -3071,12 +3313,16 @@
         }
 
         function getActiveTractorConfig() {
+          const inflationPressure = 100;
+
           return {
             machine_preset: "Trator médio",
             wheel_load: 3000,
             mass_total: 12000,
-            inflation_pressure: 100,
+            inflation_pressure: inflationPressure,
             tyre_width: 0.52,
+            tyre_diameter: 1.5,
+            tyre_recommended_pressure: inflationPressure,
             track_gauge: 2.2,
             route_speed: Number(tractorState.speedMps.toFixed(2))
           };
@@ -3102,6 +3348,7 @@
             counters: {
               sample_count: 0
             },
+            compaction_accumulator: {},
             sampling: {
               last_sample_at_ms: 0,
               last_sample_cell_id: null,
@@ -3114,6 +3361,61 @@
           return JSON.parse(JSON.stringify(value));
         }
 
+        function updateCompactionAccumulator(cellId, profile) {
+          if (!runtimeState.mission || !cellId || !profile || !Array.isArray(profile)) {
+            return;
+          }
+
+          const accumulator =
+            runtimeState.mission.compaction_accumulator ||
+            (runtimeState.mission.compaction_accumulator = {});
+
+          if (!accumulator[cellId]) {
+            accumulator[cellId] = {
+              pass_count: 0,
+              layers: profile.map(function (layer) {
+                return {
+                  depth_range: layer.depth_range,
+                  bulk_density_estimated:
+                    layer.bulk_density === null || layer.bulk_density === undefined
+                      ? null
+                      : layer.bulk_density,
+                  pass_count: 0
+                };
+              })
+            };
+          }
+
+          accumulator[cellId].pass_count += 1;
+          profile.forEach(function (layer, index) {
+            const accumulatorLayer = accumulator[cellId].layers[index];
+            if (!accumulatorLayer) {
+              return;
+            }
+
+            if (
+              layer.delta_bulk_density === null ||
+              layer.delta_bulk_density === undefined ||
+              layer.bulk_density === null ||
+              layer.bulk_density === undefined
+            ) {
+              return;
+            }
+
+            if (
+              accumulatorLayer.bulk_density_estimated === null ||
+              accumulatorLayer.bulk_density_estimated === undefined
+            ) {
+              accumulatorLayer.bulk_density_estimated = layer.bulk_density;
+            }
+
+            accumulatorLayer.bulk_density_estimated = Number(
+              (accumulatorLayer.bulk_density_estimated + layer.delta_bulk_density).toFixed(4)
+            );
+            accumulatorLayer.pass_count = accumulator[cellId].pass_count;
+          });
+        }
+
         function appendSample(sample) {
           runtimeState.mission.samples.push(sample);
           runtimeState.mission.counters.sample_count = runtimeState.mission.samples.length;
@@ -3121,6 +3423,9 @@
           runtimeState.mission.current_cell_id = sample.cell_id;
           runtimeState.mission.sampling.last_sample_cell_id = sample.cell_id;
           runtimeState.latestSample = sample;
+          if (sample.compaction_snapshot) {
+            updateCompactionAccumulator(sample.cell_id, sample.compaction_snapshot);
+          }
           persistMission();
         }
 
@@ -3208,6 +3513,10 @@
           }
 
           runtimeState.mission = persisted;
+          if (!runtimeState.mission.compaction_accumulator) {
+            runtimeState.mission.compaction_accumulator = {};
+            persistMission();
+          }
           runtimeState.latestSample =
             persisted.samples && persisted.samples.length > 0
               ? persisted.samples[persisted.samples.length - 1]
@@ -3271,6 +3580,217 @@
           };
         }
 
+        function buildCompactionProfile(snapshot) {
+          const thematicClass = snapshot && snapshot.thematic_class;
+          if (!thematicClass || thematicClass === "water" || thematicClass === "_invalid") {
+            return null;
+          }
+
+          const template = COMPACTION_PROFILE_TEMPLATES[thematicClass];
+          if (!template) {
+            return null;
+          }
+
+          return template.map(function (layerTemplate) {
+            const clayContent =
+              snapshot.clay_content === null || snapshot.clay_content === undefined
+                ? null
+                : Math.min(0.80, snapshot.clay_content + layerTemplate.clay_delta);
+            const bulkDensity =
+              snapshot.bulk_density === null || snapshot.bulk_density === undefined
+                ? null
+                : Math.min(1.80, snapshot.bulk_density + layerTemplate.bd_delta);
+            const matricSuction =
+              snapshot.matric_suction === null || snapshot.matric_suction === undefined
+                ? null
+                : snapshot.matric_suction * (1 + layerTemplate.depth_top * 3);
+
+            return {
+              depth_top_m: layerTemplate.depth_top,
+              depth_bot_m: layerTemplate.depth_bot,
+              depth_range:
+                String((layerTemplate.depth_top * 100) | 0) +
+                "-" +
+                String((layerTemplate.depth_bot * 100) | 0) +
+                " cm",
+              z_mid_m: (layerTemplate.depth_top + layerTemplate.depth_bot) / 2,
+              xi: layerTemplate.xi,
+              clay_content: clayContent === null ? null : Number(clayContent.toFixed(3)),
+              bulk_density: bulkDensity === null ? null : Number(bulkDensity.toFixed(3)),
+              matric_suction: matricSuction === null ? null : Number(matricSuction.toFixed(1))
+            };
+          });
+        }
+
+        function calcContactStress(tractorConfig) {
+          const inflationPressure = tractorConfig.inflation_pressure;
+          const recommendedPressure = tractorConfig.tyre_recommended_pressure;
+          const tyreWidth = tractorConfig.tyre_width;
+          const tyreDiameter = tractorConfig.tyre_diameter;
+          const wheelLoadKn = tractorConfig.wheel_load * 9.81 / 1000;
+
+          const contactLength =
+            0.47 + 0.11 * tyreDiameter * tyreDiameter - 0.16 * Math.log(inflationPressure / recommendedPressure);
+          const contactArea = tyreWidth * contactLength;
+          const contactRadius = Math.sqrt(contactArea / Math.PI);
+          const sigmaMax =
+            34.4 + 1.13 * inflationPressure + 0.72 * wheelLoadKn - 33.4 * Math.log(inflationPressure / recommendedPressure);
+
+          return {
+            sigma_max_kpa: Number(sigmaMax.toFixed(1)),
+            contact_radius_m: Number(contactRadius.toFixed(4)),
+            ca_length_m: Number(contactLength.toFixed(3)),
+            ca_width_m: Number(tyreWidth.toFixed(3))
+          };
+        }
+
+        function propagateStress(sigmaMax, contactRadius, xi, zMid) {
+          if (zMid <= 0) {
+            return sigmaMax;
+          }
+
+          const radiusSquared = contactRadius * contactRadius;
+          const depthSquared = zMid * zMid;
+          return sigmaMax * Math.pow(radiusSquared / (radiusSquared + depthSquared), xi / 2);
+        }
+
+        function calcSigmaP(clayFraction, matricSuctionKpa) {
+          const clayPercent = clayFraction * 100;
+          if (clayPercent < 20) {
+            return 129.0 * Math.pow(matricSuctionKpa, 0.15);
+          }
+          if (clayPercent < 31) {
+            return 123.3 * Math.pow(matricSuctionKpa, 0.13);
+          }
+          if (clayPercent < 41) {
+            return 119.2 * Math.pow(matricSuctionKpa, 0.11);
+          }
+          if (clayPercent < 52) {
+            return 88.3 * Math.pow(matricSuctionKpa, 0.13);
+          }
+          return 62.7 * Math.pow(matricSuctionKpa, 0.15);
+        }
+
+        function assessLayerRisk(sigmaAplicada, sigmaP) {
+          if (!sigmaP || sigmaP <= 0) {
+            return { stress_ratio: null, risk_class: "unavailable" };
+          }
+
+          const ratio = sigmaAplicada / sigmaP;
+          let riskClass = "critical";
+          if (ratio < 0.5) {
+            riskClass = "safe";
+          } else if (ratio <= 1.1) {
+            riskClass = "warning";
+          }
+
+          return {
+            stress_ratio: Number(ratio.toFixed(3)),
+            risk_class: riskClass
+          };
+        }
+
+        function calcDeformation(sigmaAplicada, sigmaP, bulkDensity, matricSuctionKpa) {
+          const rhoSolid = 2.65;
+
+          if (
+            sigmaAplicada === null ||
+            sigmaAplicada === undefined ||
+            sigmaP === null ||
+            sigmaP === undefined ||
+            bulkDensity === null ||
+            bulkDensity === undefined ||
+            matricSuctionKpa === null ||
+            matricSuctionKpa === undefined
+          ) {
+            return {
+              delta_bulk_density: null,
+              bulk_density_estimated: null
+            };
+          }
+
+          const p = sigmaAplicada;
+          const pF = Math.log10(Math.max(matricSuctionKpa * 10.2, 1));
+          const n = 4.30 - 1.697 * bulkDensity - 0.307 * pF - 0.064 * pF * pF;
+          const lambdaN = 0.2742 - 0.174 * bulkDensity + 0.067 * pF - 0.014 * pF * pF;
+
+          if (p <= sigmaP) {
+            return {
+              delta_bulk_density: 0,
+              bulk_density_estimated: Number(bulkDensity.toFixed(4))
+            };
+          }
+
+          const vInitial = rhoSolid / bulkDensity;
+          if (n <= vInitial || lambdaN <= 0) {
+            const overRatio = (p - sigmaP) / sigmaP;
+            const deltaBulkDensityFallback = Math.min(bulkDensity * 0.01 * overRatio * 10, 0.5);
+            return {
+              delta_bulk_density: Number(Math.max(0, deltaBulkDensityFallback).toFixed(4)),
+              bulk_density_estimated: Number((bulkDensity + deltaBulkDensityFallback).toFixed(4))
+            };
+          }
+
+          const vFinal = Math.max(n - lambdaN * Math.log(Math.max(p, 0.1)), 1.01);
+          const bulkDensityFinal = rhoSolid / vFinal;
+          const deltaBulkDensity = Math.max(0, bulkDensityFinal - bulkDensity);
+
+          return {
+            delta_bulk_density: Number(deltaBulkDensity.toFixed(4)),
+            bulk_density_estimated: Number(bulkDensityFinal.toFixed(4))
+          };
+        }
+
+        function runCompactionMotor(tractorConfig, terrainSnapshot) {
+          if (!tractorConfig || !terrainSnapshot) {
+            return null;
+          }
+
+          const thematicClass = terrainSnapshot.thematic_class;
+          if (!thematicClass || thematicClass === "water" || thematicClass === "_invalid") {
+            return null;
+          }
+
+          const profile = buildCompactionProfile(terrainSnapshot);
+          if (!profile) {
+            return null;
+          }
+
+          const contact = calcContactStress(tractorConfig);
+
+          return profile.map(function (layer) {
+            const completeInputs =
+              layer.clay_content !== null &&
+              layer.bulk_density !== null &&
+              layer.matric_suction !== null;
+            const sigmaP = completeInputs
+              ? calcSigmaP(layer.clay_content, layer.matric_suction)
+              : null;
+            const sigmaAplicada = propagateStress(
+              contact.sigma_max_kpa,
+              contact.contact_radius_m,
+              layer.xi,
+              layer.z_mid_m
+            );
+            const deformation = completeInputs
+              ? calcDeformation(sigmaAplicada, sigmaP, layer.bulk_density, layer.matric_suction)
+              : { delta_bulk_density: null, bulk_density_estimated: null };
+            const risk = completeInputs
+              ? assessLayerRisk(sigmaAplicada, sigmaP)
+              : { stress_ratio: null, risk_class: "unavailable" };
+
+            return Object.assign({}, layer, {
+              sigma_p_kpa: sigmaP === null ? null : Number(sigmaP.toFixed(1)),
+              sigma_aplicada_kpa: Number(sigmaAplicada.toFixed(1)),
+              stress_ratio: risk.stress_ratio,
+              risk_class: risk.risk_class,
+              delta_bulk_density: deformation.delta_bulk_density,
+              bulk_density_estimated: deformation.bulk_density_estimated,
+              provenance: completeInputs ? "derived" : "unavailable"
+            });
+          });
+        }
+
         function resolveTerrainPixel(position, raster) {
           if (!raster || !isInsideBounds(position, raster.bounds)) {
             return null;
@@ -3297,29 +3817,25 @@
         function buildHudViewModel() {
           const activeTractor = getActiveTractorConfig();
           const currentCell = runtimeState.currentCell;
-          const currentTerrainPixel = runtimeState.currentTerrainPixel;
-          const latestTerrainSnapshot =
-            runtimeState.latestSample &&
-            currentCell &&
-            runtimeState.latestSample.cell_id === currentCell.cellId
-              ? runtimeState.latestSample.terrain_snapshot
-              : null;
-
-          const terrainSource = currentTerrainPixel
-            ? currentTerrainPixel.snapshot
-            : currentCell
-              ? latestTerrainSnapshot || buildTerrainSnapshot(currentCell)
-              : {
-                cell_id: "fora do recorte",
-                clay_content: null,
-                water_content: null,
-                matric_suction: null,
-                bulk_density: null,
-                conc_factor: null,
-                sigma_p: null
-              };
+          const currentCompactionProfile = runtimeState.currentCompactionProfile;
+          const terrainSource = getCurrentTerrainSnapshot() || {
+            cell_id: "fora do recorte",
+            clay_content: null,
+            water_content: null,
+            matric_suction: null,
+            bulk_density: null,
+            conc_factor: null,
+            sigma_p: null
+          };
 
           const mission = runtimeState.mission;
+          const compactionAccumulatorLayers =
+            mission &&
+            currentCell &&
+            mission.compaction_accumulator &&
+            mission.compaction_accumulator[currentCell.cellId]
+              ? mission.compaction_accumulator[currentCell.cellId].layers
+              : null;
 
           return {
             tractor: {
@@ -3357,7 +3873,8 @@
                   ? "memoria + alerta"
                   : "localStorage ativo"
                 : "somente memoria"
-            }
+            },
+            compaction: buildCompactionHudRows(currentCompactionProfile, compactionAccumulatorLayers)
           };
         }
 
@@ -3396,6 +3913,26 @@
           };
         }
 
+        function getCurrentTerrainSnapshot() {
+          const pixel = runtimeState.currentTerrainPixel;
+          const cell = runtimeState.currentCell;
+          const latestSample = runtimeState.latestSample;
+
+          if (pixel) {
+            return pixel.snapshot;
+          }
+
+          if (latestSample && cell && latestSample.cell_id === cell.cellId) {
+            return latestSample.terrain_snapshot;
+          }
+
+          if (cell) {
+            return buildTerrainSnapshot(cell);
+          }
+
+          return null;
+        }
+
         function createSample(reason, currentCell, currentTerrainPixel, logicalNowMs) {
           return {
             sample_id: createId("sample"),
@@ -3412,6 +3949,9 @@
             terrain_snapshot: currentTerrainPixel
               ? currentTerrainPixel.snapshot
               : buildTerrainSnapshot(currentCell),
+            compaction_snapshot: runtimeState.currentCompactionProfile
+              ? cloneSampleSafe(runtimeState.currentCompactionProfile)
+              : null,
             tractor_snapshot: getActiveTractorConfig(),
             logical_time_ms: logicalNowMs
           };
@@ -3422,10 +3962,15 @@
             return;
           }
 
+          const activeTractorConfig = getActiveTractorConfig();
           runtimeState.currentCell = resolveCell(tractorState.position, runtimeState.terrainGrid);
           runtimeState.currentTerrainPixel = resolveTerrainPixel(tractorState.position, runtimeState.terrainRaster);
+          const currentTerrainSnapshot = getCurrentTerrainSnapshot();
+          runtimeState.currentCompactionProfile = currentTerrainSnapshot
+            ? runCompactionMotor(activeTractorConfig, currentTerrainSnapshot)
+            : null;
           runtimeState.mission.current_cell_id = runtimeState.currentCell ? runtimeState.currentCell.cellId : null;
-          runtimeState.mission.active_tractor_config = getActiveTractorConfig();
+          runtimeState.mission.active_tractor_config = activeTractorConfig;
 
           if (!runtimeState.currentCell) {
             return;
@@ -3481,7 +4026,9 @@
             terrain_manifest: runtimeState.terrainManifest,
             terrain_grid_meta: runtimeState.mission.terrain_grid_meta,
             active_tractor_config: runtimeState.mission.active_tractor_config,
-            samples: runtimeState.mission.samples
+            samples: runtimeState.mission.samples,
+            compaction_accumulator: runtimeState.mission.compaction_accumulator,
+            compaction_profile_current: runtimeState.currentCompactionProfile
           };
         }
 
@@ -3528,6 +4075,10 @@
           runtimeState.latestSample = null;
           runtimeState.currentCell = resolveCell(tractorState.position, runtimeState.terrainGrid);
           runtimeState.currentTerrainPixel = resolveTerrainPixel(tractorState.position, runtimeState.terrainRaster);
+          const currentTerrainSnapshot = getCurrentTerrainSnapshot();
+          runtimeState.currentCompactionProfile = currentTerrainSnapshot
+            ? runCompactionMotor(getActiveTractorConfig(), currentTerrainSnapshot)
+            : null;
           runtimeState.mission = createMission();
           runtimeState.mission.current_cell_id = runtimeState.currentCell ? runtimeState.currentCell.cellId : null;
           persistMission();
@@ -3576,6 +4127,18 @@
             hudViewModel.terrain.sigma_p,
             hudViewModel.terrain.sigma_p === "Nao disponivel"
           );
+          hudViewModel.compaction.forEach(function (layerViewModel, index) {
+            const row = compactionRows[index];
+            if (!row) {
+              return;
+            }
+
+            row.depth.textContent = layerViewModel.depth_range;
+            setCompactionRisk(row.risk, layerViewModel.risk_text, layerViewModel.risk_class);
+            row.sigma.textContent = layerViewModel.sigma_aplicada;
+            row.sigmaP.textContent = layerViewModel.sigma_p;
+            row.deformation.textContent = layerViewModel.deformation;
+          });
 
           setHudMetric(missionId, hudViewModel.mission.mission_id, hudViewModel.mission.mission_id === "-");
           setHudMetric(missionSampleCount, hudViewModel.mission.sample_count, false);
