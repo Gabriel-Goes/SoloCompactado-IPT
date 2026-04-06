@@ -1,6 +1,6 @@
 {
   "farmId": "fazenda-paladino",
-  "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+  "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
   "cellSizeMeters": 2000,
   "bounds": {
     "north": -13.035192217750629,
@@ -11,7 +11,7 @@
   "cells": [
     {
       "cellId": "paladino-r1-c1",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.04417532950054,
         "lng": -45.90156737663706
@@ -23,32 +23,32 @@
         "west": -45.91079043940991
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r1-c1",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r1-c2",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.04417532950054,
         "lng": -45.88312125109138
@@ -60,32 +60,32 @@
         "west": -45.89234431386422
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r1-c2",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r1-c3",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.04417532950054,
         "lng": -45.86467512554569
@@ -97,32 +97,32 @@
         "west": -45.873898188318535
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r1-c3",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r1-c4",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.04417532950054,
         "lng": -45.846229
@@ -134,32 +134,32 @@
         "west": -45.85545206277285
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r1-c4",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r1-c5",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.04417532950054,
         "lng": -45.827782874454314
@@ -171,32 +171,32 @@
         "west": -45.837005937227154
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r1-c5",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r1-c6",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.04417532950054,
         "lng": -45.80933674890862
@@ -208,32 +208,32 @@
         "west": -45.81855981168147
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r1-c6",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r1-c7",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.04417532950054,
         "lng": -45.79089062336294
@@ -245,32 +245,32 @@
         "west": -45.80011368613578
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r1-c7",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r2-c1",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.062141553000359,
         "lng": -45.90156737663706
@@ -282,32 +282,32 @@
         "west": -45.91079043940991
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r2-c1",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r2-c2",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.062141553000359,
         "lng": -45.88312125109138
@@ -319,32 +319,32 @@
         "west": -45.89234431386422
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r2-c2",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r2-c3",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.062141553000359,
         "lng": -45.86467512554569
@@ -356,32 +356,32 @@
         "west": -45.873898188318535
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r2-c3",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r2-c4",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.062141553000359,
         "lng": -45.846229
@@ -393,32 +393,32 @@
         "west": -45.85545206277285
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r2-c4",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r2-c5",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.062141553000359,
         "lng": -45.827782874454314
@@ -430,32 +430,32 @@
         "west": -45.837005937227154
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r2-c5",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r2-c6",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.062141553000359,
         "lng": -45.80933674890862
@@ -467,32 +467,32 @@
         "west": -45.81855981168147
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r2-c6",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r2-c7",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.062141553000359,
         "lng": -45.79089062336294
@@ -504,32 +504,32 @@
         "west": -45.80011368613578
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r2-c7",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r3-c1",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.080107776500181,
         "lng": -45.90156737663706
@@ -541,32 +541,32 @@
         "west": -45.91079043940991
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r3-c1",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r3-c2",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.080107776500181,
         "lng": -45.88312125109138
@@ -578,32 +578,32 @@
         "west": -45.89234431386422
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r3-c2",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r3-c3",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.080107776500181,
         "lng": -45.86467512554569
@@ -615,32 +615,32 @@
         "west": -45.873898188318535
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "bare_soil"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r3-c3",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "bare_soil",
+        "clay_content": 0.3,
+        "water_content": 0.18,
+        "matric_suction": 147.3,
+        "bulk_density": 1.45,
+        "conc_factor": 5.0,
+        "sigma_p": 236.0
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r3-c4",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.080107776500181,
         "lng": -45.846229
@@ -652,32 +652,32 @@
         "west": -45.85545206277285
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r3-c4",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r3-c5",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.080107776500181,
         "lng": -45.827782874454314
@@ -689,32 +689,32 @@
         "west": -45.837005937227154
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r3-c5",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r3-c6",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.080107776500181,
         "lng": -45.80933674890862
@@ -726,32 +726,32 @@
         "west": -45.81855981168147
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r3-c6",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r3-c7",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.080107776500181,
         "lng": -45.79089062336294
@@ -763,32 +763,32 @@
         "west": -45.80011368613578
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r3-c7",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r4-c1",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.098074,
         "lng": -45.90156737663706
@@ -800,32 +800,32 @@
         "west": -45.91079043940991
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r4-c1",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r4-c2",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.098074,
         "lng": -45.88312125109138
@@ -837,32 +837,32 @@
         "west": -45.89234431386422
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r4-c2",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r4-c3",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.098074,
         "lng": -45.86467512554569
@@ -874,32 +874,32 @@
         "west": -45.873898188318535
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_sparse"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r4-c3",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_sparse",
+        "clay_content": 0.35,
+        "water_content": 0.28,
+        "matric_suction": 49.1,
+        "bulk_density": 1.3,
+        "conc_factor": 4.0,
+        "sigma_p": 182.9
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r4-c4",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.098074,
         "lng": -45.846229
@@ -911,32 +911,32 @@
         "west": -45.85545206277285
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "bare_soil"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r4-c4",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "bare_soil",
+        "clay_content": 0.3,
+        "water_content": 0.18,
+        "matric_suction": 147.3,
+        "bulk_density": 1.45,
+        "conc_factor": 5.0,
+        "sigma_p": 236.0
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r4-c5",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.098074,
         "lng": -45.827782874454314
@@ -948,32 +948,32 @@
         "west": -45.837005937227154
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "bare_soil"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r4-c5",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "bare_soil",
+        "clay_content": 0.3,
+        "water_content": 0.18,
+        "matric_suction": 147.3,
+        "bulk_density": 1.45,
+        "conc_factor": 5.0,
+        "sigma_p": 236.0
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r4-c6",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.098074,
         "lng": -45.80933674890862
@@ -985,32 +985,32 @@
         "west": -45.81855981168147
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r4-c6",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r4-c7",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.098074,
         "lng": -45.79089062336294
@@ -1022,32 +1022,32 @@
         "west": -45.80011368613578
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r4-c7",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r5-c1",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.11604022349982,
         "lng": -45.90156737663706
@@ -1059,32 +1059,32 @@
         "west": -45.91079043940991
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r5-c1",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r5-c2",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.11604022349982,
         "lng": -45.88312125109138
@@ -1096,32 +1096,32 @@
         "west": -45.89234431386422
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_sparse"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r5-c2",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_sparse",
+        "clay_content": 0.35,
+        "water_content": 0.28,
+        "matric_suction": 49.1,
+        "bulk_density": 1.3,
+        "conc_factor": 4.0,
+        "sigma_p": 182.9
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r5-c3",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.11604022349982,
         "lng": -45.86467512554569
@@ -1133,32 +1133,32 @@
         "west": -45.873898188318535
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r5-c3",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r5-c4",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.11604022349982,
         "lng": -45.846229
@@ -1170,32 +1170,32 @@
         "west": -45.85545206277285
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r5-c4",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r5-c5",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.11604022349982,
         "lng": -45.827782874454314
@@ -1207,32 +1207,32 @@
         "west": -45.837005937227154
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r5-c5",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r5-c6",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.11604022349982,
         "lng": -45.80933674890862
@@ -1244,32 +1244,32 @@
         "west": -45.81855981168147
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r5-c6",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r5-c7",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.11604022349982,
         "lng": -45.79089062336294
@@ -1281,32 +1281,32 @@
         "west": -45.80011368613578
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r5-c7",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r6-c1",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.134006446999642,
         "lng": -45.90156737663706
@@ -1318,32 +1318,32 @@
         "west": -45.91079043940991
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r6-c1",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r6-c2",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.134006446999642,
         "lng": -45.88312125109138
@@ -1355,32 +1355,32 @@
         "west": -45.89234431386422
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "bare_soil"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r6-c2",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "bare_soil",
+        "clay_content": 0.3,
+        "water_content": 0.18,
+        "matric_suction": 147.3,
+        "bulk_density": 1.45,
+        "conc_factor": 5.0,
+        "sigma_p": 236.0
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r6-c3",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.134006446999642,
         "lng": -45.86467512554569
@@ -1392,18 +1392,18 @@
         "west": -45.873898188318535
       },
       "thematicClass": {
-        "source": "bdc",
+        "source": "bdc-scl-ndvi",
         "value": null
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r6-c3",
+        "thematic_class": null,
         "clay_content": null,
         "water_content": null,
         "matric_suction": null,
         "bulk_density": null,
         "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "sigma_p": null
       },
       "provenance": {
         "thematic_class": "unavailable",
@@ -1417,7 +1417,7 @@
     },
     {
       "cellId": "paladino-r6-c4",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.134006446999642,
         "lng": -45.846229
@@ -1429,32 +1429,32 @@
         "west": -45.85545206277285
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r6-c4",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r6-c5",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.134006446999642,
         "lng": -45.827782874454314
@@ -1466,32 +1466,32 @@
         "west": -45.837005937227154
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r6-c5",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r6-c6",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.134006446999642,
         "lng": -45.80933674890862
@@ -1503,32 +1503,32 @@
         "west": -45.81855981168147
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r6-c6",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r6-c7",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.134006446999642,
         "lng": -45.79089062336294
@@ -1540,32 +1540,32 @@
         "west": -45.80011368613578
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r6-c7",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r7-c1",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.151972670499461,
         "lng": -45.90156737663706
@@ -1577,32 +1577,32 @@
         "west": -45.91079043940991
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r7-c1",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r7-c2",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.151972670499461,
         "lng": -45.88312125109138
@@ -1614,32 +1614,32 @@
         "west": -45.89234431386422
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r7-c2",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r7-c3",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.151972670499461,
         "lng": -45.86467512554569
@@ -1651,32 +1651,32 @@
         "west": -45.873898188318535
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r7-c3",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r7-c4",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.151972670499461,
         "lng": -45.846229
@@ -1688,32 +1688,32 @@
         "west": -45.85545206277285
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r7-c4",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r7-c5",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.151972670499461,
         "lng": -45.827782874454314
@@ -1725,32 +1725,32 @@
         "west": -45.837005937227154
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r7-c5",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r7-c6",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.151972670499461,
         "lng": -45.80933674890862
@@ -1762,32 +1762,32 @@
         "west": -45.81855981168147
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r7-c6",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
       "cellId": "paladino-r7-c7",
-      "datasetVersion": "2026-04-05-paladino-bdc-7km-v1",
+      "datasetVersion": "2026-04-05-paladino-bdc-7km-v2",
       "center": {
         "lat": -13.151972670499461,
         "lng": -45.79089062336294
@@ -1799,27 +1799,27 @@
         "west": -45.80011368613578
       },
       "thematicClass": {
-        "source": "bdc",
-        "value": null
+        "source": "bdc-scl-ndvi",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r7-c7",
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null,
-        "thematic_class": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     }
   ]
