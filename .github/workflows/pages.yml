@@ -37,6 +37,8 @@ jobs:
       - name: Build HTML
         run: |
           sphinx-build -b html sphinx sphinx/_build/html
+          mkdir -p sphinx/_build/html/prototipo
+          cp -R prototipo/. sphinx/_build/html/prototipo/
           touch sphinx/_build/html/.nojekyll
 
       - name: Upload artifact
