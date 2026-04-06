@@ -385,6 +385,62 @@
         line-height: 1.4;
       }
 
+      /* BDC map toggle */
+      #hud-bdc {
+        padding: 16px;
+      }
+
+      #btn-toggle-map {
+        width: 100%;
+        padding: 10px 14px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--text);
+        cursor: pointer;
+        font-size: 13px;
+        letter-spacing: 0.03em;
+        text-align: left;
+        transition: background 0.15s;
+      }
+
+      #btn-toggle-map:hover {
+        background: rgba(255, 255, 255, 0.14);
+      }
+
+      #btn-toggle-map.bdc-active {
+        border-color: var(--accent);
+        background: rgba(255, 209, 102, 0.12);
+        color: var(--accent);
+      }
+
+      #bdc-legend {
+        display: none;
+        margin-top: 12px;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      #bdc-legend.visible {
+        display: flex;
+      }
+
+      .bdc-legend-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .bdc-swatch {
+        flex-shrink: 0;
+        width: 14px;
+        height: 14px;
+        border-radius: 4px;
+        border: 1px solid rgba(255,255,255,0.2);
+      }
+
       @media (max-width: 720px) {
         #hud-sidebar {
           padding: 14px;
@@ -493,6 +549,35 @@
                 <div class="metric">
                   <span class="metric-label">Sigma P</span>
                   <span id="terrain-sigma-p" class="metric-value">-</span>
+                </div>
+              </div>
+            </section>
+
+            <section id="hud-bdc" class="floating-panel" aria-label="Controle de camada BDC">
+              <strong class="panel-title">Mapa</strong>
+              <button id="btn-toggle-map" type="button" title="Alterna entre imagem de satélite e classificação BDC por célula">
+                Ver dado BDC
+              </button>
+              <div id="bdc-legend" role="list" aria-label="Legenda de classificação BDC">
+                <div class="bdc-legend-item" role="listitem">
+                  <span class="bdc-swatch" style="background:#2d7d2d"></span>
+                  <span>Vegetação densa (SCL=4, NDVI≥0.5)</span>
+                </div>
+                <div class="bdc-legend-item" role="listitem">
+                  <span class="bdc-swatch" style="background:#92c736"></span>
+                  <span>Vegetação esparsa (SCL=4, NDVI&lt;0.5)</span>
+                </div>
+                <div class="bdc-legend-item" role="listitem">
+                  <span class="bdc-swatch" style="background:#c89a2e"></span>
+                  <span>Solo exposto (SCL=5)</span>
+                </div>
+                <div class="bdc-legend-item" role="listitem">
+                  <span class="bdc-swatch" style="background:#2684c8"></span>
+                  <span>Água (SCL=6)</span>
+                </div>
+                <div class="bdc-legend-item" role="listitem">
+                  <span class="bdc-swatch" style="background:#888888"></span>
+                  <span>Nuvem / inválido</span>
                 </div>
               </div>
             </section>
@@ -2761,6 +2846,74 @@
         }
 
         const map = createMap();
+
+        // -------------------------------------------------------------------
+        // BDC thematic overlay
+        // -------------------------------------------------------------------
+        const BDC_THEMATIC_COLORS = {
+          vegetation_dense:  { color: "#2d7d2d", fillOpacity: 0.55 },
+          vegetation_sparse: { color: "#92c736", fillOpacity: 0.55 },
+          bare_soil:         { color: "#c89a2e", fillOpacity: 0.55 },
+          water:             { color: "#2684c8", fillOpacity: 0.55 },
+          _invalid:          { color: "#888888", fillOpacity: 0.35 },
+        };
+
+        let bdcOverlayLayer = null;
+        let bdcOverlayActive = false;
+
+        function buildBdcOverlay(grid) {
+          const group = L.layerGroup();
+          grid.cells.forEach(function (cell) {
+            const tc = cell.thematicClass && cell.thematicClass.value;
+            const style = BDC_THEMATIC_COLORS[tc] || BDC_THEMATIC_COLORS._invalid;
+            const b = cell.bounds;
+            const rect = L.rectangle(
+              [[b.south, b.west], [b.north, b.east]],
+              {
+                color: style.color,
+                fillColor: style.color,
+                fillOpacity: style.fillOpacity,
+                weight: 1,
+                opacity: 0.6,
+                interactive: false,
+              }
+            );
+            group.addLayer(rect);
+          });
+          return group;
+        }
+
+        function toggleBdcOverlay(grid) {
+          const btn = document.getElementById("btn-toggle-map");
+          const legend = document.getElementById("bdc-legend");
+
+          if (!grid || !Array.isArray(grid.cells) || grid.cells.length === 0) {
+            pushUiMessage("Camada BDC indisponivel ate o carregamento do dataset.", 2200);
+            renderHud();
+            return;
+          }
+
+          if (bdcOverlayActive) {
+            if (bdcOverlayLayer) { map.removeLayer(bdcOverlayLayer); }
+            bdcOverlayActive = false;
+            btn.textContent = "Ver dado BDC";
+            btn.classList.remove("bdc-active");
+            legend.classList.remove("visible");
+          } else {
+            if (!bdcOverlayLayer && grid) {
+              bdcOverlayLayer = buildBdcOverlay(grid);
+            }
+            if (bdcOverlayLayer) { bdcOverlayLayer.addTo(map); }
+            bdcOverlayActive = true;
+            btn.textContent = "Ver satélite";
+            btn.classList.add("bdc-active");
+            legend.classList.add("visible");
+          }
+        }
+
+        document.getElementById("btn-toggle-map").addEventListener("click", function () {
+          toggleBdcOverlay(runtimeState.terrainGrid);
+        });
 
         function clamp(value, min, max) {
           return Math.min(Math.max(value, min), max);
