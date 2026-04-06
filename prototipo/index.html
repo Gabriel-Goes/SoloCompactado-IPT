@@ -504,6 +504,57 @@
         border: 1px solid rgba(255,255,255,0.2);
       }
 
+      .planner-control-grid {
+        display: grid;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+
+      .planner-field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .planner-number-input {
+        width: 100%;
+        padding: 10px 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        background: var(--panel-soft);
+        color: var(--text);
+        font: inherit;
+      }
+
+      .planner-number-input:disabled,
+      .panel-actions button:disabled,
+      .planner-toggle-group button:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+      }
+
+      .planner-toggle-group {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+
+      .planner-toggle-group button {
+        flex: 1;
+        padding: 10px 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--text);
+        cursor: pointer;
+      }
+
+      .planner-toggle-group button.is-active {
+        border-color: var(--accent);
+        background: rgba(255, 209, 102, 0.12);
+        color: var(--accent);
+      }
+
       @media (max-width: 720px) {
         #hud-sidebar {
           padding: 14px;
@@ -700,6 +751,80 @@
                   <span>Nuvem / inválido</span>
                 </div>
               </div>
+            </section>
+
+            <section
+              id="planner-panel"
+              class="floating-panel hud-block"
+              aria-label="Painel de planejamento de cobertura"
+            >
+              <strong class="panel-title">Planejamento de Cobertura</strong>
+              <div class="planner-control-grid">
+                <label class="planner-field" for="planner-working-width">
+                  <span class="metric-label">Working Width</span>
+                  <input
+                    id="planner-working-width"
+                    class="planner-number-input"
+                    type="number"
+                    min="0.1"
+                    step="0.1"
+                    value="6.0"
+                    disabled
+                  />
+                </label>
+              </div>
+              <div class="panel-actions">
+                <button id="planner-start-drawing" type="button" disabled>Iniciar talhao</button>
+                <button id="planner-finish-drawing" type="button" disabled>Fechar talhao</button>
+                <button id="planner-cancel-drawing" type="button" disabled>Cancelar desenho</button>
+              </div>
+              <div class="panel-actions">
+                <button id="planner-generate-plan" type="button" disabled>Gerar plano</button>
+                <button id="planner-clear-plan" type="button" disabled>Limpar plano</button>
+              </div>
+              <div class="planner-toggle-group" role="group" aria-label="Alternancia de visualizacao da rota">
+                <button id="planner-overlay-baseline" type="button" disabled>Ver baseline</button>
+                <button id="planner-overlay-optimized" type="button" class="is-active" disabled>
+                  Ver otimizada
+                </button>
+              </div>
+              <div class="panel-grid">
+                <div class="metric">
+                  <span class="metric-label">Faixas</span>
+                  <span id="planner-swath-count" class="metric-value">—</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Modo do Overlay</span>
+                  <span id="planner-overlay-mode" class="metric-value">Rota otimizada</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Comp. Baseline</span>
+                  <span id="planner-baseline-length" class="metric-value">—</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Comp. Otimizada</span>
+                  <span id="planner-optimized-length" class="metric-value">—</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Custo Baseline</span>
+                  <span id="planner-baseline-compaction" class="metric-value">—</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Custo Otimizada</span>
+                  <span id="planner-optimized-compaction" class="metric-value">—</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Δ Comprimento</span>
+                  <span id="planner-delta-length" class="metric-value">—</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Δ Compactacao</span>
+                  <span id="planner-delta-compaction" class="metric-value">—</span>
+                </div>
+              </div>
+              <p id="planner-status-message" class="panel-note">
+                Shell do planner pronto. As interacoes entram nas proximas tasks da Sprint 6.
+              </p>
             </section>
 
             <section id="mission-panel" class="floating-panel hud-block" aria-label="Painel operacional da missão">
@@ -2766,7 +2891,18 @@
           storageError: null,
           mapTileFailed: false,
           latestSample: null,
-          uiMessage: null
+          uiMessage: null,
+          coveragePlanner: {
+            mode: "idle",
+            overlay_mode: "optimized",
+            working_width_m: 6.0,
+            draft_vertices: [],
+            field_polygon: null,
+            coverage_preview: null,
+            coverage_plan: null,
+            status_message: null,
+            paused_tractor: false
+          }
         };
 
         const app = document.getElementById("app");
@@ -2812,6 +2948,24 @@
         const missionMessage = document.getElementById("mission-message");
         const missionExportButton = document.getElementById("mission-export");
         const missionClearButton = document.getElementById("mission-clear");
+
+        const plannerWorkingWidthInput = document.getElementById("planner-working-width");
+        const plannerStartDrawingButton = document.getElementById("planner-start-drawing");
+        const plannerFinishDrawingButton = document.getElementById("planner-finish-drawing");
+        const plannerCancelDrawingButton = document.getElementById("planner-cancel-drawing");
+        const plannerGeneratePlanButton = document.getElementById("planner-generate-plan");
+        const plannerClearPlanButton = document.getElementById("planner-clear-plan");
+        const plannerOverlayBaselineButton = document.getElementById("planner-overlay-baseline");
+        const plannerOverlayOptimizedButton = document.getElementById("planner-overlay-optimized");
+        const plannerSwathCount = document.getElementById("planner-swath-count");
+        const plannerOverlayMode = document.getElementById("planner-overlay-mode");
+        const plannerBaselineLength = document.getElementById("planner-baseline-length");
+        const plannerOptimizedLength = document.getElementById("planner-optimized-length");
+        const plannerBaselineCompaction = document.getElementById("planner-baseline-compaction");
+        const plannerOptimizedCompaction = document.getElementById("planner-optimized-compaction");
+        const plannerDeltaLength = document.getElementById("planner-delta-length");
+        const plannerDeltaCompaction = document.getElementById("planner-delta-compaction");
+        const plannerStatusMessage = document.getElementById("planner-status-message");
 
         const debugLat = document.getElementById("debug-lat");
         const debugLng = document.getElementById("debug-lng");
@@ -2930,6 +3084,57 @@
           }
 
           return Number(value).toFixed(3);
+        }
+
+        function formatPlannerMetric(value, suffix, fractionDigits) {
+          if (value === null || value === undefined || Number.isNaN(value)) {
+            return "—";
+          }
+
+          const formatted = Number(value).toFixed(fractionDigits);
+          return suffix ? formatted + " " + suffix : formatted;
+        }
+
+        function formatPlannerDelta(value) {
+          if (value === null || value === undefined || Number.isNaN(value)) {
+            return "—";
+          }
+
+          return (value >= 0 ? "+" : "") + Number(value).toFixed(1) + "%";
+        }
+
+        function formatPlannerOverlayMode(mode) {
+          if (mode === "baseline") {
+            return "Rota baseline";
+          }
+          if (mode === "both") {
+            return "Ambas";
+          }
+          return "Rota otimizada";
+        }
+
+        function getPlannerStatusText(plannerState) {
+          if (plannerState.status_message) {
+            return plannerState.status_message;
+          }
+
+          if (plannerState.coverage_plan) {
+            return "Plano pronto para visualizacao no mapa.";
+          }
+
+          if (plannerState.coverage_preview) {
+            return "Cobertura geometrica pronta. As rotas entram nas proximas tasks da Sprint 6.";
+          }
+
+          if (plannerState.field_polygon) {
+            return "Talhao valido pronto. Gere a cobertura para ver headland e swaths.";
+          }
+
+          if (plannerState.mode === "drawing") {
+            return "Desenho em andamento. Feche ou cancele o rascunho para continuar.";
+          }
+
+          return "Shell do planner pronto. As interacoes entram nas proximas tasks da Sprint 6.";
         }
 
         function buildCompactionHudRows(profile, accumulatorLayers) {
@@ -3097,6 +3302,27 @@
         }
 
         const map = createMap();
+        map.createPane("plannerPane");
+        map.getPane("plannerPane").style.zIndex = 450;
+        const plannerOverlayLayer = L.layerGroup().addTo(map);
+        const plannerDraftVerticesLayer = L.layerGroup();
+        const plannerFieldPolygonLayer = L.layerGroup();
+        const plannerHeadlandLayer = L.layerGroup();
+        const plannerSwathLayer = L.layerGroup();
+        const plannerBaselineRouteLayer = L.layerGroup();
+        const plannerOptimizedRouteLayer = L.layerGroup();
+        const plannerOriginMarkerLayer = L.layerGroup();
+        [
+          plannerDraftVerticesLayer,
+          plannerFieldPolygonLayer,
+          plannerHeadlandLayer,
+          plannerSwathLayer,
+          plannerBaselineRouteLayer,
+          plannerOptimizedRouteLayer,
+          plannerOriginMarkerLayer
+        ].forEach(function (layer) {
+          plannerOverlayLayer.addLayer(layer);
+        });
 
         // -------------------------------------------------------------------
         // BDC thematic overlay
@@ -3274,18 +3500,1461 @@
           return { lat: lat, lng: lng };
         }
 
+        function clearDriveInputs() {
+          inputState.up = false;
+          inputState.down = false;
+          inputState.left = false;
+          inputState.right = false;
+        }
+
+        function getPlannerProjectionOrigin() {
+          if (runtimeState.terrainManifest && runtimeState.terrainManifest.center) {
+            return runtimeState.terrainManifest.center;
+          }
+
+          return FARM_CENTER;
+        }
+
+        function projectLatLng(latLng) {
+          const origin = getPlannerProjectionOrigin();
+          const metersPerDegreeLng =
+            METERS_PER_DEGREE_LAT * Math.cos((origin.lat * Math.PI) / 180);
+
+          return {
+            x: (latLng.lng - origin.lng) * Math.max(metersPerDegreeLng, 1),
+            y: (latLng.lat - origin.lat) * METERS_PER_DEGREE_LAT
+          };
+        }
+
+        function unprojectXY(xy) {
+          const origin = getPlannerProjectionOrigin();
+          const metersPerDegreeLng =
+            METERS_PER_DEGREE_LAT * Math.cos((origin.lat * Math.PI) / 180);
+
+          return {
+            lat: origin.lat + xy.y / METERS_PER_DEGREE_LAT,
+            lng: origin.lng + xy.x / Math.max(metersPerDegreeLng, 1)
+          };
+        }
+
+        function computePolygonArea(verticesXY) {
+          let doubleArea = 0;
+          for (let index = 0; index < verticesXY.length; index += 1) {
+            const current = verticesXY[index];
+            const next = verticesXY[(index + 1) % verticesXY.length];
+            doubleArea += current.x * next.y - next.x * current.y;
+          }
+          return doubleArea / 2;
+        }
+
+        function computePolygonCentroid(verticesXY) {
+          const signedArea = computePolygonArea(verticesXY);
+          const factor = signedArea * 6;
+          if (Math.abs(factor) < 1e-9) {
+            const sum = verticesXY.reduce(
+              function (accumulator, vertex) {
+                accumulator.x += vertex.x;
+                accumulator.y += vertex.y;
+                return accumulator;
+              },
+              { x: 0, y: 0 }
+            );
+
+            return {
+              x: sum.x / Math.max(verticesXY.length, 1),
+              y: sum.y / Math.max(verticesXY.length, 1)
+            };
+          }
+
+          let centroidX = 0;
+          let centroidY = 0;
+          for (let index = 0; index < verticesXY.length; index += 1) {
+            const current = verticesXY[index];
+            const next = verticesXY[(index + 1) % verticesXY.length];
+            const cross = current.x * next.y - next.x * current.y;
+            centroidX += (current.x + next.x) * cross;
+            centroidY += (current.y + next.y) * cross;
+          }
+
+          return {
+            x: centroidX / factor,
+            y: centroidY / factor
+          };
+        }
+
+        function computePerimeter(verticesXY) {
+          let perimeter = 0;
+          for (let index = 0; index < verticesXY.length; index += 1) {
+            const current = verticesXY[index];
+            const next = verticesXY[(index + 1) % verticesXY.length];
+            perimeter += Math.hypot(next.x - current.x, next.y - current.y);
+          }
+          return perimeter;
+        }
+
+        function computeBoundingBox(verticesXY) {
+          return verticesXY.reduce(
+            function (bounds, vertex) {
+              return {
+                minX: Math.min(bounds.minX, vertex.x),
+                minY: Math.min(bounds.minY, vertex.y),
+                maxX: Math.max(bounds.maxX, vertex.x),
+                maxY: Math.max(bounds.maxY, vertex.y)
+              };
+            },
+            { minX: Infinity, minY: Infinity, maxX: -Infinity, maxY: -Infinity }
+          );
+        }
+
+        function closestPointOnSegment(pointXY, segmentStartXY, segmentEndXY) {
+          const deltaX = segmentEndXY.x - segmentStartXY.x;
+          const deltaY = segmentEndXY.y - segmentStartXY.y;
+          const lengthSquared = deltaX * deltaX + deltaY * deltaY;
+
+          if (lengthSquared <= 1e-9) {
+            return { x: segmentStartXY.x, y: segmentStartXY.y };
+          }
+
+          const projection =
+            ((pointXY.x - segmentStartXY.x) * deltaX + (pointXY.y - segmentStartXY.y) * deltaY) / lengthSquared;
+          const t = clamp(projection, 0, 1);
+
+          return {
+            x: segmentStartXY.x + deltaX * t,
+            y: segmentStartXY.y + deltaY * t
+          };
+        }
+
+        function pointToSegmentDistance(pointXY, segmentStartXY, segmentEndXY) {
+          const closestPoint = closestPointOnSegment(pointXY, segmentStartXY, segmentEndXY);
+          return Math.hypot(pointXY.x - closestPoint.x, pointXY.y - closestPoint.y);
+        }
+
+        function computeOrientation(aXY, bXY, cXY) {
+          return (bXY.x - aXY.x) * (cXY.y - aXY.y) - (bXY.y - aXY.y) * (cXY.x - aXY.x);
+        }
+
+        function isPointOnSegment(pointXY, segmentStartXY, segmentEndXY) {
+          const epsilon = 1e-9;
+          return (
+            pointXY.x <= Math.max(segmentStartXY.x, segmentEndXY.x) + epsilon &&
+            pointXY.x >= Math.min(segmentStartXY.x, segmentEndXY.x) - epsilon &&
+            pointXY.y <= Math.max(segmentStartXY.y, segmentEndXY.y) + epsilon &&
+            pointXY.y >= Math.min(segmentStartXY.y, segmentEndXY.y) - epsilon
+          );
+        }
+
+        function segmentsIntersect(aStartXY, aEndXY, bStartXY, bEndXY) {
+          const epsilon = 1e-9;
+          const orientation1 = computeOrientation(aStartXY, aEndXY, bStartXY);
+          const orientation2 = computeOrientation(aStartXY, aEndXY, bEndXY);
+          const orientation3 = computeOrientation(bStartXY, bEndXY, aStartXY);
+          const orientation4 = computeOrientation(bStartXY, bEndXY, aEndXY);
+
+          if (
+            ((orientation1 > epsilon && orientation2 < -epsilon) ||
+              (orientation1 < -epsilon && orientation2 > epsilon)) &&
+            ((orientation3 > epsilon && orientation4 < -epsilon) ||
+              (orientation3 < -epsilon && orientation4 > epsilon))
+          ) {
+            return true;
+          }
+
+          if (Math.abs(orientation1) <= epsilon && isPointOnSegment(bStartXY, aStartXY, aEndXY)) {
+            return true;
+          }
+          if (Math.abs(orientation2) <= epsilon && isPointOnSegment(bEndXY, aStartXY, aEndXY)) {
+            return true;
+          }
+          if (Math.abs(orientation3) <= epsilon && isPointOnSegment(aStartXY, bStartXY, bEndXY)) {
+            return true;
+          }
+          if (Math.abs(orientation4) <= epsilon && isPointOnSegment(aEndXY, bStartXY, bEndXY)) {
+            return true;
+          }
+
+          return false;
+        }
+
+        function detectSelfIntersection(verticesXY) {
+          if (verticesXY.length < 4) {
+            return false;
+          }
+
+          for (let firstEdgeIndex = 0; firstEdgeIndex < verticesXY.length; firstEdgeIndex += 1) {
+            const firstStart = verticesXY[firstEdgeIndex];
+            const firstEnd = verticesXY[(firstEdgeIndex + 1) % verticesXY.length];
+
+            for (
+              let secondEdgeIndex = firstEdgeIndex + 1;
+              secondEdgeIndex < verticesXY.length;
+              secondEdgeIndex += 1
+            ) {
+              const secondStart = verticesXY[secondEdgeIndex];
+              const secondEnd = verticesXY[(secondEdgeIndex + 1) % verticesXY.length];
+              const sharesVertex =
+                firstEdgeIndex === secondEdgeIndex ||
+                (firstEdgeIndex + 1) % verticesXY.length === secondEdgeIndex ||
+                firstEdgeIndex === (secondEdgeIndex + 1) % verticesXY.length;
+
+              if (sharesVertex) {
+                continue;
+              }
+
+              if (segmentsIntersect(firstStart, firstEnd, secondStart, secondEnd)) {
+                return true;
+              }
+            }
+          }
+
+          return false;
+        }
+
+        function countDistinctVertices(verticesLatLng) {
+          return new Set(
+            verticesLatLng.map(function (vertex) {
+              return vertex.lat.toFixed(7) + ":" + vertex.lng.toFixed(7);
+            })
+          ).size;
+        }
+
+        function getPlannerOperationalBounds() {
+          if (runtimeState.terrainManifest && runtimeState.terrainManifest.areaBounds) {
+            return runtimeState.terrainManifest.areaBounds;
+          }
+
+          return runtimeState.terrainGrid ? runtimeState.terrainGrid.bounds : null;
+        }
+
+        function inferStablePlannerMode() {
+          if (runtimeState.coveragePlanner.coverage_plan) {
+            return "planned";
+          }
+          if (runtimeState.coveragePlanner.field_polygon) {
+            return "polygon-ready";
+          }
+          return "idle";
+        }
+
+        function clearCoveragePlanArtifacts() {
+          runtimeState.coveragePlanner.coverage_plan = null;
+          plannerHeadlandLayer.clearLayers();
+          plannerSwathLayer.clearLayers();
+          plannerBaselineRouteLayer.clearLayers();
+          plannerOptimizedRouteLayer.clearLayers();
+          plannerOriginMarkerLayer.clearLayers();
+        }
+
+        function clearCoveragePreviewArtifacts() {
+          runtimeState.coveragePlanner.coverage_preview = null;
+          plannerHeadlandLayer.clearLayers();
+          plannerSwathLayer.clearLayers();
+        }
+
+        function buildFieldPolygon(verticesLatLng, workingWidthM) {
+          const bounds = getPlannerOperationalBounds();
+          if (!Array.isArray(verticesLatLng) || countDistinctVertices(verticesLatLng) < 3) {
+            throw new Error("Talhao com vertices insuficientes.");
+          }
+
+          if (!bounds) {
+            throw new Error("Recorte operacional indisponivel.");
+          }
+
+          if (
+            !verticesLatLng.every(function (vertex) {
+              return isInsideBounds(vertex, bounds);
+            })
+          ) {
+            throw new Error("Talhao fora do recorte operacional.");
+          }
+
+          if (!Number.isFinite(workingWidthM) || workingWidthM <= 0) {
+            throw new Error("Working width invalida para validar o talhao.");
+          }
+
+          const verticesXY = verticesLatLng.map(projectLatLng);
+          if (detectSelfIntersection(verticesXY)) {
+            throw new Error("Talhao auto-intersectante.");
+          }
+
+          const signedArea = computePolygonArea(verticesXY);
+          const areaM2 = Math.abs(signedArea);
+          if (areaM2 < workingWidthM * workingWidthM) {
+            throw new Error("Talhao menor do que a largura operacional minima.");
+          }
+
+          const winding = signedArea >= 0 ? "ccw" : "cw";
+          const normalizedLatLng = winding === "ccw" ? verticesLatLng.slice() : verticesLatLng.slice().reverse();
+          const normalizedXY = winding === "ccw" ? verticesXY.slice() : verticesXY.slice().reverse();
+          const centroidXY = computePolygonCentroid(normalizedXY);
+
+          return {
+            id: createId("field"),
+            vertices_latlng: normalizedLatLng,
+            vertices_xy: normalizedXY,
+            centroid_xy: centroidXY,
+            centroid_latlng: unprojectXY(centroidXY),
+            area_m2: areaM2,
+            perimeter_m: computePerimeter(normalizedXY),
+            bbox_xy: computeBoundingBox(normalizedXY),
+            winding: "ccw"
+          };
+        }
+
+        function rotatePointAround(pointXY, originXY, angleRad) {
+          const translatedX = pointXY.x - originXY.x;
+          const translatedY = pointXY.y - originXY.y;
+          const cosAngle = Math.cos(angleRad);
+          const sinAngle = Math.sin(angleRad);
+
+          return {
+            x: originXY.x + translatedX * cosAngle - translatedY * sinAngle,
+            y: originXY.y + translatedX * sinAngle + translatedY * cosAngle
+          };
+        }
+
+        function buildHeadlandGeometry(fieldPolygon, headlandWidthM) {
+          const centroid = fieldPolygon.centroid_xy;
+          const innerRingXY = fieldPolygon.vertices_xy.map(function (vertex) {
+            const dx = centroid.x - vertex.x;
+            const dy = centroid.y - vertex.y;
+            const distance = Math.hypot(dx, dy);
+            const step = Math.min(headlandWidthM, distance * 0.45);
+            if (distance <= 1e-6 || step <= 0) {
+              return { x: vertex.x, y: vertex.y };
+            }
+
+            return {
+              x: vertex.x + (dx / distance) * step,
+              y: vertex.y + (dy / distance) * step
+            };
+          });
+
+          const outerArea = Math.abs(computePolygonArea(fieldPolygon.vertices_xy));
+          const innerArea = Math.abs(computePolygonArea(innerRingXY));
+          const validInnerRing =
+            !detectSelfIntersection(innerRingXY) &&
+            innerArea > 1 &&
+            innerArea < outerArea;
+
+          const pathRingXY = validInnerRing ? innerRingXY : fieldPolygon.vertices_xy;
+          const pathRingLatLng = pathRingXY.map(unprojectXY);
+
+          return {
+            width_m: headlandWidthM,
+            outer_ring_xy: fieldPolygon.vertices_xy,
+            outer_ring_latlng: fieldPolygon.vertices_latlng,
+            inner_ring_xy: validInnerRing ? innerRingXY : null,
+            inner_ring_latlng: validInnerRing ? innerRingXY.map(unprojectXY) : null,
+            path_ring_xy: pathRingXY,
+            path_ring_latlng: pathRingLatLng,
+            render_mode: validInnerRing ? "band" : "outer-stroke-fallback"
+          };
+        }
+
+        function deriveSwathOrientation(fieldPolygon) {
+          const centroid = fieldPolygon.centroid_xy;
+          const centeredVertices = fieldPolygon.vertices_xy.map(function (vertex) {
+            return {
+              x: vertex.x - centroid.x,
+              y: vertex.y - centroid.y
+            };
+          });
+
+          const covariance = centeredVertices.reduce(
+            function (accumulator, vertex) {
+              accumulator.xx += vertex.x * vertex.x;
+              accumulator.xy += vertex.x * vertex.y;
+              accumulator.yy += vertex.y * vertex.y;
+              return accumulator;
+            },
+            { xx: 0, xy: 0, yy: 0 }
+          );
+          const count = Math.max(centeredVertices.length, 1);
+          const a = covariance.xx / count;
+          const b = covariance.xy / count;
+          const c = covariance.yy / count;
+          const angleRad = 0.5 * Math.atan2(2 * b, a - c);
+          const angleDeg = (angleRad * 180) / Math.PI;
+
+          return ((angleDeg % 180) + 180) % 180;
+        }
+
+        function buildSwaths(fieldPolygon, workingWidthM, headlandWidthM, orientationDeg) {
+          const orientationRad = (orientationDeg * Math.PI) / 180;
+          const rotationRad = -orientationRad;
+          const centroid = fieldPolygon.centroid_xy;
+          const rotatedVertices = fieldPolygon.vertices_xy.map(function (vertex) {
+            return rotatePointAround(vertex, centroid, rotationRad);
+          });
+          const bounds = computeBoundingBox(rotatedVertices);
+          const usableYMin = bounds.minY + headlandWidthM + workingWidthM / 2;
+          const usableYMax = bounds.maxY - headlandWidthM - workingWidthM / 2;
+
+          if (usableYMax < usableYMin) {
+            return [];
+          }
+
+          const swaths = [];
+          let scanIndex = 0;
+          let swathIndex = 0;
+
+          for (
+            let scanY = usableYMin;
+            scanY <= usableYMax + 1e-6;
+            scanY += workingWidthM, scanIndex += 1
+          ) {
+            const intersections = [];
+            for (let vertexIndex = 0; vertexIndex < rotatedVertices.length; vertexIndex += 1) {
+              const current = rotatedVertices[vertexIndex];
+              const next = rotatedVertices[(vertexIndex + 1) % rotatedVertices.length];
+
+              if ((current.y <= scanY && next.y > scanY) || (next.y <= scanY && current.y > scanY)) {
+                const ratio = (scanY - current.y) / (next.y - current.y);
+                intersections.push(current.x + ratio * (next.x - current.x));
+              }
+            }
+
+            intersections.sort(function (left, right) {
+              return left - right;
+            });
+
+            for (let intervalIndex = 0; intervalIndex + 1 < intersections.length; intervalIndex += 2) {
+              const rawStartX = intersections[intervalIndex];
+              const rawEndX = intersections[intervalIndex + 1];
+              const startX = rawStartX + headlandWidthM;
+              const endX = rawEndX - headlandWidthM;
+
+              if (endX - startX <= 1e-6) {
+                continue;
+              }
+
+              const startXY = rotatePointAround({ x: startX, y: scanY }, centroid, orientationRad);
+              const endXY = rotatePointAround({ x: endX, y: scanY }, centroid, orientationRad);
+
+              swaths.push({
+                id: createId("swath"),
+                index: swathIndex,
+                scan_index: scanIndex,
+                start_xy: startXY,
+                end_xy: endXY,
+                start_latlng: unprojectXY(startXY),
+                end_latlng: unprojectXY(endXY),
+                start_anchor_xy: null,
+                end_anchor_xy: null,
+                length_m: Math.hypot(endXY.x - startXY.x, endXY.y - startXY.y),
+                sample_cells: []
+              });
+              swathIndex += 1;
+            }
+          }
+
+          return swaths;
+        }
+
+        function getClosestPointOnRing(pointXY, ringXY) {
+          let closestPoint = null;
+          let closestDistance = Infinity;
+
+          for (let index = 0; index < ringXY.length; index += 1) {
+            const segmentStart = ringXY[index];
+            const segmentEnd = ringXY[(index + 1) % ringXY.length];
+            const candidatePoint = closestPointOnSegment(pointXY, segmentStart, segmentEnd);
+            const candidateDistance = Math.hypot(pointXY.x - candidatePoint.x, pointXY.y - candidatePoint.y);
+
+            if (candidateDistance < closestDistance) {
+              closestDistance = candidateDistance;
+              closestPoint = candidatePoint;
+            }
+          }
+
+          return closestPoint;
+        }
+
+        function sampleSegmentCells(polylineXY, stepM) {
+          if (!Array.isArray(polylineXY) || polylineXY.length < 2) {
+            return [];
+          }
+
+          const effectiveStepM = Number.isFinite(stepM) && stepM > 0 ? stepM : 100;
+          const sampledByCell = new Map();
+
+          for (let segmentIndex = 0; segmentIndex + 1 < polylineXY.length; segmentIndex += 1) {
+            const segmentStart = polylineXY[segmentIndex];
+            const segmentEnd = polylineXY[segmentIndex + 1];
+            const segmentLength = Math.hypot(segmentEnd.x - segmentStart.x, segmentEnd.y - segmentStart.y);
+            if (segmentLength <= 1e-9) {
+              continue;
+            }
+
+            const subdivisions = Math.max(1, Math.ceil(segmentLength / effectiveStepM));
+            for (let subdivisionIndex = 0; subdivisionIndex < subdivisions; subdivisionIndex += 1) {
+              const t0 = subdivisionIndex / subdivisions;
+              const t1 = (subdivisionIndex + 1) / subdivisions;
+              const midT = (t0 + t1) / 2;
+              const traversedLength = segmentLength / subdivisions;
+              const midpointXY = {
+                x: segmentStart.x + (segmentEnd.x - segmentStart.x) * midT,
+                y: segmentStart.y + (segmentEnd.y - segmentStart.y) * midT
+              };
+              const midpointLatLng = unprojectXY(midpointXY);
+              const cell = resolveCell(midpointLatLng, runtimeState.terrainGrid);
+              const cellId = cell ? cell.cellId : "outside-grid";
+              const thematicClass =
+                cell && cell.terrainSnapshotBase ? cell.terrainSnapshotBase.thematic_class : null;
+              const availability =
+                thematicClass &&
+                thematicClass !== "water" &&
+                thematicClass !== "_invalid"
+                  ? "derived"
+                  : "unavailable";
+
+              if (!sampledByCell.has(cellId)) {
+                sampledByCell.set(cellId, {
+                  cell_id: cellId,
+                  length_m: 0,
+                  availability: availability
+                });
+              }
+
+              const accumulator = sampledByCell.get(cellId);
+              accumulator.length_m = Number((accumulator.length_m + traversedLength).toFixed(3));
+              if (availability === "unavailable") {
+                accumulator.availability = "unavailable";
+              }
+            }
+          }
+
+          return Array.from(sampledByCell.values());
+        }
+
+        function polylineLength(polylineXY) {
+          if (!Array.isArray(polylineXY) || polylineXY.length < 2) {
+            return 0;
+          }
+
+          let lengthM = 0;
+          for (let index = 0; index + 1 < polylineXY.length; index += 1) {
+            const current = polylineXY[index];
+            const next = polylineXY[index + 1];
+            lengthM += Math.hypot(next.x - current.x, next.y - current.y);
+          }
+
+          return Number(lengthM.toFixed(3));
+        }
+
+        function polylineToLatLng(polylineXY) {
+          return polylineXY.map(function (pointXY) {
+            return unprojectXY(pointXY);
+          });
+        }
+
+        function joinPolylines(parts) {
+          const result = [];
+
+          parts.forEach(function (part) {
+            if (!Array.isArray(part) || !part.length) {
+              return;
+            }
+
+            part.forEach(function (pointXY, index) {
+              const lastPoint = result[result.length - 1];
+              if (
+                lastPoint &&
+                index === 0 &&
+                Math.abs(lastPoint.x - pointXY.x) <= 1e-6 &&
+                Math.abs(lastPoint.y - pointXY.y) <= 1e-6
+              ) {
+                return;
+              }
+              result.push(pointXY);
+            });
+          });
+
+          return result;
+        }
+
+        function estimatePolylineCompactionCost(sampleCells, costIndex, routePassState, workingWidthM) {
+          const safeWorkingWidthM = Math.max(workingWidthM || 0, 1);
+          let totalCost = 0;
+          let revisitedCellHits = 0;
+
+          (sampleCells || []).forEach(function (entry) {
+            const costInfo = costIndex && costIndex[entry.cell_id] ? costIndex[entry.cell_id] : null;
+            const penaltyPerM =
+              costInfo && Number.isFinite(costInfo.penalty_per_m) ? costInfo.penalty_per_m : 1;
+            const coveredLengthM =
+              routePassState && routePassState[entry.cell_id] ? routePassState[entry.cell_id].covered_length_m : 0;
+            const equivalentPasses = Math.floor(coveredLengthM / safeWorkingWidthM);
+            totalCost += entry.length_m * penaltyPerM * (1 + equivalentPasses);
+            if (equivalentPasses > 0) {
+              revisitedCellHits += 1;
+            }
+          });
+
+          return {
+            cost: Number(totalCost.toFixed(4)),
+            revisited_cell_hits: revisitedCellHits
+          };
+        }
+
+        function applySampleCellsToRoutePassState(sampleCells, routePassState) {
+          (sampleCells || []).forEach(function (entry) {
+            if (!routePassState[entry.cell_id]) {
+              routePassState[entry.cell_id] = { covered_length_m: 0 };
+            }
+
+            routePassState[entry.cell_id].covered_length_m = Number(
+              (routePassState[entry.cell_id].covered_length_m + entry.length_m).toFixed(3)
+            );
+          });
+        }
+
+        function getRingPosition(pointXY, ringXY) {
+          let cumulativeLength = 0;
+          let bestCandidate = null;
+
+          for (let index = 0; index < ringXY.length; index += 1) {
+            const segmentStart = ringXY[index];
+            const segmentEnd = ringXY[(index + 1) % ringXY.length];
+            const segmentLength = Math.hypot(segmentEnd.x - segmentStart.x, segmentEnd.y - segmentStart.y);
+            const closestPoint = closestPointOnSegment(pointXY, segmentStart, segmentEnd);
+            const distanceToSegment = Math.hypot(pointXY.x - closestPoint.x, pointXY.y - closestPoint.y);
+            const offsetOnSegment =
+              Math.hypot(closestPoint.x - segmentStart.x, closestPoint.y - segmentStart.y);
+
+            if (!bestCandidate || distanceToSegment < bestCandidate.distance_to_ring) {
+              bestCandidate = {
+                segment_index: index,
+                distance_along_ring: cumulativeLength + offsetOnSegment,
+                point_xy: closestPoint,
+                distance_to_ring: distanceToSegment
+              };
+            }
+
+            cumulativeLength += segmentLength;
+          }
+
+          return bestCandidate;
+        }
+
+        function buildForwardRingArc(ringXY, startPosition, endPosition) {
+          if (!Array.isArray(ringXY) || ringXY.length === 0 || !startPosition || !endPosition) {
+            return [];
+          }
+
+          if (ringXY.length === 1) {
+            return [startPosition.point_xy, endPosition.point_xy];
+          }
+
+          const points = [startPosition.point_xy];
+          const cumulativeLengths = [0];
+          for (let index = 0; index < ringXY.length; index += 1) {
+            const current = ringXY[index];
+            const next = ringXY[(index + 1) % ringXY.length];
+            cumulativeLengths[index + 1] =
+              cumulativeLengths[index] + Math.hypot(next.x - current.x, next.y - current.y);
+          }
+
+          const totalLength = cumulativeLengths[cumulativeLengths.length - 1];
+          if (totalLength <= 1e-9) {
+            return [startPosition.point_xy, endPosition.point_xy];
+          }
+
+          const vertexDistances = cumulativeLengths.slice(0, ringXY.length);
+          const targetDistance =
+            endPosition.distance_along_ring >= startPosition.distance_along_ring
+              ? endPosition.distance_along_ring
+              : endPosition.distance_along_ring + totalLength;
+
+          let nextVertexIndex = (startPosition.segment_index + 1) % ringXY.length;
+          let wrappedPastOrigin = nextVertexIndex === 0;
+          let safetyCounter = 0;
+
+          while (safetyCounter <= ringXY.length) {
+            const nextVertexDistance =
+              vertexDistances[nextVertexIndex] + (wrappedPastOrigin ? totalLength : 0);
+            if (nextVertexDistance >= targetDistance - 1e-6) {
+              break;
+            }
+
+            points.push(ringXY[nextVertexIndex]);
+            nextVertexIndex = (nextVertexIndex + 1) % ringXY.length;
+            if (nextVertexIndex === 0) {
+              wrappedPastOrigin = true;
+            }
+            safetyCounter += 1;
+          }
+
+          points.push(endPosition.point_xy);
+          return points;
+        }
+
+        function buildRouteSegment(type, swathId, polylineXY, plannerCellCostIndex, routePassState, workingWidthM) {
+          const normalizedPolyline = joinPolylines([polylineXY]);
+          const sampleCells = sampleSegmentCells(normalizedPolyline, 100);
+          const compaction = estimatePolylineCompactionCost(
+            sampleCells,
+            plannerCellCostIndex,
+            routePassState,
+            workingWidthM
+          );
+
+          return {
+            type: type,
+            swath_id: swathId || null,
+            polyline_xy: normalizedPolyline,
+            polyline_latlng: polylineToLatLng(normalizedPolyline),
+            length_m: polylineLength(normalizedPolyline),
+            compaction_cost: compaction.cost,
+            revisited_cell_hits: compaction.revisited_cell_hits,
+            sample_cells: sampleCells
+          };
+        }
+
+        function buildBoundaryArc(
+          headland,
+          anchorAXY,
+          anchorBXY,
+          mode,
+          routePassState,
+          plannerCellCostIndex,
+          workingWidthM
+        ) {
+          if (!anchorAXY || !anchorBXY) {
+            return buildRouteSegment(
+              "transition",
+              null,
+              anchorAXY && anchorBXY ? [anchorAXY, anchorBXY] : [],
+              plannerCellCostIndex,
+              routePassState,
+              workingWidthM
+            );
+          }
+
+          const startPosition = getRingPosition(anchorAXY, headland.path_ring_xy);
+          const endPosition = getRingPosition(anchorBXY, headland.path_ring_xy);
+          const forwardPolyline = buildForwardRingArc(headland.path_ring_xy, startPosition, endPosition);
+          const backwardPolyline = buildForwardRingArc(headland.path_ring_xy, endPosition, startPosition).reverse();
+          const forwardSegment = buildRouteSegment(
+            "transition",
+            null,
+            forwardPolyline,
+            plannerCellCostIndex,
+            routePassState,
+            workingWidthM
+          );
+          const backwardSegment = buildRouteSegment(
+            "transition",
+            null,
+            backwardPolyline,
+            plannerCellCostIndex,
+            routePassState,
+            workingWidthM
+          );
+
+          if (mode === "baseline") {
+            return forwardSegment.length_m <= backwardSegment.length_m ? forwardSegment : backwardSegment;
+          }
+
+          return forwardSegment.length_m + forwardSegment.compaction_cost <=
+            backwardSegment.length_m + backwardSegment.compaction_cost
+            ? forwardSegment
+            : backwardSegment;
+        }
+
+        function buildTransitionPolyline(
+          currentPointXY,
+          currentAnchorXY,
+          targetSwath,
+          direction,
+          headland,
+          mode,
+          routePassState,
+          plannerCellCostIndex,
+          workingWidthM,
+          segmentType
+        ) {
+          const targetStartXY = direction === "ab" ? targetSwath.start_xy : targetSwath.end_xy;
+          const targetAnchorXY = direction === "ab" ? targetSwath.start_anchor_xy : targetSwath.end_anchor_xy;
+          const entryAnchorXY = currentAnchorXY || getClosestPointOnRing(currentPointXY, headland.path_ring_xy);
+          const entryPolyline = currentPointXY ? [currentPointXY, entryAnchorXY] : [];
+          const boundaryArc = buildBoundaryArc(
+            headland,
+            entryAnchorXY,
+            targetAnchorXY,
+            mode,
+            routePassState,
+            plannerCellCostIndex,
+            workingWidthM
+          );
+          const targetPolyline = targetAnchorXY && targetStartXY ? [targetAnchorXY, targetStartXY] : [];
+
+          return buildRouteSegment(
+            segmentType,
+            targetSwath.id,
+            joinPolylines([entryPolyline, boundaryArc.polyline_xy, targetPolyline]),
+            plannerCellCostIndex,
+            routePassState,
+            workingWidthM
+          );
+        }
+
+        function buildSwathRouteSegment(targetSwath, direction, plannerCellCostIndex, routePassState, workingWidthM) {
+          const swathPolylineXY =
+            direction === "ab"
+              ? [targetSwath.start_xy, targetSwath.end_xy]
+              : [targetSwath.end_xy, targetSwath.start_xy];
+
+          return buildRouteSegment(
+            "swath",
+            targetSwath.id,
+            swathPolylineXY,
+            plannerCellCostIndex,
+            routePassState,
+            workingWidthM
+          );
+        }
+
+        function attachSwathAnchors(swaths, headland) {
+          return swaths.map(function (swath) {
+            const startAnchorXY = getClosestPointOnRing(swath.start_xy, headland.path_ring_xy);
+            const endAnchorXY = getClosestPointOnRing(swath.end_xy, headland.path_ring_xy);
+
+            return Object.assign({}, swath, {
+              start_anchor_xy: startAnchorXY,
+              start_anchor_latlng: startAnchorXY ? unprojectXY(startAnchorXY) : null,
+              end_anchor_xy: endAnchorXY,
+              end_anchor_latlng: endAnchorXY ? unprojectXY(endAnchorXY) : null,
+              sample_cells: sampleSegmentCells([swath.start_xy, swath.end_xy], 100)
+            });
+          });
+        }
+
+        function hydratePlannerCellCostIndex() {
+          const terrainGrid = runtimeState.terrainGrid;
+          const mission = runtimeState.mission;
+          const accumulator = mission && mission.compaction_accumulator ? mission.compaction_accumulator : {};
+
+          if (!terrainGrid || !Array.isArray(terrainGrid.cells)) {
+            return {};
+          }
+
+          const index = {};
+          let maxDerivedPenalty = 0;
+
+          terrainGrid.cells.forEach(function (cell) {
+            const snapshotBase = buildTerrainSnapshot(cell);
+            const baseProfile = runCompactionMotor(getActiveTractorConfig(), snapshotBase);
+            const layer20 = baseProfile && baseProfile[2] ? baseProfile[2] : null;
+            const accCell = accumulator && accumulator[cell.cellId] ? accumulator[cell.cellId] : null;
+            const accLayer = accCell && Array.isArray(accCell.layers) ? accCell.layers[2] || null : null;
+            const baseBulkDensity = layer20 && layer20.bulk_density !== undefined ? layer20.bulk_density : null;
+            const accumulatedBulkDensity =
+              accLayer && accLayer.bulk_density_estimated !== undefined && accLayer.bulk_density_estimated !== null
+                ? accLayer.bulk_density_estimated
+                : baseBulkDensity;
+            const accumulatedDelta =
+              accumulatedBulkDensity !== null && accumulatedBulkDensity !== undefined &&
+              baseBulkDensity !== null && baseBulkDensity !== undefined
+                ? Math.max(0, accumulatedBulkDensity - baseBulkDensity)
+                : 0;
+            const historicalPassCount = accCell ? accCell.pass_count : 0;
+            const baseDelta = layer20 && layer20.delta_bulk_density ? layer20.delta_bulk_density : 0;
+            const thematicClass =
+              snapshotBase && snapshotBase.thematic_class ? snapshotBase.thematic_class : "_invalid";
+            const available =
+              thematicClass !== "water" &&
+              thematicClass !== "_invalid" &&
+              layer20 &&
+              layer20.provenance === "derived";
+            const penaltyPerM = available ? (baseDelta + accumulatedDelta) * (1 + historicalPassCount) : null;
+
+            if (available && penaltyPerM > maxDerivedPenalty) {
+              maxDerivedPenalty = penaltyPerM;
+            }
+
+            index[cell.cellId] = {
+              availability: available ? "derived" : "unavailable",
+              thematic_class: thematicClass,
+              base_bulk_density: baseBulkDensity,
+              accumulated_bulk_density: accumulatedBulkDensity,
+              base_delta_bd_20_30: baseDelta,
+              historical_pass_count: historicalPassCount,
+              penalty_per_m: penaltyPerM
+            };
+          });
+
+          const unavailablePenalty = maxDerivedPenalty > 0 ? maxDerivedPenalty * 3 : 1;
+          Object.keys(index).forEach(function (cellId) {
+            if (index[cellId].availability === "unavailable") {
+              index[cellId].penalty_per_m = unavailablePenalty;
+            }
+          });
+
+          return index;
+        }
+
+        function computeAverageSwathCompaction(swaths, plannerCellCostIndex, workingWidthM) {
+          if (!swaths.length) {
+            return 1;
+          }
+
+          const total = swaths.reduce(function (sum, swath) {
+            return (
+              sum +
+              estimatePolylineCompactionCost(
+                swath.sample_cells,
+                plannerCellCostIndex,
+                {},
+                workingWidthM
+              ).cost
+            );
+          }, 0);
+
+          return total > 0 ? total / swaths.length : 1;
+        }
+
+        function planCoverageRoute(swaths, originXY, mode, plannerCellCostIndex, headland, workingWidthM) {
+          const remainingSwaths = swaths.slice();
+          const routePassState = {};
+          const segments = [];
+          const swathOrder = [];
+          let totalLengthM = 0;
+          let totalCompactionCost = 0;
+          let revisitedCellHits = 0;
+          let currentPointXY = originXY;
+          let currentAnchorXY = getClosestPointOnRing(originXY, headland.path_ring_xy);
+          const distanceScale =
+            remainingSwaths.reduce(function (sum, swath) { return sum + swath.length_m; }, 0) /
+              Math.max(remainingSwaths.length, 1) || 1;
+          const compactionScale = computeAverageSwathCompaction(
+            remainingSwaths,
+            plannerCellCostIndex,
+            workingWidthM
+          );
+
+          while (remainingSwaths.length) {
+            let bestCandidate = null;
+
+            remainingSwaths.forEach(function (swath) {
+              ["ab", "ba"].forEach(function (direction) {
+                const transitionSegment = buildTransitionPolyline(
+                  currentPointXY,
+                  currentAnchorXY,
+                  swath,
+                  direction,
+                  headland,
+                  mode,
+                  routePassState,
+                  plannerCellCostIndex,
+                  workingWidthM,
+                  segments.length === 0 ? "entry" : "transition"
+                );
+                const swathSegment = buildSwathRouteSegment(
+                  swath,
+                  direction,
+                  plannerCellCostIndex,
+                  routePassState,
+                  workingWidthM
+                );
+                const score =
+                  mode === "baseline"
+                    ? transitionSegment.length_m + swathSegment.length_m
+                    : (transitionSegment.length_m + swathSegment.length_m) / Math.max(distanceScale, 1) +
+                      (transitionSegment.compaction_cost + swathSegment.compaction_cost) /
+                        Math.max(compactionScale, 1);
+
+                const candidate = {
+                  swath: swath,
+                  direction: direction,
+                  transition_segment: transitionSegment,
+                  swath_segment: swathSegment,
+                  score: score
+                };
+
+                if (
+                  !bestCandidate ||
+                  candidate.score < bestCandidate.score - 1e-9 ||
+                  (
+                    Math.abs(candidate.score - bestCandidate.score) <= 1e-9 &&
+                    (
+                      candidate.swath.index < bestCandidate.swath.index ||
+                      (
+                        candidate.swath.index === bestCandidate.swath.index &&
+                        candidate.direction === "ab" &&
+                        bestCandidate.direction === "ba"
+                      )
+                    )
+                  )
+                ) {
+                  bestCandidate = candidate;
+                }
+              });
+            });
+
+            if (!bestCandidate) {
+              break;
+            }
+
+            if (bestCandidate.transition_segment.length_m > 0) {
+              segments.push(bestCandidate.transition_segment);
+              totalLengthM += bestCandidate.transition_segment.length_m;
+              totalCompactionCost += bestCandidate.transition_segment.compaction_cost;
+              revisitedCellHits += bestCandidate.transition_segment.revisited_cell_hits;
+              applySampleCellsToRoutePassState(bestCandidate.transition_segment.sample_cells, routePassState);
+            }
+
+            segments.push(bestCandidate.swath_segment);
+            swathOrder.push({
+              swath_id: bestCandidate.swath.id,
+              direction: bestCandidate.direction
+            });
+            totalLengthM += bestCandidate.swath_segment.length_m;
+            totalCompactionCost += bestCandidate.swath_segment.compaction_cost;
+            revisitedCellHits += bestCandidate.swath_segment.revisited_cell_hits;
+            applySampleCellsToRoutePassState(bestCandidate.swath_segment.sample_cells, routePassState);
+
+            currentPointXY =
+              bestCandidate.direction === "ab" ? bestCandidate.swath.end_xy : bestCandidate.swath.start_xy;
+            currentAnchorXY =
+              bestCandidate.direction === "ab"
+                ? bestCandidate.swath.end_anchor_xy
+                : bestCandidate.swath.start_anchor_xy;
+
+            const chosenIndex = remainingSwaths.findIndex(function (swath) {
+              return swath.id === bestCandidate.swath.id;
+            });
+            if (chosenIndex >= 0) {
+              remainingSwaths.splice(chosenIndex, 1);
+            }
+          }
+
+          return {
+            mode: mode,
+            swath_order: swathOrder,
+            segments: segments,
+            total_length_m: Number(totalLengthM.toFixed(3)),
+            total_compaction_cost: Number(totalCompactionCost.toFixed(4)),
+            revisited_cell_hits: revisitedCellHits
+          };
+        }
+
+        function buildCoverageMetrics(swaths, baselineRoute, optimizedRoute) {
+          const unavailableLengthM = swaths.reduce(function (sum, swath) {
+            return (
+              sum +
+              swath.sample_cells.reduce(function (sampleSum, entry) {
+                return sampleSum + (entry.availability === "unavailable" ? entry.length_m : 0);
+              }, 0)
+            );
+          }, 0);
+          const baselineLengthM = baselineRoute.total_length_m;
+          const optimizedLengthM = optimizedRoute.total_length_m;
+          const baselineCost = baselineRoute.total_compaction_cost;
+          const optimizedCost = optimizedRoute.total_compaction_cost;
+
+          return {
+            swath_count: swaths.length,
+            baseline_length_m: Number(baselineLengthM.toFixed(3)),
+            optimized_length_m: Number(optimizedLengthM.toFixed(3)),
+            baseline_compaction_cost: Number(baselineCost.toFixed(4)),
+            optimized_compaction_cost: Number(optimizedCost.toFixed(4)),
+            delta_length_pct:
+              baselineLengthM > 0
+                ? Number((((optimizedLengthM - baselineLengthM) / baselineLengthM) * 100).toFixed(2))
+                : 0,
+            delta_compaction_pct:
+              baselineCost > 0
+                ? Number((((optimizedCost - baselineCost) / baselineCost) * 100).toFixed(2))
+                : 0,
+            baseline_revisited_cell_hits: baselineRoute.revisited_cell_hits,
+            optimized_revisited_cell_hits: optimizedRoute.revisited_cell_hits,
+            unavailable_length_m: Number(unavailableLengthM.toFixed(3))
+          };
+        }
+
+        function buildCoveragePlan(fieldPolygon, workingWidthM) {
+          const preview =
+            runtimeState.coveragePlanner.coverage_preview &&
+            runtimeState.coveragePlanner.coverage_preview.field_polygon &&
+            runtimeState.coveragePlanner.coverage_preview.field_polygon.id === fieldPolygon.id &&
+            Math.abs(runtimeState.coveragePlanner.coverage_preview.headland_width_m - workingWidthM) <= 1e-6
+              ? runtimeState.coveragePlanner.coverage_preview
+              : buildCoveragePreview(fieldPolygon, workingWidthM);
+          const originXY = projectLatLng(tractorState.position);
+          const baselineRoute = planCoverageRoute(
+            preview.swaths,
+            originXY,
+            "baseline",
+            preview.planner_cell_cost_index,
+            preview.headland,
+            workingWidthM
+          );
+          const optimizedRoute = planCoverageRoute(
+            preview.swaths,
+            originXY,
+            "optimized",
+            preview.planner_cell_cost_index,
+            preview.headland,
+            workingWidthM
+          );
+
+          return {
+            field_polygon: fieldPolygon,
+            headland: preview.headland,
+            origin_latlng: {
+              lat: Number(tractorState.position.lat.toFixed(6)),
+              lng: Number(tractorState.position.lng.toFixed(6))
+            },
+            origin_xy: originXY,
+            working_width_m: workingWidthM,
+            headland_width_m: preview.headland_width_m,
+            swath_orientation_deg: preview.swath_orientation_deg,
+            swaths: preview.swaths,
+            baseline_route: baselineRoute,
+            optimized_route: optimizedRoute,
+            metrics: buildCoverageMetrics(preview.swaths, baselineRoute, optimizedRoute),
+            planner_cell_cost_index: preview.planner_cell_cost_index
+          };
+        }
+
+        function clearCoveragePlan() {
+          clearCoveragePlanArtifacts();
+          clearCoveragePreviewArtifacts();
+          runtimeState.coveragePlanner.mode = runtimeState.coveragePlanner.field_polygon
+            ? "polygon-ready"
+            : "idle";
+          runtimeState.coveragePlanner.status_message = runtimeState.coveragePlanner.field_polygon
+            ? "Plano descartado. Talhao preservado para nova geracao."
+            : "Plano descartado.";
+          renderPlannerDrawingOverlay();
+          renderHud();
+        }
+
+        function generateCoveragePlan() {
+          if (!runtimeState.coveragePlanner.field_polygon) {
+            runtimeState.coveragePlanner.status_message = "Desenhe e feche um talhao valido antes de gerar o plano.";
+            renderHud();
+            return;
+          }
+
+          try {
+            runtimeState.coveragePlanner.coverage_plan = buildCoveragePlan(
+              runtimeState.coveragePlanner.field_polygon,
+              runtimeState.coveragePlanner.working_width_m
+            );
+            runtimeState.coveragePlanner.mode = "planned";
+            runtimeState.coveragePlanner.status_message =
+              "Plano gerado. Baseline e rota otimizada prontas para comparacao.";
+          } catch (error) {
+            console.error("[generateCoveragePlan]", error);
+            runtimeState.coveragePlanner.status_message = error.message;
+          }
+
+          renderPlannerDrawingOverlay();
+          renderHud();
+        }
+
+        function setCoverageOverlayMode(mode) {
+          runtimeState.coveragePlanner.overlay_mode = mode === "baseline" ? "baseline" : "optimized";
+          renderPlannerDrawingOverlay();
+          renderHud();
+        }
+
+        function setPlannerWorkingWidth(value) {
+          const parsed = parseFloat(value);
+          if (!Number.isFinite(parsed) || parsed <= 0) {
+            runtimeState.coveragePlanner.status_message =
+              "Working width invalida. Informe um valor numerico positivo.";
+            renderHud();
+            return;
+          }
+          const rounded = Math.round(parsed * 10) / 10;
+          if (Math.abs(rounded - runtimeState.coveragePlanner.working_width_m) < 1e-6) {
+            return;
+          }
+          runtimeState.coveragePlanner.working_width_m = rounded;
+          clearCoveragePlanArtifacts();
+          clearCoveragePreviewArtifacts();
+          runtimeState.coveragePlanner.mode = inferStablePlannerMode();
+          if (runtimeState.coveragePlanner.field_polygon) {
+            try {
+              runtimeState.coveragePlanner.coverage_preview = buildCoveragePreview(
+                runtimeState.coveragePlanner.field_polygon,
+                rounded
+              );
+              runtimeState.coveragePlanner.status_message =
+                "Working width alterada. Preview recalculado. Gere um novo plano.";
+            } catch (previewError) {
+              clearCoveragePreviewArtifacts();
+              runtimeState.coveragePlanner.status_message = previewError.message;
+            }
+          } else {
+            runtimeState.coveragePlanner.status_message =
+              "Working width alterada. Desenhe um talhao para gerar o plano.";
+          }
+          renderPlannerDrawingOverlay();
+          renderHud();
+        }
+
+        function buildCoveragePreview(fieldPolygon, workingWidthM) {
+          const headlandWidthM = workingWidthM;
+          const headland = buildHeadlandGeometry(fieldPolygon, headlandWidthM);
+          const swathOrientationDeg = deriveSwathOrientation(fieldPolygon);
+          const swaths = attachSwathAnchors(
+            buildSwaths(fieldPolygon, workingWidthM, headlandWidthM, swathOrientationDeg),
+            headland
+          );
+          const plannerCellCostIndex = hydratePlannerCellCostIndex();
+
+          if (!swaths.length) {
+            throw new Error("Talhao nao comporta ao menos uma faixa util.");
+          }
+
+          return {
+            field_polygon: fieldPolygon,
+            headland: headland,
+            headland_width_m: headlandWidthM,
+            swath_orientation_deg: swathOrientationDeg,
+            swaths: swaths,
+            planner_cell_cost_index: plannerCellCostIndex
+          };
+        }
+
+        function renderPlannerDrawingOverlay() {
+          plannerDraftVerticesLayer.clearLayers();
+          plannerFieldPolygonLayer.clearLayers();
+          plannerHeadlandLayer.clearLayers();
+          plannerSwathLayer.clearLayers();
+          plannerBaselineRouteLayer.clearLayers();
+          plannerOptimizedRouteLayer.clearLayers();
+          plannerOriginMarkerLayer.clearLayers();
+
+          const plannerState = runtimeState.coveragePlanner;
+          if (plannerState.field_polygon && Array.isArray(plannerState.field_polygon.vertices_latlng)) {
+            L.polygon(plannerState.field_polygon.vertices_latlng, {
+              color: "#ffd166",
+              weight: 2,
+              fillColor: "#ffd166",
+              fillOpacity: 0.12,
+              interactive: false,
+              pane: "plannerPane"
+            }).addTo(plannerFieldPolygonLayer);
+          }
+
+          if (plannerState.coverage_preview) {
+            const preview = plannerState.coverage_preview;
+            if (preview.headland.render_mode === "band" && preview.headland.inner_ring_latlng) {
+              L.polygon(
+                [preview.headland.outer_ring_latlng, preview.headland.inner_ring_latlng],
+                {
+                  color: "#ffb347",
+                  weight: 1.5,
+                  fillColor: "#ffb347",
+                  fillOpacity: 0.16,
+                  interactive: false,
+                  pane: "plannerPane"
+                }
+              ).addTo(plannerHeadlandLayer);
+            } else {
+              L.polyline(preview.headland.outer_ring_latlng.concat([preview.headland.outer_ring_latlng[0]]), {
+                color: "#ffb347",
+                weight: 8,
+                opacity: 0.45,
+                interactive: false,
+                pane: "plannerPane"
+              }).addTo(plannerHeadlandLayer);
+            }
+
+            preview.swaths.forEach(function (swath) {
+              L.polyline([swath.start_latlng, swath.end_latlng], {
+                color: "#8ad2ff",
+                weight: 2,
+                opacity: 0.85,
+                interactive: false,
+                pane: "plannerPane"
+              }).addTo(plannerSwathLayer);
+            });
+          }
+
+          if (plannerState.coverage_plan) {
+            const plan = plannerState.coverage_plan;
+            const overlayMode = plannerState.overlay_mode;
+
+            L.circleMarker(plan.origin_latlng, {
+              radius: 7,
+              color: "#06d6a0",
+              weight: 2,
+              fillColor: "#06d6a0",
+              fillOpacity: 0.9,
+              interactive: false,
+              pane: "plannerPane"
+            }).addTo(plannerOriginMarkerLayer);
+
+            const baselineOpacity = overlayMode === "baseline" ? 0.9 : 0.25;
+            if (plan.baseline_route && Array.isArray(plan.baseline_route.segments)) {
+              plan.baseline_route.segments.forEach(function (segment) {
+                if (!Array.isArray(segment.polyline_latlng) || segment.polyline_latlng.length < 2) {
+                  return;
+                }
+                L.polyline(segment.polyline_latlng, {
+                  color: "#555555",
+                  weight: segment.type === "swath" ? 2 : 1.5,
+                  dashArray: "8 5",
+                  opacity: baselineOpacity,
+                  interactive: false,
+                  pane: "plannerPane"
+                }).addTo(plannerBaselineRouteLayer);
+              });
+            }
+
+            const optimizedOpacity = overlayMode === "optimized" ? 0.9 : 0.25;
+            if (plan.optimized_route && Array.isArray(plan.optimized_route.segments)) {
+              plan.optimized_route.segments.forEach(function (segment) {
+                if (!Array.isArray(segment.polyline_latlng) || segment.polyline_latlng.length < 2) {
+                  return;
+                }
+                L.polyline(segment.polyline_latlng, {
+                  color: "#ef8c1e",
+                  weight: segment.type === "swath" ? 2.5 : 1.5,
+                  opacity: optimizedOpacity,
+                  interactive: false,
+                  pane: "plannerPane"
+                }).addTo(plannerOptimizedRouteLayer);
+              });
+            }
+          }
+
+          if (plannerState.mode !== "drawing" || !plannerState.draft_vertices.length) {
+            return;
+          }
+
+          plannerState.draft_vertices.forEach(function (vertex) {
+            L.circleMarker(vertex, {
+              radius: 5,
+              color: "#ffd166",
+              weight: 2,
+              fillColor: "#ffd166",
+              fillOpacity: 0.9,
+              interactive: false,
+              pane: "plannerPane"
+            }).addTo(plannerDraftVerticesLayer);
+          });
+
+          if (plannerState.draft_vertices.length > 1) {
+            L.polyline(plannerState.draft_vertices, {
+              color: "#ffd166",
+              weight: 2,
+              dashArray: "6 6",
+              interactive: false,
+              pane: "plannerPane"
+            }).addTo(plannerDraftVerticesLayer);
+          }
+        }
+
+        function startFieldDrawing() {
+          if (!runtimeState.datasetReady) {
+            runtimeState.coveragePlanner.status_message = "Dataset indisponivel para iniciar o desenho.";
+            renderHud();
+            return;
+          }
+
+          clearDriveInputs();
+          tractorState.speedMps = 0;
+          runtimeState.coveragePlanner.mode = "drawing";
+          runtimeState.coveragePlanner.paused_tractor = true;
+          runtimeState.coveragePlanner.draft_vertices = [];
+          runtimeState.coveragePlanner.status_message = "Clique no mapa para adicionar vertices ao talhao.";
+          renderPlannerDrawingOverlay();
+          renderHud();
+        }
+
+        function finishFieldDrawing() {
+          if (runtimeState.coveragePlanner.mode !== "drawing") {
+            return;
+          }
+
+          try {
+            const fieldPolygon = buildFieldPolygon(
+              runtimeState.coveragePlanner.draft_vertices,
+              runtimeState.coveragePlanner.working_width_m
+            );
+            runtimeState.coveragePlanner.field_polygon = fieldPolygon;
+            runtimeState.coveragePlanner.draft_vertices = [];
+            clearCoveragePlanArtifacts();
+            runtimeState.coveragePlanner.mode = "polygon-ready";
+            runtimeState.coveragePlanner.paused_tractor = false;
+            try {
+              runtimeState.coveragePlanner.coverage_preview = buildCoveragePreview(
+                fieldPolygon,
+                runtimeState.coveragePlanner.working_width_m
+              );
+              runtimeState.coveragePlanner.status_message =
+                "Talhao valido. Headland e swaths gerados para o preview do planner.";
+            } catch (previewError) {
+              console.error("[finishFieldDrawing/preview]", previewError);
+              clearCoveragePreviewArtifacts();
+              runtimeState.coveragePlanner.status_message = previewError.message;
+            }
+          } catch (error) {
+            console.error("[finishFieldDrawing]", error);
+            runtimeState.coveragePlanner.status_message = error.message;
+          }
+
+          renderPlannerDrawingOverlay();
+          renderHud();
+        }
+
+        function cancelFieldDrawing() {
+          if (runtimeState.coveragePlanner.mode !== "drawing") {
+            return;
+          }
+
+          runtimeState.coveragePlanner.draft_vertices = [];
+          runtimeState.coveragePlanner.mode = inferStablePlannerMode();
+          runtimeState.coveragePlanner.paused_tractor = false;
+          runtimeState.coveragePlanner.status_message = runtimeState.coveragePlanner.field_polygon
+            ? "Rascunho descartado. Talhao anterior preservado."
+            : "Desenho cancelado.";
+          renderPlannerDrawingOverlay();
+          renderHud();
+        }
+
         function attachKeyboardControls() {
           window.addEventListener("keydown", function (event) {
+            const drawingActive = runtimeState.coveragePlanner.mode === "drawing";
             if (event.key === "ArrowUp") {
+              if (drawingActive) {
+                inputState.up = false;
+                event.preventDefault();
+                return;
+              }
               inputState.up = true;
               event.preventDefault();
             } else if (event.key === "ArrowDown") {
+              if (drawingActive) {
+                inputState.down = false;
+                event.preventDefault();
+                return;
+              }
               inputState.down = true;
               event.preventDefault();
             } else if (event.key === "ArrowLeft") {
+              if (drawingActive) {
+                inputState.left = false;
+                event.preventDefault();
+                return;
+              }
               inputState.left = true;
               event.preventDefault();
             } else if (event.key === "ArrowRight") {
+              if (drawingActive) {
+                inputState.right = false;
+                event.preventDefault();
+                return;
+              }
               inputState.right = true;
               event.preventDefault();
             } else if (event.key === "d" || event.key === "D") {
@@ -3314,6 +4983,9 @@
 
         function getActiveTractorConfig() {
           const inflationPressure = 100;
+          const workingWidthM = runtimeState.coveragePlanner
+            ? runtimeState.coveragePlanner.working_width_m
+            : 6.0;
 
           return {
             machine_preset: "Trator médio",
@@ -3324,6 +4996,7 @@
             tyre_diameter: 1.5,
             tyre_recommended_pressure: inflationPressure,
             track_gauge: 2.2,
+            working_width_m: workingWidthM,
             route_speed: Number(tractorState.speedMps.toFixed(2))
           };
         }
@@ -3818,6 +5491,12 @@
           const activeTractor = getActiveTractorConfig();
           const currentCell = runtimeState.currentCell;
           const currentCompactionProfile = runtimeState.currentCompactionProfile;
+          const plannerState = runtimeState.coveragePlanner;
+          const coveragePlan = plannerState.coverage_plan;
+          const plannerMetrics = coveragePlan ? coveragePlan.metrics || null : null;
+          const coveragePreview = plannerState.coverage_preview;
+          const drawingActive = plannerState.mode === "drawing";
+          const plannerReady = runtimeState.datasetReady && !runtimeState.datasetError;
           const terrainSource = getCurrentTerrainSnapshot() || {
             cell_id: "fora do recorte",
             clay_content: null,
@@ -3873,6 +5552,68 @@
                   ? "memoria + alerta"
                   : "localStorage ativo"
                 : "somente memoria"
+            },
+            planner: {
+              mode: plannerState.mode,
+              working_width_m_input: Number(plannerState.working_width_m).toFixed(1),
+              overlay_mode: formatPlannerOverlayMode(plannerState.overlay_mode),
+              status: getPlannerStatusText(plannerState),
+              swath_count:
+                coveragePlan && Array.isArray(coveragePlan.swaths)
+                  ? String(coveragePlan.swaths.length)
+                  : coveragePreview && Array.isArray(coveragePreview.swaths)
+                    ? String(coveragePreview.swaths.length)
+                    : "—",
+              baseline_length: formatPlannerMetric(
+                plannerMetrics && typeof plannerMetrics.baseline_length_m === "number"
+                  ? plannerMetrics.baseline_length_m
+                  : null,
+                "m",
+                0
+              ),
+              optimized_length: formatPlannerMetric(
+                plannerMetrics && typeof plannerMetrics.optimized_length_m === "number"
+                  ? plannerMetrics.optimized_length_m
+                  : null,
+                "m",
+                0
+              ),
+              baseline_compaction: formatPlannerMetric(
+                plannerMetrics && typeof plannerMetrics.baseline_compaction_cost === "number"
+                  ? plannerMetrics.baseline_compaction_cost
+                  : null,
+                "",
+                1
+              ),
+              optimized_compaction: formatPlannerMetric(
+                plannerMetrics && typeof plannerMetrics.optimized_compaction_cost === "number"
+                  ? plannerMetrics.optimized_compaction_cost
+                  : null,
+                "",
+                1
+              ),
+              delta_length: formatPlannerDelta(
+                plannerMetrics && typeof plannerMetrics.delta_length_pct === "number"
+                  ? plannerMetrics.delta_length_pct
+                  : null
+              ),
+              delta_compaction: formatPlannerDelta(
+                plannerMetrics && typeof plannerMetrics.delta_compaction_pct === "number"
+                  ? plannerMetrics.delta_compaction_pct
+                  : null
+              ),
+              controls: {
+                working_width_disabled: drawingActive,
+                start_drawing_disabled: !plannerReady || drawingActive,
+                finish_drawing_disabled:
+                  !plannerReady || !drawingActive || plannerState.draft_vertices.length < 3,
+                cancel_drawing_disabled: !plannerReady || !drawingActive,
+                generate_plan_disabled:
+                  !plannerReady || drawingActive || !plannerState.field_polygon,
+                clear_plan_disabled: !plannerReady || !plannerState.coverage_plan,
+                overlay_baseline_disabled: !plannerReady || !plannerState.coverage_plan,
+                overlay_optimized_disabled: !plannerReady || !plannerState.coverage_plan
+              }
             },
             compaction: buildCompactionHudRows(currentCompactionProfile, compactionAccumulatorLayers)
           };
@@ -3971,6 +5712,10 @@
             : null;
           runtimeState.mission.current_cell_id = runtimeState.currentCell ? runtimeState.currentCell.cellId : null;
           runtimeState.mission.active_tractor_config = activeTractorConfig;
+
+          if (runtimeState.coveragePlanner.paused_tractor) {
+            return;
+          }
 
           if (!runtimeState.currentCell) {
             return;
@@ -4082,6 +5827,7 @@
           runtimeState.mission = createMission();
           runtimeState.mission.current_cell_id = runtimeState.currentCell ? runtimeState.currentCell.cellId : null;
           persistMission();
+          clearCoveragePlan();
           pushUiMessage("Sessao local reiniciada.", 2500);
         }
 
@@ -4157,6 +5903,57 @@
           setHudMetric(missionCellId, hudViewModel.mission.cell_id, false);
           setHudMetric(missionStorage, hudViewModel.mission.storage, false);
 
+          plannerWorkingWidthInput.value = hudViewModel.planner.working_width_m_input;
+          plannerWorkingWidthInput.disabled = hudViewModel.planner.controls.working_width_disabled;
+          plannerStatusMessage.textContent = hudViewModel.planner.status;
+          setHudMetric(plannerSwathCount, hudViewModel.planner.swath_count, hudViewModel.planner.swath_count === "—");
+          setHudMetric(plannerOverlayMode, hudViewModel.planner.overlay_mode, false);
+          setHudMetric(
+            plannerBaselineLength,
+            hudViewModel.planner.baseline_length,
+            hudViewModel.planner.baseline_length === "—"
+          );
+          setHudMetric(
+            plannerOptimizedLength,
+            hudViewModel.planner.optimized_length,
+            hudViewModel.planner.optimized_length === "—"
+          );
+          setHudMetric(
+            plannerBaselineCompaction,
+            hudViewModel.planner.baseline_compaction,
+            hudViewModel.planner.baseline_compaction === "—"
+          );
+          setHudMetric(
+            plannerOptimizedCompaction,
+            hudViewModel.planner.optimized_compaction,
+            hudViewModel.planner.optimized_compaction === "—"
+          );
+          setHudMetric(
+            plannerDeltaLength,
+            hudViewModel.planner.delta_length,
+            hudViewModel.planner.delta_length === "—"
+          );
+          setHudMetric(
+            plannerDeltaCompaction,
+            hudViewModel.planner.delta_compaction,
+            hudViewModel.planner.delta_compaction === "—"
+          );
+          plannerStartDrawingButton.disabled = hudViewModel.planner.controls.start_drawing_disabled;
+          plannerFinishDrawingButton.disabled = hudViewModel.planner.controls.finish_drawing_disabled;
+          plannerCancelDrawingButton.disabled = hudViewModel.planner.controls.cancel_drawing_disabled;
+          plannerGeneratePlanButton.disabled = hudViewModel.planner.controls.generate_plan_disabled;
+          plannerClearPlanButton.disabled = hudViewModel.planner.controls.clear_plan_disabled;
+          plannerOverlayBaselineButton.disabled = hudViewModel.planner.controls.overlay_baseline_disabled;
+          plannerOverlayOptimizedButton.disabled = hudViewModel.planner.controls.overlay_optimized_disabled;
+          plannerOverlayBaselineButton.classList.toggle(
+            "is-active",
+            runtimeState.coveragePlanner.overlay_mode === "baseline"
+          );
+          plannerOverlayOptimizedButton.classList.toggle(
+            "is-active",
+            runtimeState.coveragePlanner.overlay_mode === "optimized"
+          );
+
           const transientMessage = getUiMessage();
 
           if (transientMessage) {
@@ -4197,6 +5994,11 @@
         }
 
         function updateTractorState(deltaMs) {
+          if (runtimeState.coveragePlanner.paused_tractor) {
+            tractorState.speedMps = 0;
+            return;
+          }
+
           const deltaSeconds = deltaMs / 1000;
           const turningLeft = inputState.left && !inputState.right;
           const turningRight = inputState.right && !inputState.left;
@@ -4319,8 +6121,57 @@
           renderHud();
         });
 
+        plannerWorkingWidthInput.addEventListener("change", function () {
+          setPlannerWorkingWidth(plannerWorkingWidthInput.value);
+        });
+
+        plannerStartDrawingButton.addEventListener("click", function () {
+          startFieldDrawing();
+        });
+
+        plannerFinishDrawingButton.addEventListener("click", function () {
+          finishFieldDrawing();
+        });
+
+        plannerCancelDrawingButton.addEventListener("click", function () {
+          cancelFieldDrawing();
+        });
+
+        plannerGeneratePlanButton.addEventListener("click", function () {
+          generateCoveragePlan();
+        });
+
+        plannerClearPlanButton.addEventListener("click", function () {
+          clearCoveragePlan();
+        });
+
+        plannerOverlayBaselineButton.addEventListener("click", function () {
+          setCoverageOverlayMode("baseline");
+        });
+
+        plannerOverlayOptimizedButton.addEventListener("click", function () {
+          setCoverageOverlayMode("optimized");
+        });
+
         missionClearButton.addEventListener("click", function () {
           resetMission();
+          renderHud();
+        });
+
+        map.on("click", function (event) {
+          if (runtimeState.coveragePlanner.mode !== "drawing") {
+            return;
+          }
+
+          runtimeState.coveragePlanner.draft_vertices = runtimeState.coveragePlanner.draft_vertices.concat({
+            lat: event.latlng.lat,
+            lng: event.latlng.lng
+          });
+          runtimeState.coveragePlanner.status_message =
+            "Vertice " +
+            runtimeState.coveragePlanner.draft_vertices.length +
+            " registrado. Continue clicando ou feche o talhao.";
+          renderPlannerDrawingOverlay();
           renderHud();
         });
 
@@ -4330,6 +6181,7 @@
 
         attachKeyboardControls();
         initializeRuntime();
+        renderPlannerDrawingOverlay();
 
         let lastTimestamp = null;
 
