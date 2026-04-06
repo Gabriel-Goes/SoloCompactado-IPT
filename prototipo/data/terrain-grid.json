@@ -23,7 +23,7 @@
         "west": -45.91079043940991
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -60,7 +60,7 @@
         "west": -45.89234431386422
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -97,7 +97,7 @@
         "west": -45.873898188318535
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -134,7 +134,7 @@
         "west": -45.85545206277285
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -171,7 +171,7 @@
         "west": -45.837005937227154
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -208,7 +208,7 @@
         "west": -45.81855981168147
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -245,7 +245,7 @@
         "west": -45.80011368613578
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -282,7 +282,7 @@
         "west": -45.91079043940991
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -319,7 +319,7 @@
         "west": -45.89234431386422
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -356,7 +356,7 @@
         "west": -45.873898188318535
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -393,7 +393,7 @@
         "west": -45.85545206277285
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -430,7 +430,7 @@
         "west": -45.837005937227154
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -467,7 +467,7 @@
         "west": -45.81855981168147
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -504,7 +504,7 @@
         "west": -45.80011368613578
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -541,7 +541,7 @@
         "west": -45.91079043940991
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -578,7 +578,7 @@
         "west": -45.89234431386422
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -615,7 +615,7 @@
         "west": -45.873898188318535
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "bare_soil"
       },
       "terrainSnapshotBase": {
@@ -652,18 +652,18 @@
         "west": -45.85545206277285
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
-        "value": "vegetation_dense"
+        "source": "bdc-raster-pixel-derived",
+        "value": "bare_soil"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r3-c4",
-        "thematic_class": "vegetation_dense",
-        "clay_content": 0.45,
-        "water_content": 0.35,
-        "matric_suction": 28.4,
-        "bulk_density": 1.15,
-        "conc_factor": 4.0,
-        "sigma_p": 136.4
+        "thematic_class": "bare_soil",
+        "clay_content": 0.3,
+        "water_content": 0.18,
+        "matric_suction": 147.3,
+        "bulk_density": 1.45,
+        "conc_factor": 5.0,
+        "sigma_p": 236.0
       },
       "provenance": {
         "thematic_class": "derived",
@@ -689,7 +689,7 @@
         "west": -45.837005937227154
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -726,7 +726,7 @@
         "west": -45.81855981168147
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -763,7 +763,7 @@
         "west": -45.80011368613578
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -800,7 +800,7 @@
         "west": -45.91079043940991
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -837,7 +837,7 @@
         "west": -45.89234431386422
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -874,18 +874,18 @@
         "west": -45.873898188318535
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
-        "value": "vegetation_sparse"
+        "source": "bdc-raster-pixel-derived",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r4-c3",
-        "thematic_class": "vegetation_sparse",
-        "clay_content": 0.35,
-        "water_content": 0.28,
-        "matric_suction": 49.1,
-        "bulk_density": 1.3,
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
         "conc_factor": 4.0,
-        "sigma_p": 182.9
+        "sigma_p": 136.4
       },
       "provenance": {
         "thematic_class": "derived",
@@ -911,18 +911,18 @@
         "west": -45.85545206277285
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
-        "value": "bare_soil"
+        "source": "bdc-raster-pixel-derived",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r4-c4",
-        "thematic_class": "bare_soil",
-        "clay_content": 0.3,
-        "water_content": 0.18,
-        "matric_suction": 147.3,
-        "bulk_density": 1.45,
-        "conc_factor": 5.0,
-        "sigma_p": 236.0
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
         "thematic_class": "derived",
@@ -948,7 +948,7 @@
         "west": -45.837005937227154
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "bare_soil"
       },
       "terrainSnapshotBase": {
@@ -985,7 +985,7 @@
         "west": -45.81855981168147
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -1022,7 +1022,7 @@
         "west": -45.80011368613578
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -1059,7 +1059,7 @@
         "west": -45.91079043940991
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -1096,18 +1096,18 @@
         "west": -45.89234431386422
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
-        "value": "vegetation_sparse"
+        "source": "bdc-raster-pixel-derived",
+        "value": "bare_soil"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r5-c2",
-        "thematic_class": "vegetation_sparse",
-        "clay_content": 0.35,
-        "water_content": 0.28,
-        "matric_suction": 49.1,
-        "bulk_density": 1.3,
-        "conc_factor": 4.0,
-        "sigma_p": 182.9
+        "thematic_class": "bare_soil",
+        "clay_content": 0.3,
+        "water_content": 0.18,
+        "matric_suction": 147.3,
+        "bulk_density": 1.45,
+        "conc_factor": 5.0,
+        "sigma_p": 236.0
       },
       "provenance": {
         "thematic_class": "derived",
@@ -1133,7 +1133,7 @@
         "west": -45.873898188318535
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -1170,7 +1170,7 @@
         "west": -45.85545206277285
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -1207,7 +1207,7 @@
         "west": -45.837005937227154
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -1244,7 +1244,7 @@
         "west": -45.81855981168147
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -1281,7 +1281,7 @@
         "west": -45.80011368613578
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -1318,7 +1318,7 @@
         "west": -45.91079043940991
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -1355,7 +1355,7 @@
         "west": -45.89234431386422
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "bare_soil"
       },
       "terrainSnapshotBase": {
@@ -1392,27 +1392,27 @@
         "west": -45.873898188318535
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
-        "value": null
+        "source": "bdc-raster-pixel-derived",
+        "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
         "cell_id": "paladino-r6-c3",
-        "thematic_class": null,
-        "clay_content": null,
-        "water_content": null,
-        "matric_suction": null,
-        "bulk_density": null,
-        "conc_factor": null,
-        "sigma_p": null
+        "thematic_class": "vegetation_dense",
+        "clay_content": 0.45,
+        "water_content": 0.35,
+        "matric_suction": 28.4,
+        "bulk_density": 1.15,
+        "conc_factor": 4.0,
+        "sigma_p": 136.4
       },
       "provenance": {
-        "thematic_class": "unavailable",
-        "clay_content": "unavailable",
-        "water_content": "unavailable",
-        "matric_suction": "unavailable",
-        "bulk_density": "unavailable",
-        "conc_factor": "unavailable",
-        "sigma_p": "unavailable"
+        "thematic_class": "derived",
+        "clay_content": "derived",
+        "water_content": "derived",
+        "matric_suction": "derived",
+        "bulk_density": "derived",
+        "conc_factor": "derived",
+        "sigma_p": "derived"
       }
     },
     {
@@ -1429,7 +1429,7 @@
         "west": -45.85545206277285
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -1466,7 +1466,7 @@
         "west": -45.837005937227154
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -1503,7 +1503,7 @@
         "west": -45.81855981168147
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -1540,7 +1540,7 @@
         "west": -45.80011368613578
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -1577,7 +1577,7 @@
         "west": -45.91079043940991
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -1614,7 +1614,7 @@
         "west": -45.89234431386422
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -1651,7 +1651,7 @@
         "west": -45.873898188318535
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -1688,7 +1688,7 @@
         "west": -45.85545206277285
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -1725,7 +1725,7 @@
         "west": -45.837005937227154
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -1762,7 +1762,7 @@
         "west": -45.81855981168147
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {
@@ -1799,7 +1799,7 @@
         "west": -45.80011368613578
       },
       "thematicClass": {
-        "source": "bdc-scl-ndvi",
+        "source": "bdc-raster-pixel-derived",
         "value": "vegetation_dense"
       },
       "terrainSnapshotBase": {

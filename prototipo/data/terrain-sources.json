@@ -32,7 +32,7 @@
     }
   },
   "fieldProvenance": {
-    "_note": "Proveniencia metodologica global do dataset. Proveniencia real de cada campo e registrada por celula em terrain-grid.json.",
+    "_note": "Proveniencia metodologica global do dataset. Proveniencia real do runtime de terreno e registrada no raster local pixelado; a grade operacional preserva apenas a compatibilidade da missao.",
     "thematic_class": "derived",
     "clay_content": "derived",
     "water_content": "derived",
@@ -55,6 +55,9 @@
       "SCL"
     ],
     "ndvi_scale_factor": 10000,
+    "pixel_processing": "classificacao pixel a pixel no recorte operacional completo",
+    "raster_runtime_product": "terrain-bdc-raster.json (classCodesBase64 + bounds + width + height)",
+    "grid_compatibility": "terrain-grid.json derivado por agregacao do raster apenas para missao/exportacao",
     "classification": "SCL + NDVI threshold: SCL=4 NDVI>=0.5 -> vegetation_dense; SCL=4 NDVI<0.5 -> vegetation_sparse; SCL=5 -> bare_soil; SCL=6 -> water; demais -> null (invalido)",
     "soil_lookup_reference": "Imhoff et al. 2004; Latossolo Vermelho-Amarelo, oeste Bahia",
     "soil_lookup_epoch_note": "Valores de water_content calibrados para o final do periodo chuvoso. Trocar a observacao por outra epoca exige recalibrar o lookup.",

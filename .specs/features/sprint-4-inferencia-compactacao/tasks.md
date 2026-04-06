@@ -12,88 +12,74 @@
 T1 -> T2 -> T3
 ```
 
-Todas as tarefas sao sequenciais: T2 depende do output de T1, T3 valida o conjunto.
-
 ---
 
 ## Task Breakdown
 
-### T1: Criar script `enriquecer-grade-bdc.py` com cadeia de inferencia completa
+### T1: Gerar o produto raster BDC pixelado
 
-**What**: Criar o script Python que le `terrain-sources.json`, amostra NDVI e SCL dos COGs do BDC via `rasterio.sample()`, aplica a cadeia de inferencia por celula e grava `terrain-grid.json` v2 e `terrain-sources.json` v2 (com `inferenceChain`) como outputs de uma unica execucao.
-**Where**: `prototipo/scripts/enriquecer-grade-bdc.py`
+**What**: Atualizar `prototipo/scripts/enriquecer-grade-bdc.py` para ler o recorte operacional completo dos COGs, classificar `thematic_class` pixel a pixel e gravar `prototipo/data/terrain-bdc-raster.json` com codificacao compactada.
+**Where**: `prototipo/scripts/enriquecer-grade-bdc.py`, `prototipo/data/terrain-bdc-raster.json`
 **Depends on**: None
-**Reuses**: [design.md](design.md) — Passos 1 a 7, secao de outputs e tratamento de erros
+**Reuses**: [design.md](design.md) — seções "Passo 2", "Passo 3" e "Passo 4"
 
 **Done when**:
 
-- [ ] Script le `selectedObservation` de `terrain-sources.json` sem consultar `bdc-paladino-7km-items.json`
-- [ ] NDVI e SCL amostrados via `rasterio.sample()` (sem `read(1)` da banda inteira)
-- [ ] NDVI dividido por 10000 antes de qualquer classificacao
-- [ ] `thematic_class` classificada corretamente para SCL 4/5/6 e invalidos
-- [ ] `thematic_class` gravada em `thematicClass.value` e `terrainSnapshotBase.thematic_class`
-- [ ] `clay_content`, `water_content`, `bulk_density` derivados do SOIL_LOOKUP por classe
-- [ ] `matric_suction` calculado via van Genuchten (valores esperados: dense≈28.4, sparse≈49.1, bare≈147.3 kPa)
-- [ ] `conc_factor` derivado por faixa de succao (dense→4.0, sparse→4.0, bare→5.0)
-- [ ] `sigma_p` calculado via PTF Severiano 2013 (valor esperado para dense: ≈136 kPa)
-- [ ] Celulas `water`: solo `null`, provenencia `unavailable`
-- [ ] Celulas com SCL invalido: todos os campos `null`, provenencia `unavailable`
-- [ ] Validacao pre-gravacao: >= 80% das celulas com `sigma_p` > 0; aborta com erro diagnostico se falhar
-- [ ] `datasetVersion` atualizado para `2026-04-05-paladino-bdc-7km-v2` em cada celula de `terrain-grid.json`
-- [ ] `terrain-sources.json` gravado com `inferenceChain` (observation_item_id, observation_date, observation_season, assets_used, ndvi_scale_factor, classification, soil_lookup_reference, soil_lookup_epoch_note, van_genuchten_params, sigma_p_ptf, conc_factor_rule)
-- [ ] `fieldProvenance` de `terrain-sources.json` atualizado para `derived` com nota de provenencia metodologica global
-- [ ] `datasetVersion` de `terrain-sources.json` bate com o de `terrain-grid.json`
+- [ ] O script le `selectedObservation` de `terrain-sources.json`
+- [ ] O script processa o recorte completo do raster, nao o centro da celula de 2 km
+- [ ] NDVI e dividido por 10000 antes da classificacao
+- [ ] A classificacao `thematic_class` e feita pixel a pixel
+- [ ] `terrain-bdc-raster.json` e gerado com `datasetVersion`, `bounds`, `width`, `height`, `classEncoding` e `classCodesBase64`
+- [ ] O script continua gerando `terrain-grid.json` como malha operacional de compatibilidade
+- [ ] O `terrain-sources.json` documenta explicitamente o produto raster local no `inferenceChain`
 
-**Requirement**: S4INF-01 a S4INF-13
-**Commit**: `feat(scripts): cria enriquecedor de grade bdc com cadeia de inferencia`
+**Requirement**: S4INF-01 a S4INF-15
+**Commit**: `feat(bdc): gera raster local pixelado para inferencia de solo`
 
 ---
 
-### T2: Re-embutir dataset v2 no `index.html`
+### T2: Usar o raster pixelado no runtime
 
-**What**: Substituir os blocos JSON embutidos no `index.html` com os dados atualizados de `terrain-grid.json` e `terrain-sources.json` v2. Atualizar o `datasetVersion` hardcoded no runtime para que missoes com versao anterior sejam invalidadas.
+**What**: Atualizar `prototipo/index.html` para carregar o raster BDC local, desenhar o overlay em granularidade fina e consultar o pixel corrente para o HUD.
 **Where**: `prototipo/index.html`
 **Depends on**: T1
-**Reuses**: logica de embute do dataset das Sprints 2 e 3; logica de invalidacao de sessao por `datasetVersion`
+**Reuses**: [design.md](design.md) — seção "Runtime Decisions"
 
 **Done when**:
 
-- [ ] Bloco JSON de `terrain-grid.json` embutido no HTML reflete os dados v2
-- [ ] Bloco JSON de `terrain-sources.json` embutido no HTML reflete a `inferenceChain` v2
-- [ ] `datasetVersion` hardcoded no runtime atualizado para `2026-04-05-paladino-bdc-7km-v2`
-- [ ] Missoes salvas com `datasetVersion` anterior sao invalidadas e nova sessao iniciada
-- [ ] `index.html` continua abrindo localmente sem servidor, sem build e sem rede
+- [ ] O HTML embute `terrain-bdc-raster.json`
+- [ ] O runtime decodifica `classCodesBase64`
+- [ ] O overlay "Ver dado BDC" usa o raster pixelado, nao retangulos de 2 km
+- [ ] O HUD usa o pixel corrente como fonte primaria das variaveis de solo
+- [ ] O HUD atualiza dentro da mesma celula operacional quando o pixel BDC muda
+- [ ] A grade operacional continua disponivel para missao/exportacao
 
-**Requirement**: S4INF-14, S4INF-15, S4INF-16, S4INF-18
-**Commit**: `feat(prototipo): re-embute dataset v2 com solo inferido no index`
+**Requirement**: S4INF-16 a S4INF-22
+**Commit**: `feat(prototipo): usa raster bdc pixelado no mapa e hud`
 
 ---
 
-### T3: Validar a sprint contra os criterios de sucesso
+### T3: Validar comportamento fim a fim
 
-**What**: Verificar manualmente que o script, o dataset e o runtime funcionam de ponta a ponta, sem regressao das sprints anteriores.
-**Where**: `prototipo/index.html`, `prototipo/data/`, `prototipo/scripts/`
+**What**: Regenerar os dados, re-embutir no HTML e validar que o overlay e o HUD respondem a variacao espacial do raster.
+**Where**: `prototipo/scripts/`, `prototipo/data/`, `prototipo/index.html`
 **Depends on**: T2
-**Reuses**: [spec.md](spec.md) — Success Criteria
 
 **Done when**:
 
-- [ ] Script executa no ambiente `geologia` sem erro
-- [ ] >= 80% das celulas tem `sigma_p` > 0 com provenencia `derived`
-- [ ] Nenhuma celula com dado valido tem campo `null` onde deveria ter valor
-- [ ] Celulas com SCL invalido continuam com todos os campos `null`
-- [ ] Abrir `index.html` no navegador carrega grade com `datasetVersion` v2
-- [ ] Navegar ate celula `vegetation_dense` mostra `sigma_p` ≈ 136 kPa no HUD
-- [ ] Navegacao, coleta, persistencia e HUD das Sprints 1, 2 e 3 sem regressao
+- [ ] O script executa com sucesso no ambiente `geologia`
+- [ ] `terrain-bdc-raster.json` e gerado e re-embutido
+- [ ] O overlay BDC deixa de mostrar patches de 2 km
+- [ ] O HUD muda dentro da mesma celula operacional quando o pixel corrente muda
+- [ ] Navegacao, coleta, persistencia e HUD herdados continuam sem regressao estrutural
 
-**Requirement**: S4INF-17
-**Commit**: `feat(prototipo): valida criterios finais da sprint 4`
+**Requirement**: S4INF-16 a S4INF-22
+**Commit**: `feat(prototipo): valida raster bdc pixelado no runtime`
 
 ---
 
 ## Tooling
 
-- Ambiente Python: `geologia` (pyenv) — requer `rasterio`, `numpy`, `pyproj`
-- Validacao do script: rodar diretamente antes do embed
-- Validacao do runtime: navegador local com `file://`
-- MCPs: NONE
+- Ambiente Python: `geologia` via pyenv
+- Bibliotecas: `rasterio`, `numpy`, `pyproj`
+- Runtime: HTML local com Leaflet, sem build
