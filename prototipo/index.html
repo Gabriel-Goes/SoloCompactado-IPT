@@ -352,6 +352,12 @@
         background: rgba(255, 255, 255, 0.14);
       }
 
+      .panel-actions button.is-active {
+        border-color: var(--accent);
+        background: rgba(255, 209, 102, 0.12);
+        color: var(--accent);
+      }
+
       .panel-note {
         margin-top: 12px;
         font-size: 12px;
@@ -782,6 +788,18 @@
                 <button id="planner-generate-plan" type="button" disabled>Gerar plano</button>
                 <button id="planner-clear-plan" type="button" disabled>Limpar plano</button>
               </div>
+              <div class="panel-actions">
+                <button id="planner-view-mode-toggle" type="button" disabled>Entrar no modo planner</button>
+                <button id="planner-fit-plan" type="button" disabled>Enquadrar plano</button>
+              </div>
+              <div class="panel-actions">
+                <button id="planner-zoom-out" type="button" disabled>Zoom -</button>
+                <button id="planner-zoom-in" type="button" disabled>Zoom +</button>
+              </div>
+              <div class="planner-toggle-group" role="group" aria-label="Alternancia da base visual do planner">
+                <button id="planner-base-imagery" type="button" class="is-active" disabled>Base: Satelite</button>
+                <button id="planner-base-bdc" type="button" disabled>Base: BDC</button>
+              </div>
               <div class="planner-toggle-group" role="group" aria-label="Alternancia de visualizacao da rota">
                 <button id="planner-overlay-baseline" type="button" disabled>Ver baseline</button>
                 <button id="planner-overlay-optimized" type="button" class="is-active" disabled>
@@ -789,6 +807,18 @@
                 </button>
               </div>
               <div class="panel-grid">
+                <div class="metric">
+                  <span class="metric-label">Camera</span>
+                  <span id="planner-view-mode" class="metric-value">Follow operacional</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Base</span>
+                  <span id="planner-map-base" class="metric-value">Satelite</span>
+                </div>
+                <div class="metric">
+                  <span class="metric-label">Zoom</span>
+                  <span id="planner-zoom-level" class="metric-value">15</span>
+                </div>
                 <div class="metric">
                   <span class="metric-label">Faixas</span>
                   <span id="planner-swath-count" class="metric-value">—</span>
@@ -823,7 +853,7 @@
                 </div>
               </div>
               <p id="planner-status-message" class="panel-note">
-                Shell do planner pronto. As interacoes entram nas proximas tasks da Sprint 6.
+                Planner pronto. Desenhe um talhao para habilitar a visualizacao dedicada.
               </p>
             </section>
 
@@ -2849,6 +2879,9 @@
       (function () {
         const FARM_CENTER = { lat: -13.098074, lng: -45.846229 };
         const INITIAL_ZOOM = 16;
+        const PLANNER_IMAGERY_NATIVE_ZOOM = 16;
+        const PLANNER_VISUAL_MAX_ZOOM = 18;
+        const PLANNER_FIT_PADDING_PX = 32;
         const METERS_PER_DEGREE_LAT = 111320;
         const MAX_DELTA_MS = 48;
         const SAMPLE_INTERVAL_MS = 1000;
@@ -2901,7 +2934,17 @@
             coverage_preview: null,
             coverage_plan: null,
             status_message: null,
-            paused_tractor: false
+            paused_tractor: false,
+            view: {
+              mode: "follow",
+              map_base: "imagery",
+              follow_zoom: INITIAL_ZOOM,
+              planner_zoom: INITIAL_ZOOM,
+              imagery_native_zoom: PLANNER_IMAGERY_NATIVE_ZOOM,
+              visual_max_zoom: PLANNER_VISUAL_MAX_ZOOM,
+              fit_padding_px: PLANNER_FIT_PADDING_PX,
+              imagery_failed: false
+            }
           }
         };
 
@@ -2955,8 +2998,17 @@
         const plannerCancelDrawingButton = document.getElementById("planner-cancel-drawing");
         const plannerGeneratePlanButton = document.getElementById("planner-generate-plan");
         const plannerClearPlanButton = document.getElementById("planner-clear-plan");
+        const plannerViewModeToggleButton = document.getElementById("planner-view-mode-toggle");
+        const plannerFitPlanButton = document.getElementById("planner-fit-plan");
+        const plannerZoomOutButton = document.getElementById("planner-zoom-out");
+        const plannerZoomInButton = document.getElementById("planner-zoom-in");
+        const plannerBaseImageryButton = document.getElementById("planner-base-imagery");
+        const plannerBaseBdcButton = document.getElementById("planner-base-bdc");
         const plannerOverlayBaselineButton = document.getElementById("planner-overlay-baseline");
         const plannerOverlayOptimizedButton = document.getElementById("planner-overlay-optimized");
+        const plannerViewMode = document.getElementById("planner-view-mode");
+        const plannerMapBase = document.getElementById("planner-map-base");
+        const plannerZoomLevel = document.getElementById("planner-zoom-level");
         const plannerSwathCount = document.getElementById("planner-swath-count");
         const plannerOverlayMode = document.getElementById("planner-overlay-mode");
         const plannerBaselineLength = document.getElementById("planner-baseline-length");
@@ -3113,6 +3165,22 @@
           return "Rota otimizada";
         }
 
+        function formatPlannerViewMode(mode) {
+          return mode === "planner" ? "Planner livre" : "Follow operacional";
+        }
+
+        function formatPlannerMapBase(mode) {
+          return mode === "bdc" ? "BDC" : "Satelite";
+        }
+
+        function formatPlannerZoom(value) {
+          if (value === null || value === undefined || Number.isNaN(value)) {
+            return "—";
+          }
+
+          return Number(value).toFixed(2).replace(/\.?0+$/, "");
+        }
+
         function getPlannerStatusText(plannerState) {
           if (plannerState.status_message) {
             return plannerState.status_message;
@@ -3123,7 +3191,7 @@
           }
 
           if (plannerState.coverage_preview) {
-            return "Cobertura geometrica pronta. As rotas entram nas proximas tasks da Sprint 6.";
+            return "Cobertura geometrica pronta. Gere o plano ou inspecione o talhao.";
           }
 
           if (plannerState.field_polygon) {
@@ -3134,7 +3202,7 @@
             return "Desenho em andamento. Feche ou cancele o rascunho para continuar.";
           }
 
-          return "Shell do planner pronto. As interacoes entram nas proximas tasks da Sprint 6.";
+          return "Planner pronto. Desenhe um talhao para habilitar a visualizacao dedicada.";
         }
 
         function buildCompactionHudRows(profile, accumulatorLayers) {
@@ -3264,12 +3332,18 @@
           return readEmbeddedJson("terrain-sources-data");
         }
 
+        let imageryBaseLayer = null;
+
         function createMap() {
+          const plannerView = runtimeState.coveragePlanner.view;
           const map = L.map("map", {
             center: [FARM_CENTER.lat, FARM_CENTER.lng],
-            zoom: INITIAL_ZOOM,
+            zoom: plannerView.follow_zoom,
             zoomControl: false,
             attributionControl: false,
+            maxZoom: plannerView.visual_max_zoom,
+            zoomSnap: 0.25,
+            zoomDelta: 0.25,
             dragging: false,
             scrollWheelZoom: false,
             doubleClickZoom: false,
@@ -3279,25 +3353,19 @@
             touchZoom: false
           });
 
-          const esriWorldImagery = L.tileLayer(
+          imageryBaseLayer = L.tileLayer(
             "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
             {
-              maxZoom: 19,
-              maxNativeZoom: 16
+              maxZoom: plannerView.visual_max_zoom,
+              maxNativeZoom: plannerView.imagery_native_zoom
             }
           );
 
-          esriWorldImagery.on("tileerror", function () {
-            runtimeState.mapTileFailed = true;
-            showOperationalError(
-              "Nao foi possivel carregar a camada Esri World Imagery. A demo permanece aberta para diagnostico."
-            );
-            if (!runtimeState.datasetError) {
-              setMissionStatus("warning", "Mapa com falha");
-            }
+          imageryBaseLayer.on("tileerror", function () {
+            handleImageryTileError();
           });
 
-          esriWorldImagery.addTo(map);
+          imageryBaseLayer.addTo(map);
           return map;
         }
 
@@ -3444,36 +3512,128 @@
           );
         }
 
-        function toggleBdcOverlay(raster) {
+        function syncLegacyMapBaseUi() {
           const btn = document.getElementById("btn-toggle-map");
           const legend = document.getElementById("bdc-legend");
+          const mapBase = runtimeState.coveragePlanner.view.map_base;
+          const bdcActive = mapBase === "bdc";
 
-          if (!raster || !raster.classCodes || !raster.classCodes.length) {
+          btn.textContent = bdcActive ? "Ver satelite" : "Ver dado BDC";
+          btn.classList.toggle("bdc-active", bdcActive);
+          legend.classList.toggle("visible", bdcActive);
+        }
+
+        function syncImageryVisualState() {
+          if (!imageryBaseLayer) {
+            return;
+          }
+
+          const plannerState = runtimeState.coveragePlanner;
+          const imageryActive = plannerState.view.map_base === "imagery";
+          const planActive = Boolean(plannerState.coverage_plan);
+          const plannerModeActive = plannerState.view.mode === "planner";
+          imageryBaseLayer.setOpacity(
+            imageryActive && planActive
+              ? plannerModeActive
+                ? 0.72
+                : 0.78
+              : 1
+          );
+        }
+
+        function setPlannerMapBase(mode) {
+          const nextMode = mode === "bdc" ? "bdc" : "imagery";
+          const plannerView = runtimeState.coveragePlanner.view;
+          const raster = runtimeState.terrainRaster;
+
+          if (
+            nextMode === "bdc" &&
+            (!raster || !raster.classCodes || !raster.classCodes.length)
+          ) {
             pushUiMessage("Camada BDC indisponivel ate o carregamento do dataset.", 2200);
             renderHud();
             return;
           }
 
-          if (bdcOverlayActive) {
-            if (bdcOverlayLayer) { map.removeLayer(bdcOverlayLayer); }
-            bdcOverlayActive = false;
-            btn.textContent = "Ver dado BDC";
-            btn.classList.remove("bdc-active");
-            legend.classList.remove("visible");
-          } else {
+          if (nextMode === "bdc") {
             if (!bdcOverlayLayer && raster) {
               bdcOverlayLayer = buildBdcOverlay(raster);
             }
-            if (bdcOverlayLayer) { bdcOverlayLayer.addTo(map); }
-            bdcOverlayActive = true;
-            btn.textContent = "Ver satélite";
-            btn.classList.add("bdc-active");
-            legend.classList.add("visible");
+            if (imageryBaseLayer && map.hasLayer(imageryBaseLayer)) {
+              map.removeLayer(imageryBaseLayer);
+            }
+            if (bdcOverlayLayer && !map.hasLayer(bdcOverlayLayer)) {
+              bdcOverlayLayer.addTo(map);
+            }
+          } else {
+            if (bdcOverlayLayer && map.hasLayer(bdcOverlayLayer)) {
+              map.removeLayer(bdcOverlayLayer);
+            }
+            if (imageryBaseLayer && !map.hasLayer(imageryBaseLayer)) {
+              imageryBaseLayer.addTo(map);
+            }
           }
+
+          plannerView.map_base = nextMode;
+          bdcOverlayActive = nextMode === "bdc";
+          syncLegacyMapBaseUi();
+          syncImageryVisualState();
+          renderHud();
+        }
+
+        function handleImageryTileError() {
+          const plannerState = runtimeState.coveragePlanner;
+          const plannerView = plannerState.view;
+          const firstFailure = !plannerView.imagery_failed;
+
+          plannerView.imagery_failed = true;
+          runtimeState.mapTileFailed = true;
+
+          const rasterReady = Boolean(
+            runtimeState.terrainRaster &&
+              runtimeState.terrainRaster.classCodes &&
+              runtimeState.terrainRaster.classCodes.length
+          );
+
+          if (plannerView.map_base === "imagery" && rasterReady) {
+            setPlannerMapBase("bdc");
+            if (firstFailure) {
+              plannerState.status_message =
+                "Imagery indisponivel. Base BDC ativada automaticamente para manter a leitura do plano.";
+              pushUiMessage("Falha na imagery. Fallback automatico para BDC ativado.", 3200);
+              if (!runtimeState.datasetError) {
+                setMissionStatus("warning", "Fallback para BDC");
+              }
+            }
+            renderHud();
+            return;
+          }
+
+          if (!firstFailure) {
+            return;
+          }
+
+          plannerState.status_message =
+            "Imagery indisponivel. O planner continua aberto, mas a base visual esta degradada.";
+          pushUiMessage("Falha na imagery detectada.", 2800);
+          if (!runtimeState.datasetError) {
+            setMissionStatus("warning", "Mapa com falha");
+          }
+          showOperationalError(
+            "Nao foi possivel carregar a camada Esri World Imagery. A demo permanece aberta para diagnostico."
+          );
+          renderHud();
+        }
+
+        function toggleBdcOverlay() {
+          const nextMode = runtimeState.coveragePlanner.view.map_base === "bdc"
+            ? "imagery"
+            : "bdc";
+          setPlannerMapBase(nextMode);
         }
 
         document.getElementById("btn-toggle-map").addEventListener("click", function () {
-          toggleBdcOverlay(runtimeState.terrainRaster);
+          toggleBdcOverlay();
         });
 
         function clamp(value, min, max) {
@@ -4663,6 +4823,162 @@
           renderHud();
         }
 
+        function setPlannerZoom(directionOrValue) {
+          const plannerView = runtimeState.coveragePlanner.view;
+          const minZoom = plannerView.imagery_native_zoom - 1;
+          const maxZoom = plannerView.visual_max_zoom;
+          const step = 0.25;
+          const currentZoom = plannerView.mode === "planner"
+            ? plannerView.planner_zoom
+            : plannerView.follow_zoom;
+
+          let targetZoom;
+          if (directionOrValue === "in") {
+            targetZoom = currentZoom + step;
+          } else if (directionOrValue === "out") {
+            targetZoom = currentZoom - step;
+          } else if (typeof directionOrValue === "number" && Number.isFinite(directionOrValue)) {
+            targetZoom = directionOrValue;
+          } else {
+            return;
+          }
+
+          const nextZoom = clamp(Math.round(targetZoom / step) * step, minZoom, maxZoom);
+          if (Math.abs(nextZoom - currentZoom) <= 1e-9) {
+            return;
+          }
+
+          if (plannerView.mode === "planner") {
+            plannerView.planner_zoom = nextZoom;
+          } else {
+            plannerView.follow_zoom = nextZoom;
+          }
+
+          map.setZoom(nextZoom, { animate: false });
+        }
+
+        function updateMapInteractionPolicy() {
+          const plannerState = runtimeState.coveragePlanner;
+          const plannerView = plannerState.view;
+          const plannerModeActive = plannerView.mode === "planner" && plannerState.mode !== "drawing";
+
+          if (plannerModeActive) {
+            map.dragging.enable();
+            map.scrollWheelZoom.enable();
+            map.doubleClickZoom.enable();
+            map.touchZoom.enable();
+          } else {
+            map.dragging.disable();
+            map.scrollWheelZoom.disable();
+            map.doubleClickZoom.disable();
+            map.touchZoom.disable();
+          }
+        }
+
+        function syncPlannerZoomFromMap() {
+          const plannerView = runtimeState.coveragePlanner.view;
+          const currentZoom = map.getZoom();
+
+          if (plannerView.mode === "planner") {
+            plannerView.planner_zoom = currentZoom;
+          } else {
+            plannerView.follow_zoom = currentZoom;
+          }
+
+          renderHud();
+        }
+
+        function getPlannerBounds() {
+          const plannerState = runtimeState.coveragePlanner;
+          const targetPolygon =
+            plannerState.coverage_plan &&
+            plannerState.coverage_plan.field_polygon &&
+            Array.isArray(plannerState.coverage_plan.field_polygon.vertices_latlng)
+              ? plannerState.coverage_plan.field_polygon
+              : plannerState.field_polygon &&
+                  Array.isArray(plannerState.field_polygon.vertices_latlng)
+                ? plannerState.field_polygon
+                : null;
+
+          if (!targetPolygon || targetPolygon.vertices_latlng.length < 3) {
+            return null;
+          }
+
+          return L.latLngBounds(targetPolygon.vertices_latlng);
+        }
+
+        function fitPlannerBounds() {
+          const plannerView = runtimeState.coveragePlanner.view;
+          const bounds = getPlannerBounds();
+
+          if (!bounds) {
+            runtimeState.coveragePlanner.status_message =
+              "Nao ha talhao ou plano valido para enquadrar.";
+            renderHud();
+            return;
+          }
+
+          const padding = plannerView.fit_padding_px;
+          map.fitBounds(bounds, {
+            animate: false,
+            padding: [padding, padding],
+            maxZoom: plannerView.visual_max_zoom
+          });
+
+          const appliedZoom = map.getZoom();
+          if (plannerView.mode === "planner") {
+            plannerView.planner_zoom = appliedZoom;
+          } else {
+            plannerView.follow_zoom = appliedZoom;
+          }
+
+          renderHud();
+        }
+
+        function setPlannerViewMode(mode) {
+          const plannerState = runtimeState.coveragePlanner;
+          const plannerView = plannerState.view;
+          const nextMode = mode === "planner" ? "planner" : "follow";
+
+          if (
+            nextMode === "planner" &&
+            !plannerState.field_polygon &&
+            !plannerState.coverage_plan
+          ) {
+            plannerState.status_message =
+              "Desenhe um talhao ou gere um plano antes de entrar no modo planner.";
+            renderHud();
+            return;
+          }
+
+          if (plannerView.mode === nextMode) {
+            return;
+          }
+
+          const currentZoom = map.getZoom();
+          if (nextMode === "planner") {
+            plannerView.planner_zoom = currentZoom;
+            plannerView.mode = "planner";
+            plannerState.status_message =
+              "Modo planner ativo. Pan e zoom manuais liberados.";
+            updateMapInteractionPolicy();
+            map.setZoom(plannerView.planner_zoom, { animate: false });
+          } else {
+            plannerView.follow_zoom = currentZoom;
+            plannerView.mode = "follow";
+            plannerState.status_message = plannerState.coverage_plan
+              ? "Modo follow ativo. Camera acompanhando o trator."
+              : plannerState.field_polygon
+                ? "Modo follow ativo. Talhao preservado."
+                : "Modo follow ativo.";
+            updateMapInteractionPolicy();
+            setCameraPosition();
+          }
+
+          renderPlannerDrawingOverlay();
+          renderHud();
+        }
+
         function setPlannerWorkingWidth(value) {
           const parsed = parseFloat(value);
           if (!Number.isFinite(parsed) || parsed <= 0) {
@@ -4723,7 +5039,92 @@
           };
         }
 
+        function getPlannerSwathCollection(plannerState) {
+          if (plannerState.coverage_plan && Array.isArray(plannerState.coverage_plan.swaths)) {
+            return plannerState.coverage_plan.swaths;
+          }
+          if (plannerState.coverage_preview && Array.isArray(plannerState.coverage_preview.swaths)) {
+            return plannerState.coverage_preview.swaths;
+          }
+          return [];
+        }
+
+        function getPlannerHeadlandGeometry(plannerState) {
+          if (plannerState.coverage_plan && plannerState.coverage_plan.headland) {
+            return plannerState.coverage_plan.headland;
+          }
+          if (plannerState.coverage_preview && plannerState.coverage_preview.headland) {
+            return plannerState.coverage_preview.headland;
+          }
+          return null;
+        }
+
+        function drawPlannerRouteSegment(layer, polylineLatLng, style) {
+          if (!Array.isArray(polylineLatLng) || polylineLatLng.length < 2) {
+            return;
+          }
+
+          L.polyline(polylineLatLng, {
+            color: style.color,
+            weight: style.weight,
+            opacity: style.opacity,
+            dashArray: style.dashArray || null,
+            lineCap: style.lineCap || "round",
+            lineJoin: style.lineJoin || "round",
+            interactive: false,
+            pane: "plannerPane"
+          }).addTo(layer);
+        }
+
+        function drawPlannerActiveRoute(layer, route, innerColor) {
+          if (!route || !Array.isArray(route.segments)) {
+            return;
+          }
+
+          route.segments.forEach(function (segment) {
+            if (!Array.isArray(segment.polyline_latlng) || segment.polyline_latlng.length < 2) {
+              return;
+            }
+
+            const isTransition = segment.type !== "swath";
+            drawPlannerRouteSegment(layer, segment.polyline_latlng, {
+              color: "#f7f7f7",
+              weight: isTransition ? 6.5 : 7.5,
+              opacity: 0.95,
+              dashArray: isTransition ? "12 8" : null
+            });
+            drawPlannerRouteSegment(layer, segment.polyline_latlng, {
+              color: innerColor,
+              weight: isTransition ? 2.6 : 3.8,
+              opacity: 0.98,
+              dashArray: isTransition ? "12 8" : null
+            });
+          });
+        }
+
+        function drawPlannerGhostRoute(layer, route, color) {
+          if (!route || !Array.isArray(route.segments)) {
+            return;
+          }
+
+          route.segments.forEach(function (segment) {
+            if (!Array.isArray(segment.polyline_latlng) || segment.polyline_latlng.length < 2) {
+              return;
+            }
+
+            const isTransition = segment.type !== "swath";
+            drawPlannerRouteSegment(layer, segment.polyline_latlng, {
+              color: color,
+              weight: isTransition ? 1.4 : 1.8,
+              opacity: 0.32,
+              dashArray: isTransition ? "7 7" : "5 9"
+            });
+          });
+        }
+
         function renderPlannerDrawingOverlay() {
+          syncImageryVisualState();
+
           plannerDraftVerticesLayer.clearLayers();
           plannerFieldPolygonLayer.clearLayers();
           plannerHeadlandLayer.clearLayers();
@@ -4736,53 +5137,83 @@
           if (plannerState.field_polygon && Array.isArray(plannerState.field_polygon.vertices_latlng)) {
             L.polygon(plannerState.field_polygon.vertices_latlng, {
               color: "#ffd166",
-              weight: 2,
+              weight: 1.5,
               fillColor: "#ffd166",
-              fillOpacity: 0.12,
+              fillOpacity: 0.08,
               interactive: false,
               pane: "plannerPane"
             }).addTo(plannerFieldPolygonLayer);
           }
 
-          if (plannerState.coverage_preview) {
-            const preview = plannerState.coverage_preview;
-            if (preview.headland.render_mode === "band" && preview.headland.inner_ring_latlng) {
+          const headlandGeometry = getPlannerHeadlandGeometry(plannerState);
+          if (headlandGeometry) {
+            if (headlandGeometry.render_mode === "band" && headlandGeometry.inner_ring_latlng) {
               L.polygon(
-                [preview.headland.outer_ring_latlng, preview.headland.inner_ring_latlng],
+                [headlandGeometry.outer_ring_latlng, headlandGeometry.inner_ring_latlng],
                 {
                   color: "#ffb347",
-                  weight: 1.5,
+                  weight: 1.2,
                   fillColor: "#ffb347",
-                  fillOpacity: 0.16,
+                  fillOpacity: 0.12,
                   interactive: false,
                   pane: "plannerPane"
                 }
               ).addTo(plannerHeadlandLayer);
+              L.polyline(headlandGeometry.inner_ring_latlng.concat([headlandGeometry.inner_ring_latlng[0]]), {
+                color: "#ffb347",
+                weight: 1.2,
+                opacity: 0.45,
+                dashArray: "8 7",
+                interactive: false,
+                pane: "plannerPane"
+              }).addTo(plannerHeadlandLayer);
             } else {
-              L.polyline(preview.headland.outer_ring_latlng.concat([preview.headland.outer_ring_latlng[0]]), {
+              L.polyline(headlandGeometry.outer_ring_latlng.concat([headlandGeometry.outer_ring_latlng[0]]), {
                 color: "#ffb347",
                 weight: 8,
-                opacity: 0.45,
+                opacity: 0.32,
                 interactive: false,
                 pane: "plannerPane"
               }).addTo(plannerHeadlandLayer);
             }
-
-            preview.swaths.forEach(function (swath) {
-              L.polyline([swath.start_latlng, swath.end_latlng], {
-                color: "#8ad2ff",
-                weight: 2,
-                opacity: 0.85,
-                interactive: false,
-                pane: "plannerPane"
-              }).addTo(plannerSwathLayer);
-            });
           }
+
+          getPlannerSwathCollection(plannerState).forEach(function (swath) {
+            L.polyline([swath.start_latlng, swath.end_latlng], {
+              color: "#9cd9f7",
+              weight: 1.2,
+              opacity: 0.34,
+              interactive: false,
+              pane: "plannerPane"
+            }).addTo(plannerSwathLayer);
+          });
 
           if (plannerState.coverage_plan) {
             const plan = plannerState.coverage_plan;
             const overlayMode = plannerState.overlay_mode;
+            const plannerViewMode = plannerState.view.mode;
+            const activeRouteKey = overlayMode === "baseline" ? "baseline_route" : "optimized_route";
+            const secondaryRouteKey = activeRouteKey === "baseline_route"
+              ? "optimized_route"
+              : "baseline_route";
+            const activeLayer = activeRouteKey === "baseline_route"
+              ? plannerBaselineRouteLayer
+              : plannerOptimizedRouteLayer;
+            const secondaryLayer = secondaryRouteKey === "baseline_route"
+              ? plannerBaselineRouteLayer
+              : plannerOptimizedRouteLayer;
+            const activeInnerColor = activeRouteKey === "baseline_route" ? "#2f4858" : "#ef8c1e";
+            const secondaryColor = secondaryRouteKey === "baseline_route" ? "#5f6b76" : "#c9832b";
 
+            L.circleMarker(plan.origin_latlng, {
+              radius: 12,
+              color: "#f7f7f7",
+              weight: 0,
+              fillColor: "#f7f7f7",
+              fillOpacity: 0.72,
+              interactive: false,
+              pane: "plannerPane"
+            }).addTo(plannerOriginMarkerLayer);
             L.circleMarker(plan.origin_latlng, {
               radius: 7,
               color: "#06d6a0",
@@ -4793,37 +5224,9 @@
               pane: "plannerPane"
             }).addTo(plannerOriginMarkerLayer);
 
-            const baselineOpacity = overlayMode === "baseline" ? 0.9 : 0.25;
-            if (plan.baseline_route && Array.isArray(plan.baseline_route.segments)) {
-              plan.baseline_route.segments.forEach(function (segment) {
-                if (!Array.isArray(segment.polyline_latlng) || segment.polyline_latlng.length < 2) {
-                  return;
-                }
-                L.polyline(segment.polyline_latlng, {
-                  color: "#555555",
-                  weight: segment.type === "swath" ? 2 : 1.5,
-                  dashArray: "8 5",
-                  opacity: baselineOpacity,
-                  interactive: false,
-                  pane: "plannerPane"
-                }).addTo(plannerBaselineRouteLayer);
-              });
-            }
-
-            const optimizedOpacity = overlayMode === "optimized" ? 0.9 : 0.25;
-            if (plan.optimized_route && Array.isArray(plan.optimized_route.segments)) {
-              plan.optimized_route.segments.forEach(function (segment) {
-                if (!Array.isArray(segment.polyline_latlng) || segment.polyline_latlng.length < 2) {
-                  return;
-                }
-                L.polyline(segment.polyline_latlng, {
-                  color: "#ef8c1e",
-                  weight: segment.type === "swath" ? 2.5 : 1.5,
-                  opacity: optimizedOpacity,
-                  interactive: false,
-                  pane: "plannerPane"
-                }).addTo(plannerOptimizedRouteLayer);
-              });
+            drawPlannerActiveRoute(activeLayer, plan[activeRouteKey], activeInnerColor);
+            if (plannerViewMode === "planner") {
+              drawPlannerGhostRoute(secondaryLayer, plan[secondaryRouteKey], secondaryColor);
             }
           }
 
@@ -4867,6 +5270,7 @@
           runtimeState.coveragePlanner.paused_tractor = true;
           runtimeState.coveragePlanner.draft_vertices = [];
           runtimeState.coveragePlanner.status_message = "Clique no mapa para adicionar vertices ao talhao.";
+          updateMapInteractionPolicy();
           renderPlannerDrawingOverlay();
           renderHud();
         }
@@ -4903,6 +5307,7 @@
             runtimeState.coveragePlanner.status_message = error.message;
           }
 
+          updateMapInteractionPolicy();
           renderPlannerDrawingOverlay();
           renderHud();
         }
@@ -4918,6 +5323,7 @@
           runtimeState.coveragePlanner.status_message = runtimeState.coveragePlanner.field_polygon
             ? "Rascunho descartado. Talhao anterior preservado."
             : "Desenho cancelado.";
+          updateMapInteractionPolicy();
           renderPlannerDrawingOverlay();
           renderHud();
         }
@@ -5492,11 +5898,23 @@
           const currentCell = runtimeState.currentCell;
           const currentCompactionProfile = runtimeState.currentCompactionProfile;
           const plannerState = runtimeState.coveragePlanner;
+          const plannerView = plannerState.view;
           const coveragePlan = plannerState.coverage_plan;
           const plannerMetrics = coveragePlan ? coveragePlan.metrics || null : null;
           const coveragePreview = plannerState.coverage_preview;
           const drawingActive = plannerState.mode === "drawing";
           const plannerReady = runtimeState.datasetReady && !runtimeState.datasetError;
+          const plannerZoom = plannerView.mode === "planner"
+            ? plannerView.planner_zoom
+            : plannerView.follow_zoom;
+          const minPlannerZoom = plannerView.imagery_native_zoom - 1;
+          const maxPlannerZoom = plannerView.visual_max_zoom;
+          const plannerTargetAvailable = Boolean(plannerState.field_polygon || plannerState.coverage_plan);
+          const bdcAvailable = Boolean(
+            runtimeState.terrainRaster &&
+              runtimeState.terrainRaster.classCodes &&
+              runtimeState.terrainRaster.classCodes.length
+          );
           const terrainSource = getCurrentTerrainSnapshot() || {
             cell_id: "fora do recorte",
             clay_content: null,
@@ -5556,6 +5974,11 @@
             planner: {
               mode: plannerState.mode,
               working_width_m_input: Number(plannerState.working_width_m).toFixed(1),
+              view_mode_label: formatPlannerViewMode(plannerView.mode),
+              map_base_label: formatPlannerMapBase(plannerView.map_base),
+              zoom_label: formatPlannerZoom(plannerZoom),
+              toggle_view_mode_label:
+                plannerView.mode === "planner" ? "Voltar ao follow" : "Entrar no modo planner",
               overlay_mode: formatPlannerOverlayMode(plannerState.overlay_mode),
               status: getPlannerStatusText(plannerState),
               swath_count:
@@ -5611,6 +6034,16 @@
                 generate_plan_disabled:
                   !plannerReady || drawingActive || !plannerState.field_polygon,
                 clear_plan_disabled: !plannerReady || !plannerState.coverage_plan,
+                toggle_view_mode_disabled:
+                  !plannerReady || drawingActive || !plannerTargetAvailable,
+                zoom_out_disabled:
+                  !plannerReady || drawingActive || plannerZoom <= minPlannerZoom + 1e-9,
+                zoom_in_disabled:
+                  !plannerReady || drawingActive || plannerZoom >= maxPlannerZoom - 1e-9,
+                fit_plan_disabled:
+                  !plannerReady || drawingActive || !plannerTargetAvailable,
+                base_imagery_disabled: !plannerReady || drawingActive,
+                base_bdc_disabled: !plannerReady || drawingActive || !bdcAvailable,
                 overlay_baseline_disabled: !plannerReady || !plannerState.coverage_plan,
                 overlay_optimized_disabled: !plannerReady || !plannerState.coverage_plan
               }
@@ -5906,6 +6339,9 @@
           plannerWorkingWidthInput.value = hudViewModel.planner.working_width_m_input;
           plannerWorkingWidthInput.disabled = hudViewModel.planner.controls.working_width_disabled;
           plannerStatusMessage.textContent = hudViewModel.planner.status;
+          setHudMetric(plannerViewMode, hudViewModel.planner.view_mode_label, false);
+          setHudMetric(plannerMapBase, hudViewModel.planner.map_base_label, false);
+          setHudMetric(plannerZoomLevel, hudViewModel.planner.zoom_label, hudViewModel.planner.zoom_label === "—");
           setHudMetric(plannerSwathCount, hudViewModel.planner.swath_count, hudViewModel.planner.swath_count === "—");
           setHudMetric(plannerOverlayMode, hudViewModel.planner.overlay_mode, false);
           setHudMetric(
@@ -5943,6 +6379,25 @@
           plannerCancelDrawingButton.disabled = hudViewModel.planner.controls.cancel_drawing_disabled;
           plannerGeneratePlanButton.disabled = hudViewModel.planner.controls.generate_plan_disabled;
           plannerClearPlanButton.disabled = hudViewModel.planner.controls.clear_plan_disabled;
+          plannerViewModeToggleButton.disabled = hudViewModel.planner.controls.toggle_view_mode_disabled;
+          plannerViewModeToggleButton.textContent = hudViewModel.planner.toggle_view_mode_label;
+          plannerViewModeToggleButton.classList.toggle(
+            "is-active",
+            runtimeState.coveragePlanner.view.mode === "planner"
+          );
+          plannerFitPlanButton.disabled = hudViewModel.planner.controls.fit_plan_disabled;
+          plannerZoomOutButton.disabled = hudViewModel.planner.controls.zoom_out_disabled;
+          plannerZoomInButton.disabled = hudViewModel.planner.controls.zoom_in_disabled;
+          plannerBaseImageryButton.disabled = hudViewModel.planner.controls.base_imagery_disabled;
+          plannerBaseBdcButton.disabled = hudViewModel.planner.controls.base_bdc_disabled;
+          plannerBaseImageryButton.classList.toggle(
+            "is-active",
+            runtimeState.coveragePlanner.view.map_base === "imagery"
+          );
+          plannerBaseBdcButton.classList.toggle(
+            "is-active",
+            runtimeState.coveragePlanner.view.map_base === "bdc"
+          );
           plannerOverlayBaselineButton.disabled = hudViewModel.planner.controls.overlay_baseline_disabled;
           plannerOverlayOptimizedButton.disabled = hudViewModel.planner.controls.overlay_optimized_disabled;
           plannerOverlayBaselineButton.classList.toggle(
@@ -6042,7 +6497,11 @@
         }
 
         function setCameraPosition() {
-          map.setView([tractorState.position.lat, tractorState.position.lng], map.getZoom(), {
+          if (runtimeState.coveragePlanner.view.mode !== "follow") {
+            return;
+          }
+
+          map.setView([tractorState.position.lat, tractorState.position.lng], runtimeState.coveragePlanner.view.follow_zoom, {
             animate: false,
             pan: { animate: false }
           });
@@ -6145,6 +6604,32 @@
           clearCoveragePlan();
         });
 
+        plannerViewModeToggleButton.addEventListener("click", function () {
+          setPlannerViewMode(
+            runtimeState.coveragePlanner.view.mode === "planner" ? "follow" : "planner"
+          );
+        });
+
+        plannerFitPlanButton.addEventListener("click", function () {
+          fitPlannerBounds();
+        });
+
+        plannerZoomOutButton.addEventListener("click", function () {
+          setPlannerZoom("out");
+        });
+
+        plannerZoomInButton.addEventListener("click", function () {
+          setPlannerZoom("in");
+        });
+
+        plannerBaseImageryButton.addEventListener("click", function () {
+          setPlannerMapBase("imagery");
+        });
+
+        plannerBaseBdcButton.addEventListener("click", function () {
+          setPlannerMapBase("bdc");
+        });
+
         plannerOverlayBaselineButton.addEventListener("click", function () {
           setCoverageOverlayMode("baseline");
         });
@@ -6175,12 +6660,18 @@
           renderHud();
         });
 
+        map.on("zoomend", function () {
+          syncPlannerZoomFromMap();
+        });
+
         window.addEventListener("resize", function () {
           map.invalidateSize(false);
         });
 
         attachKeyboardControls();
         initializeRuntime();
+        syncLegacyMapBaseUi();
+        updateMapInteractionPolicy();
         renderPlannerDrawingOverlay();
 
         let lastTimestamp = null;
