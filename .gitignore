@@ -3,3 +3,24 @@ outputs/
 __pycache__/
 *.pyc
 sphinx/_build/
+
+# Artigos de terceiros (copyright)
+docs/artigos/
+
+# PDFs compilados de relatórios (versionar apenas .tex)
+docs/relatorios/*.pdf
+
+# Artefatos de compilação LaTeX
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.toc
+*.synctex.gz
+
+# Apresentações
+docs/slides/*.pptx
+
+# Codex
+.codex
