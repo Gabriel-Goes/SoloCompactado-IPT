@@ -1,7 +1,7 @@
 # Sprint 2: Coleta e Armazenagem de Variaveis Design
 
 **Spec**: [spec.md](/Users/wiser/projects/gabrielgoes/SoloCompactado-IPT/.specs/features/sprint-2-coleta-variaveis/spec.md)  
-**Status**: Draft
+**Status**: Completed
 
 ---
 
@@ -12,9 +12,9 @@ A Sprint 2 sera implementada como evolucao direta de [index.html](/Users/wiser/p
 Para manter o prototipo abrindo localmente no navegador e, ao mesmo tempo, respeitar a exigencia de nao inventar dados de terreno, o design separa a solucao em dois niveis:
 
 - runtime local no navegador: navega, resolve celula atual, coleta snapshots, persiste em `localStorage` e exporta `JSON`;
-- dataset local pre-recortado: arquivos gerados a partir de fontes oficiais do `MapBiomas` e do `Brazil Data Cube`, limitados a area central da Fazenda Paladino.
+- dataset local pre-recortado: arquivos gerados a partir de fontes oficiais do `Brazil Data Cube`, limitados a um raio operacional de `7 km` em torno da area central da Fazenda Paladino.
 
-O `MapBiomas` sera a fonte primaria da classe tematica de cobertura e uso do solo por celula. O `Brazil Data Cube` sera a fonte complementar para contexto espacial ou temporal adicional. O prototipo nao consultara essas fontes brutas diretamente a cada frame; ele carregara um recorte local preparado para a regiao da demo.
+O `Brazil Data Cube` sera a fonte oficial unica para contexto espacial, temporal e indices auxiliares por celula. O prototipo nao consultara essa fonte bruta diretamente a cada frame; ele carregara um recorte local preparado para a regiao da demo.
 
 Como a demo precisa continuar abrindo localmente, o design fixa desde ja a estrategia de entrega do dataset:
 
@@ -23,8 +23,7 @@ Como a demo precisa continuar abrindo localmente, o design fixa desde ja a estra
 
 ```mermaid
 graph TD
-    A[MapBiomas Official Assets] --> B[Terrain Dataset Builder]
-    C[BDC STAC / Collections] --> B
+    A[BDC STAC / Collections] --> B[Terrain Dataset Builder]
     B --> D[prototipo/data/terrain-grid.json]
     B --> E[prototipo/data/terrain-sources.json]
     D --> F[Embedded Runtime Dataset]
@@ -59,12 +58,11 @@ graph TD
 | `Leaflet` | Mantido como motor de mapa e camera da navegacao |
 | `localStorage` | Persistencia da missao atual e restauracao no reload |
 | `Blob` + `URL.createObjectURL` | Exportacao local do `JSON` da missao |
-| `MapBiomas` | Fonte primaria de classe tematica, processada antes do runtime em dataset local |
-| `Brazil Data Cube` | Fonte complementar para contexto espacial/temporal, processada antes do runtime em dataset local |
+| `Brazil Data Cube` | Fonte unica de contexto espacial/temporal, processada antes do runtime em dataset local |
 
 ### Key Architectural Constraint
 
-O prototipo continua sendo um unico `index.html` aberto localmente. Isso torna integracoes live com `Google Earth Engine`, `MapBiomas` ou `BDC` inadequadas para a Sprint 2 por dependerem de autenticacao, CORS, pipelines remotos ou latencia de rede durante a demo.
+O prototipo continua sendo um unico `index.html` aberto localmente. Isso torna integracoes live com `BDC` inadequadas para a Sprint 2 por dependerem de CORS, pipelines remotos ou latencia de rede durante a demo.
 
 Por isso, o melhor caminho tecnico e:
 
@@ -114,7 +112,7 @@ Essa decisao preserva:
   - entrada: recorte geografico da Fazenda Paladino
   - saida: `terrain-grid.json`, `terrain-sources.json`
   - saida secundaria de entrega: payload serializado para embutir em `index.html`
-- **Dependencies**: assets oficiais `MapBiomas`, acesso `BDC`
+- **Dependencies**: acesso `BDC`
 - **Reuses**: nenhum
 
 ### Cell Resolver
@@ -200,11 +198,6 @@ Essa decisao preserva:
     west: number
   },
   sources: {
-    mapbiomas: {
-      collectionId: string,
-      assetId: string,
-      description: string
-    },
     bdc: {
       collectionId: string,
       stacUrl: string,
@@ -212,7 +205,7 @@ Essa decisao preserva:
     }
   },
   fieldProvenance: {
-    thematic_class: "official",
+    thematic_class: "derived" | "unavailable",
     clay_content: "derived" | "unavailable",
     water_content: "derived" | "unavailable",
     matric_suction: "derived" | "unavailable",
@@ -239,7 +232,7 @@ Essa decisao preserva:
     west: number
   },
   thematicClass: {
-    source: "mapbiomas",
+    source: "bdc",
     value: string | number
   },
   terrainSnapshotBase: {
@@ -391,9 +384,9 @@ Essa decisao preserva:
 
 ### Source of Truth
 
-- `MapBiomas` fornece a classe tematica oficial da celula.
-- `BDC` fornece complemento espacial ou temporal, quando usado.
+- `BDC` fornece os dados oficiais usados pela sprint.
 - Campos sem extracao oficial direta nao recebem valor manual arbitrario.
+- Quando o `BDC` nao fornecer um valor observavel para o conjunto fixo de variaveis da sprint, o runtime preserva o campo como `null` e marca proveniencia coerente.
 
 ### Packaging Strategy
 
@@ -406,8 +399,6 @@ Os dados da Fazenda Paladino devem ser preparados em artefatos locais:
 
 `terrain-sources.json` deve conter:
 
-- colecao usada do `MapBiomas`;
-- asset oficial correspondente;
 - colecao ou endpoint `BDC` usado;
 - data de geracao do recorte;
 - `datasetVersion`;
@@ -424,7 +415,7 @@ Os dados da Fazenda Paladino devem ser preparados em artefatos locais:
 
 | Field | Expected Source | Policy |
 | --- | --- | --- |
-| `thematic_class` | `MapBiomas` | Obrigatorio e oficial |
+| `thematic_class` | `BDC` derivado ou indisponivel | Nunca inventado |
 | `clay_content` | derivado ou indisponivel | Nunca inventado |
 | `water_content` | `BDC` ou derivado documentado | Nunca inventado |
 | `matric_suction` | derivado ou indisponivel | Nunca inventado |
@@ -454,8 +445,7 @@ Os dados da Fazenda Paladino devem ser preparados em artefatos locais:
 | --- | --- | --- |
 | Artefato principal | Evoluir `prototipo/index.html` | Mantem contrato da Sprint 1 |
 | Arquivos auxiliares | `prototipo/data/` | Segue a arquitetura definida para o prototipo |
-| Fonte primaria de terreno | `MapBiomas` | Classe tematica pronta e oficial para uso/cobertura |
-| Fonte complementar | `Brazil Data Cube` | Melhor opcao para detalhe espacial/temporal adicional |
+| Fonte unica de terreno | `Brazil Data Cube` | Melhor opcao disponivel para detalhe espacial/temporal nesta sprint |
 | Integracao em runtime | Dataset local pre-recortado | Mais robusto para demo local em navegador |
 | Entrega do dataset ao runtime | JSON embutido no HTML a partir de arquivos canonicos em `prototipo/data/` | Mantem compatibilidade com abertura local via `file://` |
 | Estrategia de grade | Grade regular com `cell_id` deterministico | Simplifica resolucao espacial e coleta |
@@ -504,8 +494,8 @@ Os dados da Fazenda Paladino devem ser preparados em artefatos locais:
 | S2DATA-14 | `Sampling Engine` copia `tractor_snapshot` do estado ativo |
 | S2DATA-15 | `Mission Store` preserva mudancas do trator apenas em novas amostras |
 | S2DATA-16 | `MissionSample` armazena `tractor_position.lat/lng` |
-| S2DATA-17 | `Terrain Dataset Builder` + `TerrainCell.thematicClass` garantem origem oficial `MapBiomas` |
-| S2DATA-18 | `TerrainSourceManifest` + `Terrain Dataset Builder` cobrem complemento `BDC` |
+| S2DATA-17 | `Terrain Dataset Builder` + `TerrainCell.thematicClass` garantem origem oficial ou derivada a partir do `BDC` |
+| S2DATA-18 | `TerrainSourceManifest` + `Terrain Dataset Builder` cobrem o `BDC` |
 | S2DATA-19 | `Field Policy` e `provenance` impedem valores inventados |
 | S2DATA-20 | `Persistence Adapter` sincroniza no `localStorage` |
 | S2DATA-21 | `Persistence Adapter` restaura no reload |

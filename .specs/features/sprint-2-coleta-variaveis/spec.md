@@ -8,10 +8,10 @@ Esta sprint existe para transformar a navegacao em uma sessao de coleta: enquant
 
 ## Goals
 
-- [ ] Evoluir `prototipo/index.html` para coletar amostras de missao em tempo real durante a navegacao.
-- [ ] Identificar a celula atual do terreno e associar a ela um snapshot resumido das variaveis do solo.
-- [ ] Persistir a missao atual no navegador e permitir exportacao da sessao em `JSON`.
-- [ ] Garantir que os dados de terreno usados na sprint sejam derivados de fontes reais do MapBiomas e do Brazil Data Cube, sem valores inventados manualmente.
+- [x] Evoluir `prototipo/index.html` para coletar amostras de missao em tempo real durante a navegacao.
+- [x] Identificar a celula atual do terreno e associar a ela um snapshot resumido das variaveis do solo.
+- [x] Persistir a missao atual no navegador e permitir exportacao da sessao em `JSON`.
+- [x] Garantir que os dados de terreno usados na sprint sejam derivados de fontes reais do Brazil Data Cube, sem valores inventados manualmente.
 
 ## Out of Scope
 
@@ -33,14 +33,11 @@ Explicitamente excluido nesta sprint para evitar desvio de escopo.
 As variaveis do terreno desta sprint nao podem ser inventadas. Elas devem ser derivadas de fontes geoespaciais reais, recortadas para a regiao usada pela demo na Fazenda Paladino.
 
 - O sistema SHALL usar um dataset local pre-processado e versionado dentro de `prototipo/data/` como forma de entrega dos dados oficiais para o runtime da demo.
-- O sistema SHALL usar o MapBiomas como fonte primaria da classe tematica de cobertura e uso do solo para a regiao da missao.
-- O sistema SHALL usar assets oficiais do MapBiomas publicados para acesso via Google Earth Engine, incluindo:
-  - cobertura e uso do solo, Colecao 10.1: `projects/mapbiomas-public/assets/brazil/lulc/collection10_1/mapbiomas_brazil_collection10_1_coverage_v1`
-  - cobertura e uso 10 m, Colecao 2 beta: `projects/mapbiomas-public/assets/brazil/lulc_10m/collection2/mapbiomas_10m_collection2_integration_v1`
-- O sistema SHALL usar o Brazil Data Cube como fonte complementar para imagens e series temporais de maior detalhe espacial ou temporal, preferencialmente por STAC API.
-- O recorte de dados SHALL ser limitado a area da regiao central da Fazenda Paladino, evitando download ou armazenamento desnecessario de dados fora da area usada na demo.
-- Quando uma variavel operacional de solo nao existir diretamente no MapBiomas ou no BDC, o sistema SHALL registrar essa ausencia ou usar derivacao documentada a partir dessas fontes, e SHALL NOT inventar valores arbitrarios.
+- O sistema SHALL usar o Brazil Data Cube como fonte oficial unica para imagens e series temporais de terreno, preferencialmente por STAC API.
+- O recorte de dados SHALL ser limitado a um raio operacional de `7 km` em torno da regiao central da Fazenda Paladino, evitando download ou armazenamento desnecessario de dados fora da area usada na demo.
+- Quando uma variavel operacional de solo nao existir diretamente no BDC, o sistema SHALL registrar essa ausencia ou usar derivacao documentada a partir dessa fonte, e SHALL NOT inventar valores arbitrarios.
 - Os campos do `terrain_snapshot` SHALL existir no schema da amostra mesmo quando nao houver valor observavel direto, usando `null` com proveniencia `derived` ou `unavailable` quando aplicavel.
+- Quando o `BDC` nao fornecer valor observavel para uma variavel obrigatoria do schema, o sistema SHALL manter o campo como `null`, preservando a estrutura da amostra e sem sintetizar valor substituto.
 - A especificacao da implementacao SHALL deixar claro quais campos do `terrain_snapshot` sao:
   - extraidos diretamente de fonte oficial,
   - derivados a partir de fonte oficial,
@@ -87,8 +84,8 @@ As variaveis do terreno desta sprint nao podem ser inventadas. Elas devem ser de
 4. WHEN uma amostra for criada THEN o sistema SHALL copiar para `tractor_snapshot` os valores ativos do trator no momento da coleta.
 5. WHEN uma variavel ativa do trator mudar durante a missao THEN o sistema SHALL refletir a mudanca apenas nas amostras criadas depois da alteracao.
 6. WHEN a posicao do trator for registrada THEN o sistema SHALL armazenar `lat` e `lng` em `tractor_position`.
-7. WHEN `terrain_snapshot` for preenchido THEN o sistema SHALL derivar a classe tematica da celula a partir de dado oficial do MapBiomas para a regiao correspondente.
-8. WHEN o prototipo precisar complementar contexto espacial ou temporal do terreno THEN o sistema SHALL obter esse complemento a partir do Brazil Data Cube, preferencialmente pela STAC API do BDC.
+7. WHEN `terrain_snapshot` for preenchido THEN o sistema SHALL derivar qualquer classe, indice ou contexto tematico apenas a partir de dados oficiais do BDC disponiveis para a regiao correspondente.
+8. WHEN o prototipo precisar de contexto espacial ou temporal do terreno THEN o sistema SHALL obte-lo a partir do Brazil Data Cube, preferencialmente pela STAC API do BDC.
 9. WHEN um campo de terreno nao puder ser obtido diretamente das fontes oficiais THEN o sistema SHALL marcar o campo como derivado ou indisponivel, e SHALL NOT preencher valor inventado.
 
 **Independent Test**: Alterar um parametro do trator no estado da missao, continuar navegando e verificar que apenas as novas amostras carregam o valor atualizado.
@@ -169,30 +166,26 @@ As variaveis do terreno desta sprint nao podem ser inventadas. Elas devem ser de
 
 Como saberemos que a sprint foi bem-sucedida:
 
-- [ ] [index.html](/Users/wiser/projects/gabrielgoes/SoloCompactado-IPT/prototipo/index.html) continua abrindo localmente e preserva a navegacao base da Sprint 1.
-- [ ] O prototipo inicializa uma missao de coleta com `mission_id` unico.
-- [ ] O terreno e resolvido em grade de celulas e o sistema consegue identificar a `cell_id` atual do trator.
-- [ ] A grade e os snapshots de terreno usam recorte da regiao da Fazenda Paladino, e nao dados genericos de outra localizacao.
-- [ ] O sistema cria amostras por mudanca de celula e por intervalo de tempo enquanto houver movimento.
-- [ ] Cada amostra contem `terrain_snapshot` e `tractor_snapshot` completos para o escopo da sprint.
-- [ ] A classe tematica do terreno vem de fonte oficial do MapBiomas.
-- [ ] Qualquer complemento espacial ou temporal adicional de terreno vem do Brazil Data Cube.
-- [ ] Campos de terreno sem fonte oficial direta sao marcados como derivados ou indisponiveis, nunca inventados.
-- [ ] O sistema evita duplicacao de registros no mesmo frame ou instante logico.
-- [ ] A missao atual e sincronizada no `localStorage`.
-- [ ] Recarregar a pagina restaura a missao persistida mais recente.
-- [ ] A exportacao gera um arquivo `JSON` com metadados e lista de amostras.
-- [ ] A exportacao inclui metadados de origem dos dados de terreno utilizados na sessao.
-- [ ] A limpeza manual remove os dados persistidos e reinicia a sessao local.
-- [ ] A interface operacional minima exibe pelo menos celula atual, contador de registros e acoes de exportacao/limpeza.
+- [x] [index.html](/Users/wiser/projects/gabrielgoes/SoloCompactado-IPT/prototipo/index.html) continua abrindo localmente e preserva a navegacao base da Sprint 1.
+- [x] O prototipo inicializa uma missao de coleta com `mission_id` unico.
+- [x] O terreno e resolvido em grade de celulas e o sistema consegue identificar a `cell_id` atual do trator.
+- [x] A grade e os snapshots de terreno usam recorte da regiao da Fazenda Paladino, e nao dados genericos de outra localizacao.
+- [x] O sistema cria amostras por mudanca de celula e por intervalo de tempo enquanto houver movimento.
+- [x] Cada amostra contem `terrain_snapshot` e `tractor_snapshot` completos para o escopo da sprint.
+- [x] Qualquer classe, indice ou contexto espacial e temporal adicional de terreno vem do Brazil Data Cube quando disponivel.
+- [x] Campos de terreno sem fonte oficial direta sao marcados como derivados ou indisponiveis, nunca inventados.
+- [x] O sistema evita duplicacao de registros no mesmo frame ou instante logico.
+- [x] A missao atual e sincronizada no `localStorage`.
+- [x] Recarregar a pagina restaura a missao persistida mais recente.
+- [x] A exportacao gera um arquivo `JSON` com metadados e lista de amostras.
+- [x] A exportacao inclui metadados de origem dos dados de terreno utilizados na sessao.
+- [x] A limpeza manual remove os dados persistidos e reinicia a sessao local.
+- [x] A interface operacional minima exibe pelo menos celula atual, contador de registros e acoes de exportacao/limpeza.
 
 ## Source Context
 
 - Sprint base: [sprint-2-coleta-variaveis.md](/Users/wiser/projects/gabrielgoes/SoloCompactado-IPT/prototipo/sprint-2-coleta-variaveis.md)
 - Base existente: [index.html](/Users/wiser/projects/gabrielgoes/SoloCompactado-IPT/prototipo/index.html)
 - Dependencia funcional: Sprint 1 concluida, com navegacao local sobre Fazenda Paladino
-- MapBiomas Colecoes oficiais: https://brasil.mapbiomas.org/colecoes-mapbiomas/
-- FAQ MapBiomas sobre acesso via Google Earth Engine: https://brasil.mapbiomas.org/faq/como-faco-para-acessar-os-dados-do-mapbiomas-no-google-earth-engine/
-- Plataforma MapBiomas: https://plataforma.brasil.mapbiomas.org
 - Brazil Data Cube image collections: https://data.inpe.br/bdc/en/image-collections/
 - Brazil Data Cube STAC API: https://data.inpe.br/bdc/stac/v1/

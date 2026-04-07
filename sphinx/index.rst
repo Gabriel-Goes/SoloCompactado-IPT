@@ -27,6 +27,7 @@ Público-alvo: engenheiros e tecnólogos com experiência em solos e geotecnia, 
    analise_terranimo
    modelo_ponto_unico
    simulador_light
+   prototipo_navegavel
    simulador_3d
    integracao_geoespacial
    leitura_resultados
