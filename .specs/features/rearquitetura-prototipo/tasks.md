@@ -1,7 +1,7 @@
 # Rearquitetura do Prototipo Tasks
 
 **Design**: `.specs/features/rearquitetura-prototipo/design.md`
-**Status**: Draft
+**Status**: Concluido
 
 ---
 
@@ -60,9 +60,9 @@ T15 → T16 → T17
 
 **Done when**:
 
-- [ ] A arvore base existe conforme o `design.md`
-- [ ] Nenhum arquivo desnecessario extra foi criado
-- [ ] A estrutura continua pequena e coerente com o projeto atual
+- [x] A arvore base existe conforme o `design.md`
+- [x] Nenhum arquivo desnecessario extra foi criado
+- [x] A estrutura continua pequena e coerente com o projeto atual
 
 ---
 
@@ -81,9 +81,9 @@ T15 → T16 → T17
 
 **Done when**:
 
-- [ ] O `index.html` passa a refletir a ordem de carga definida no design
-- [ ] A arquitetura base nao depende de ES modules, bundler ou `fetch`
-- [ ] O arquivo continua abrivel por duplo clique no navegador
+- [x] O `index.html` passa a refletir a ordem de carga definida no design
+- [x] A arquitetura base nao depende de ES modules, bundler ou `fetch`
+- [x] O arquivo continua abrivel por duplo clique no navegador
 
 ---
 
@@ -102,9 +102,9 @@ T15 → T16 → T17
 
 **Done when**:
 
-- [ ] Existe um namespace global unico e explicito para a aplicacao
-- [ ] Modulos deixam de depender de globais soltas sem dono
-- [ ] O modelo de carga continua compativel com scripts classicos e `file://`
+- [x] Existe um namespace global unico e explicito para a aplicacao
+- [x] Modulos deixam de depender de globais soltas sem dono
+- [x] O modelo de carga continua compativel com scripts classicos e `file://`
 
 ---
 
@@ -123,9 +123,9 @@ T15 → T16 → T17
 
 **Done when**:
 
-- [ ] `main.js` apenas dispara o bootstrap
-- [ ] O bootstrap inicializa dependencias na ordem definida
-- [ ] O prototipo continua subindo sem comportamento novo introduzido
+- [x] `main.js` apenas dispara o bootstrap
+- [x] O bootstrap inicializa dependencias na ordem definida
+- [x] O prototipo continua subindo sem comportamento novo introduzido
 
 ---
 
@@ -144,9 +144,9 @@ T15 → T16 → T17
 
 **Done when**:
 
-- [ ] Os datasets deixam de ficar embutidos no corpo principal do HTML
-- [ ] Cada dataset expõe apenas a estrutura declarativa esperada
-- [ ] O prototipo continua conseguindo acessar os dados sem `fetch`
+- [x] Os datasets deixam de ficar embutidos no corpo principal do HTML
+- [x] Cada dataset expõe apenas a estrutura declarativa esperada
+- [x] O prototipo continua conseguindo acessar os dados sem `fetch`
 
 ---
 
@@ -165,9 +165,9 @@ T15 → T16 → T17
 
 **Done when**:
 
-- [ ] O CSS inline relevante sai do `index.html`
-- [ ] Os arquivos de estilo continuam poucos e coesos
-- [ ] A interface visual permanece equivalente ao estado atual
+- [x] O CSS inline relevante sai do `index.html`
+- [x] Os arquivos de estilo continuam poucos e coesos
+- [x] A interface visual permanece equivalente ao estado atual
 
 ---
 
@@ -186,9 +186,9 @@ T15 → T16 → T17
 
 **Done when**:
 
-- [ ] Existe um unico ponto de captura das refs de DOM
-- [ ] Os modulos de dominio nao dependem de seletores espalhados
-- [ ] O renderer futuro consegue consumir refs sem repetir lookup
+- [x] Existe um unico ponto de captura das refs de DOM
+- [x] Os modulos de dominio nao dependem de seletores espalhados
+- [x] O renderer futuro consegue consumir refs sem repetir lookup
 
 ---
 
@@ -207,9 +207,9 @@ T15 → T16 → T17
 
 **Done when**:
 
-- [ ] O terreno passa a ler dos novos arquivos `data/*.js`
-- [ ] A missao antiga pode ser descartada intencionalmente nesta nova versao
-- [ ] O comportamento de restaurar ou recriar missao fica explicito e previsivel
+- [x] O terreno passa a ler dos novos arquivos `data/*.js`
+- [x] A missao antiga pode ser descartada intencionalmente nesta nova versao
+- [x] O comportamento de restaurar ou recriar missao fica explicito e previsivel
 
 ---
 
@@ -228,9 +228,9 @@ T15 → T16 → T17
 
 **Done when**:
 
-- [ ] Formatadores deixam de ficar misturados ao runtime principal
-- [ ] Persistencia da missao fica encapsulada em um ponto claro
-- [ ] Nenhum modulo de UI acessa `localStorage` diretamente
+- [x] Formatadores deixam de ficar misturados ao runtime principal
+- [x] Persistencia da missao fica encapsulada em um ponto claro
+- [x] Nenhum modulo de UI acessa `localStorage` diretamente
 
 ---
 
@@ -249,10 +249,10 @@ T15 → T16 → T17
 
 **Done when**:
 
-- [ ] Existe um `runtime.js` explicito e pequeno
-- [ ] O estado compartilhado minimo fica centralizado nele
-- [ ] Dominios passam a depender de um runtime claro, nao de globais dispersas
-- [ ] O runtime nao volta a virar um novo monolito
+- [x] Existe um `runtime.js` explicito e pequeno
+- [x] O estado compartilhado minimo fica centralizado nele
+- [x] Dominios passam a depender de um runtime claro, nao de globais dispersas
+- [x] O runtime nao volta a virar um novo monolito
 
 ---
 
@@ -271,9 +271,9 @@ T15 → T16 → T17
 
 **Done when**:
 
-- [ ] O terreno atual e o perfil de compactacao deixam de morar no arquivo monolitico
-- [ ] A logica de compactacao fica fora da UI
-- [ ] O HUD continua recebendo os mesmos dados essenciais
+- [x] O terreno atual e o perfil de compactacao deixam de morar no arquivo monolitico
+- [x] A logica de compactacao fica fora da UI
+- [x] O HUD continua recebendo os mesmos dados essenciais
 
 ---
 
@@ -292,9 +292,9 @@ T15 → T16 → T17
 
 **Done when**:
 
-- [ ] O mapa Leaflet e suas bases ficam encapsulados
-- [ ] O planner mantem desenho, geracao, limpeza, zoom, fit e alternancias atuais
-- [ ] O fluxo de camera e base visual continua equivalente ao estado atual
+- [x] O mapa Leaflet e suas bases ficam encapsulados
+- [x] O planner mantem desenho, geracao, limpeza, zoom, fit e alternancias atuais
+- [x] O fluxo de camera e base visual continua equivalente ao estado atual
 
 ---
 
@@ -313,10 +313,10 @@ T15 → T16 → T17
 
 **Done when**:
 
-- [ ] `core/keyboard.js` concentra `keydown` e `keyup`
-- [ ] `planner` ja expõe informacao suficiente para bloquear setas no modo desenho
-- [ ] `tractor` apenas aplica input autorizado
-- [ ] `debug` alterna visualmente sem registrar listeners globais por conta propria
+- [x] `core/keyboard.js` concentra `keydown` e `keyup`
+- [x] `planner` ja expõe informacao suficiente para bloquear setas no modo desenho
+- [x] `tractor` apenas aplica input autorizado
+- [x] `debug` alterna visualmente sem registrar listeners globais por conta propria
 
 ---
 
@@ -335,9 +335,9 @@ T15 → T16 → T17
 
 **Done when**:
 
-- [ ] Restauracao, limpeza e exportacao da missao ficam em dominio proprio
-- [ ] O dominio de missao integra terreno, trator, compactacao e storage sem acoplamento opaco
-- [ ] A invalidacao intencional de missoes antigas fica implementada de forma previsivel
+- [x] Restauracao, limpeza e exportacao da missao ficam em dominio proprio
+- [x] O dominio de missao integra terreno, trator, compactacao e storage sem acoplamento opaco
+- [x] A invalidacao intencional de missoes antigas fica implementada de forma previsivel
 
 ---
 
@@ -356,9 +356,9 @@ T15 → T16 → T17
 
 **Done when**:
 
-- [ ] HUD e paineis apenas renderizam dados e disparam acoes
-- [ ] O debug overlay continua funcional com a nova divisao
-- [ ] Arquivos de UI nao concentram calculos de dominio relevantes
+- [x] HUD e paineis apenas renderizam dados e disparam acoes
+- [x] O debug overlay continua funcional com a nova divisao
+- [x] Arquivos de UI nao concentram calculos de dominio relevantes
 
 ---
 
@@ -462,3 +462,11 @@ Se durante a execucao surgir necessidade de validacao interativa mais forte no b
 - T5-T8: `refactor(prototipo): externalize datasets and extraction base`
 - T9-T14: `refactor(prototipo): split runtime into domain modules`
 - T15-T17: `refactor(prototipo): finalize shell migration and validate flows`
+
+---
+
+## Conclusion
+
+**Status**: Concluido
+
+As tasks foram executadas integralmente e o fechamento tecnico da rearquitetura esta documentado em `.specs/features/rearquitetura-prototipo/closure.md`.

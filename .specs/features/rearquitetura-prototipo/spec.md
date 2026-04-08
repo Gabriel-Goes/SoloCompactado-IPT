@@ -8,12 +8,12 @@ A necessidade agora nao e trocar stack nem transformar o prototipo em uma aplica
 
 ## Goals
 
-- [ ] Tornar `prototipo/` legivel e navegavel, com responsabilidades previsiveis por arquivo e por dominio.
-- [ ] Preservar o comportamento atual do prototipo sem regressao funcional perceptivel.
-- [ ] Manter execucao local direta via `index.html`, sem build e sem servidor obrigatorio.
-- [ ] Remover datasets embutidos do HTML e colocá-los em arquivos externos compativeis com uso via `file://`.
-- [ ] Fixar uma estrategia simples de carregamento de dados externos compativel com duplo clique, sem loaders assincornos ou infraestrutura adicional.
-- [ ] Estabelecer uma arquitetura proporcional ao tamanho atual do projeto, sem camadas abstratas desnecessarias.
+- [x] Tornar `prototipo/` legivel e navegavel, com responsabilidades previsiveis por arquivo e por dominio.
+- [x] Preservar o comportamento atual do prototipo sem regressao funcional perceptivel.
+- [x] Manter execucao local direta via `index.html`, sem build e sem servidor obrigatorio.
+- [x] Remover datasets embutidos do HTML e coloca-los em arquivos externos compativeis com uso via `file://`.
+- [x] Fixar uma estrategia simples de carregamento de dados externos compativel com duplo clique, sem loaders assincornos ou infraestrutura adicional.
+- [x] Estabelecer uma arquitetura proporcional ao tamanho atual do projeto, sem camadas abstratas desnecessarias.
 
 ## Out of Scope
 
@@ -175,33 +175,39 @@ Explicitamente excluido para evitar desvio de foco.
 
 | Requirement ID | Story | Phase | Status |
 | --- | --- | --- | --- |
-| ARQ-PROT-01 | P1: Estrutura legivel e previsivel | Design | Pending |
-| ARQ-PROT-02 | P1: Estrutura legivel e previsivel | Design | Pending |
-| ARQ-PROT-03 | P1: Compatibilidade com execucao local por duplo clique | Design | Pending |
-| ARQ-PROT-04 | P1: Compatibilidade com execucao local por duplo clique | Design | Pending |
-| ARQ-PROT-05 | P1: Preservacao do comportamento atual | Design | Pending |
-| ARQ-PROT-06 | P1: Preservacao do comportamento atual | Design | Pending |
-| ARQ-PROT-07 | P1: Preservacao do comportamento atual | Design | Pending |
-| ARQ-PROT-08 | P1: Preservacao do comportamento atual | Design | Pending |
-| ARQ-PROT-09 | P1: Datasets externos sem embutir dados no HTML | Design | Pending |
-| ARQ-PROT-10 | P1: Datasets externos sem embutir dados no HTML | Design | Pending |
-| ARQ-PROT-11 | P1: Datasets externos sem embutir dados no HTML | Design | Pending |
-| ARQ-PROT-12 | P2: Estado isolado por dominio | Design | Pending |
-| ARQ-PROT-13 | P2: Estado isolado por dominio | Design | Pending |
-| ARQ-PROT-14 | P2: Estado isolado por dominio | Design | Pending |
-| ARQ-PROT-15 | P2: UI desacoplada da logica de dominio | Design | Pending |
-| ARQ-PROT-16 | P3: Base para continuidade das proximas sprints | Design | Pending |
+| ARQ-PROT-01 | P1: Estrutura legivel e previsivel | Implemented | Completed |
+| ARQ-PROT-02 | P1: Estrutura legivel e previsivel | Implemented | Completed |
+| ARQ-PROT-03 | P1: Compatibilidade com execucao local por duplo clique | Implemented | Completed |
+| ARQ-PROT-04 | P1: Compatibilidade com execucao local por duplo clique | Implemented | Completed |
+| ARQ-PROT-05 | P1: Preservacao do comportamento atual | Implemented | Completed |
+| ARQ-PROT-06 | P1: Preservacao do comportamento atual | Implemented | Completed |
+| ARQ-PROT-07 | P1: Preservacao do comportamento atual | Implemented | Completed |
+| ARQ-PROT-08 | P1: Preservacao do comportamento atual | Implemented | Completed |
+| ARQ-PROT-09 | P1: Datasets externos sem embutir dados no HTML | Implemented | Completed |
+| ARQ-PROT-10 | P1: Datasets externos sem embutir dados no HTML | Implemented | Completed |
+| ARQ-PROT-11 | P1: Datasets externos sem embutir dados no HTML | Implemented | Completed |
+| ARQ-PROT-12 | P2: Estado isolado por dominio | Implemented | Completed |
+| ARQ-PROT-13 | P2: Estado isolado por dominio | Implemented | Completed |
+| ARQ-PROT-14 | P2: Estado isolado por dominio | Implemented | Completed |
+| ARQ-PROT-15 | P2: UI desacoplada da logica de dominio | Implemented | Completed |
+| ARQ-PROT-16 | P3: Base para continuidade das proximas sprints | Implemented | Completed |
 
-**Coverage:** 16 total, 0 mapped to tasks, 16 unmapped pending design.
+**Coverage:** 16 total, 16 implementados, 0 pendentes.
 
 ---
 
 ## Success Criteria
 
-- [ ] A especificacao descreve uma arquitetura-alvo simples e coerente com o tamanho atual de `prototipo/`.
-- [ ] A arquitetura-alvo preserva a execucao por duplo clique no navegador.
-- [ ] A especificacao restringe explicitamente solucoes que dependam de infraestrutura incompativel com `file://`.
-- [ ] A modularizacao proposta preserva o comportamento funcional atual do prototipo.
-- [ ] A proposta externaliza datasets e reduz o papel do `index.html` como concentrador de toda a logica.
-- [ ] A proposta favorece poucos modulos coesos e evita microarquivos sem ganho real.
-- [ ] A estrutura resultante melhora legibilidade sem introduzir over-engineering.
+- [x] A especificacao descreve uma arquitetura-alvo simples e coerente com o tamanho atual de `prototipo/`.
+- [x] A arquitetura-alvo preserva a execucao por duplo clique no navegador.
+- [x] A especificacao restringe explicitamente solucoes que dependam de infraestrutura incompativel com `file://`.
+- [x] A modularizacao proposta preserva o comportamento funcional atual do prototipo.
+- [x] A proposta externaliza datasets e reduz o papel do `index.html` como concentrador de toda a logica.
+- [x] A proposta favorece poucos modulos coesos e evita microarquivos sem ganho real.
+- [x] A estrutura resultante melhora legibilidade sem introduzir over-engineering.
+
+## Conclusion
+
+**Status**: Concluida
+
+A especificacao foi atendida pela implementacao entregue e pelo fechamento registrado em `.specs/features/rearquitetura-prototipo/closure.md`.
