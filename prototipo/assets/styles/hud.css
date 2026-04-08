@@ -1,0 +1,157 @@
+#hud-shell {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 100%;
+}
+
+#hud-header {
+  padding: 18px 18px 16px;
+}
+
+#hud-header .eyebrow {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+#hud-header h1 {
+  margin: 0 0 8px;
+  font-size: 24px;
+  line-height: 1.05;
+  color: var(--text);
+}
+
+#hud-header p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.hud-block {
+  padding: 16px;
+}
+
+#mission-panel {
+  position: relative;
+  width: 100%;
+  z-index: auto;
+}
+
+#hud-compaction,
+#hud-bdc {
+  padding: 16px;
+}
+
+.compaction-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.compaction-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  padding: 10px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.compaction-row:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.compaction-row:last-child {
+  padding-bottom: 0;
+}
+
+.compaction-depth {
+  flex: 0 0 64px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.compaction-risk {
+  flex: 0 0 92px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.compaction-detail {
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+#btn-toggle-map {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text);
+  cursor: pointer;
+  font-size: 13px;
+  letter-spacing: 0.03em;
+  text-align: left;
+  transition: background 0.15s;
+}
+
+#btn-toggle-map:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+#btn-toggle-map.bdc-active {
+  border-color: var(--accent);
+  background: rgba(255, 209, 102, 0.12);
+  color: var(--accent);
+}
+
+#bdc-legend {
+  display: none;
+  margin-top: 12px;
+  flex-direction: column;
+  gap: 6px;
+}
+
+#bdc-legend.visible {
+  display: flex;
+}
+
+.bdc-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.bdc-swatch {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 720px) {
+  #hud-header h1 {
+    font-size: 22px;
+  }
+
+  .compaction-depth,
+  .compaction-risk {
+    flex-basis: auto;
+  }
+
+  .compaction-detail {
+    white-space: normal;
+  }
+}
