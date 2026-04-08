@@ -377,9 +377,9 @@ T15 → T16 → T17
 
 **Done when**:
 
-- [ ] O `index.html` deixa de concentrar a maior parte da logica
-- [ ] O shell continua com markup e inclusoes necessarias
-- [ ] O prototipo inicializa integralmente a partir dos arquivos extraidos
+- [x] O `index.html` deixa de concentrar a maior parte da logica
+- [x] O shell continua com markup e inclusoes necessarias
+- [x] O prototipo inicializa integralmente a partir dos arquivos extraidos
 
 ---
 
@@ -398,9 +398,9 @@ T15 → T16 → T17
 
 **Done when**:
 
-- [ ] O prototipo abre por duplo clique e sobe sem dependencias extras
-- [ ] Os fluxos de trator, debug, missao, planner, base visual e compactacao continuam operacionais
-- [ ] A rearquitetura fica documentada como concluida sem over-engineering
+- [x] O prototipo abre por duplo clique e sobe sem dependencias extras
+- [x] Os fluxos de trator, debug, missao, planner, base visual e compactacao continuam operacionais
+- [x] A rearquitetura fica documentada como concluida sem over-engineering
 
 ---
 

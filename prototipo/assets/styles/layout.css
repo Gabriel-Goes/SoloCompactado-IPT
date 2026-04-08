@@ -1,0 +1,224 @@
+#app {
+  width: 100vw;
+  height: 100vh;
+}
+
+#app-shell {
+  position: relative;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(255, 255, 255, 0.28), transparent 28%),
+    linear-gradient(180deg, rgba(54, 70, 58, 0.14), rgba(214, 209, 196, 0.04));
+}
+
+#hud-sidebar {
+  position: relative;
+  flex: 0 0 40%;
+  min-width: 320px;
+  width: 40%;
+  padding: 18px;
+  overflow-y: auto;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    linear-gradient(180deg, rgba(18, 22, 20, 0.88), rgba(29, 35, 32, 0.82)),
+    radial-gradient(circle at top, rgba(255, 209, 102, 0.12), transparent 42%);
+}
+
+#map-stage {
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+  background: #c4b58d;
+}
+
+.leaflet-container {
+  background: #c4b58d;
+  outline: none;
+}
+
+.leaflet-control-container {
+  display: none;
+}
+
+#tractor-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 500;
+  width: 76px;
+  height: 76px;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+.tractor-core {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  transform: rotate(0deg);
+  filter: drop-shadow(0 14px 18px var(--tractor-shadow));
+}
+
+.tractor-core::before {
+  content: "";
+  position: absolute;
+  width: 68px;
+  height: 68px;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(255, 209, 102, 0.22), transparent 70%);
+  z-index: -1;
+}
+
+.tractor-emoji {
+  font-size: 42px;
+  line-height: 1;
+  transform: translateY(-1px) rotate(90deg);
+}
+
+.tractor-ring {
+  position: absolute;
+  inset: 6px;
+  border: 2px solid rgba(255, 255, 255, 0.72);
+  border-radius: 999px;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2) inset;
+}
+
+.tractor-heading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 20px;
+  transform: translate(-50%, -34px);
+  transform-origin: center 34px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--accent), rgba(255, 209, 102, 0.16));
+}
+
+#hud-hint {
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  z-index: 450;
+  min-width: 280px;
+  max-width: 420px;
+  padding: 12px 14px;
+}
+
+#hud-hint strong {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+#hud-hint span {
+  display: block;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+#debug-overlay {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 550;
+  min-width: 280px;
+  padding: 14px 16px;
+  background: rgba(20, 22, 27, 0.84);
+}
+
+#debug-overlay[hidden] {
+  display: none;
+}
+
+.debug-title {
+  margin: 0 0 12px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.debug-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 0;
+  font-size: 13px;
+}
+
+.debug-row span:first-child {
+  color: var(--muted);
+}
+
+#map-error {
+  position: absolute;
+  top: 18px;
+  left: 50%;
+  z-index: 600;
+  display: none;
+  width: min(540px, calc(100% - 32px));
+  padding: 14px 16px;
+  transform: translateX(-50%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
+  background: var(--error);
+  color: #fff6f6;
+  box-shadow: 0 16px 42px rgba(0, 0, 0, 0.22);
+}
+
+#map-error.visible {
+  display: block;
+}
+
+#map-error strong {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+#map-error span {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+@media (max-width: 720px) {
+  #app-shell {
+    display: block;
+  }
+
+  #hud-sidebar {
+    padding: 14px;
+    border-right: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  #hud-sidebar,
+  #map-stage {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+  }
+
+  #tractor-overlay {
+    width: 66px;
+    height: 66px;
+  }
+
+  .tractor-emoji {
+    font-size: 36px;
+  }
+}
