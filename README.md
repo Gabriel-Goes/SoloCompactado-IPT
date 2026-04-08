@@ -1,254 +1,133 @@
 # SoloCompactado-IPT
-Este protótipo implementa, de forma **conceitual e executável**, a ideia discutida em `README.md`, `Proposta.md` e `Prototipo.md`: - um único ponto da superfície recebe várias passadas de uma máquina pesada; - a compactação evolui em uma coluna de solo (padrão de 5 m, configurável); - o resultado é uma série temporal por passada + perfil vertical final.
 
-## Visão geral
-Este projeto propõe um **protótipo (TRL 4–5)** para ajudar agricultores a **identificar o momento ótimo de renovação** (descompactação/intervenção) em **linhas específicas de tráfego** onde as máquinas passam repetidamente (tráfego controlado com precisão centimétrica/RTK).
+Protótipo navegável e documentação técnica para estudo, simulação e apoio à decisão em compactação de solo causada por tráfego repetido de máquinas agrícolas.
 
-A abordagem central não depende de instrumentação contínua em toda a área. Em vez disso, combina:
-1) **Modelo preditivo baseado em telemetria e passadas** (rota, número de passagens, carga, rodado/pneu, etc.), e
-2) **Medições de calibração esparsas** (sensores ou ensaios em pontos sentinela) para manter o modelo ajustado ao solo real.
+## Demo online
 
----
+- **Documentação técnica:**  
+  https://gabriel-goes.github.io/SoloCompactado-IPT/
 
-## Problema
-- Máquinas agrícolas trafegam em rotas repetidas, causando **acúmulo de compactação** ao longo do tempo em **faixas/linhas específicas**.
-- A compactação varia com **tipo de solo** e, principalmente, **teor de umidade** no momento do tráfego.
-- Métodos atuais de diagnóstico (p.ex. penetrômetro e interpolação) são tipicamente **pontuais e periódicos**, custosos em área e pouco integrados ao histórico operacional.
+- **Protótipo navegável:**  
+  https://gabriel-goes.github.io/SoloCompactado-IPT/prototipo/index.html
 
----
+## Sobre o projeto
 
-## Hipótese e estratégia (falas finais da reunião)
-### Ideia principal
-Em vez de medir compactação “em tempo real” em todo lugar, o sistema:
-- Usa os **dados já existentes** de agricultura de precisão (telemetria embarcada) para estimar a evolução da compactação:
-  - **rota** (onde passou),
-  - **quantas vezes passou**,
-  - **peso/carga média**,
-  - **tipo de rodado/pneu** (e, quando disponível, pressão e configuração),
-  - **chuva/umidade** e variáveis ambientais/operacionais correlatas.
-- Mantém **validação contínua** por medições esparsas (não precisa “sensor a cada metro”; pode ser **a cada quilômetro**, por exemplo).
+O **SoloCompactado-IPT** investiga uma abordagem de apoio operacional para monitoramento e planejamento de tráfego agrícola com foco em **risco de compactação do solo**.
 
-### Resultado esperado
-- Um **modelo matemático** correlaciona conjunto de variáveis operacionais → variável alvo (estado/risco de compactação).
-- O modelo permite **extrapolar** para cenários e parâmetros iniciais diferentes, desde que validado periodicamente.
-- Gera **alertas** do tipo: “checar esta região/linha — já acumulou X passadas / X t / risco elevado”.
+A proposta combina:
 
----
+- histórico de tráfego e telemetria,
+- propriedades do terreno por célula,
+- estimativa de compactação por profundidade,
+- comparação entre rota de referência e rota planejada,
+- visualização interativa diretamente no navegador.
 
-## Princípios técnicos do projeto
-1. **Digital Twin do solo/linha de tráfego (simplificado)**
-   - Um “gêmeo digital” evolui com base no histórico de tráfego e ambiente.
-   - É recalibrado com medições espaçadas no tempo, como já é rotina em campo.
+O projeto reúne, em um mesmo repositório:
 
-2. **Calibração por campanha + atualização por telemetria**
-   - **Avaliação inicial (baseline):** mapa/diagnóstico inicial (ex.: penetrômetro em pontos e interpolação).
-   - **Evolução estimada:** algoritmo atualiza o estado ao longo do tempo conforme o tráfego ocorre.
-   - **Recalibração periódica:** novas campanhas de medição ajustam o modelo e reduzem deriva.
+- **documentação técnica em Sphinx**, publicada no GitHub Pages;
+- **protótipo navegável** com mapa, HUD operacional e planner de cobertura;
+- **experimentos conceituais** sobre compactação, calibração e integração geoespacial.
 
-3. **Variáveis de contorno essenciais**
-   - **Tipo de solo** e **teor de umidade** no momento do tráfego são variáveis críticas.
-   - Em solos naturais (sem preparo), há maior variabilidade: o projeto deve restringir condições de contorno e/ou incorporar fatores de correção.
+## O que já está disponível
 
-4. **Arquitetura de sensoriamento “mínimo viável”**
-   - Medição densa não é requisito.
-   - **Pontos sentinela** (medição pontual) são usados para calibrar e validar o modelo.
-   - Sensores embarcados e telemetria são explorados ao máximo (dados já disponíveis).
+### 1. Documentação técnica no GitHub Pages
+A documentação pública apresenta a base conceitual e técnica do projeto, incluindo:
 
----
+- visão geral da proposta;
+- fundamentos de terramecânica;
+- análise de referências como Terranimo;
+- modelo conceitual de compactação;
+- simulador leve;
+- protótipo navegável;
+- simulador 3D;
+- integração geoespacial;
+- leitura e interpretação dos resultados;
+- validação, calibração e referências.
 
-## Objetivo do protótipo (TRL 4–5)
-Entregar um sistema que, dado um baseline e dados de telemetria, gere:
-- **Mapa/heatmap** de risco/estado de compactação por linha de tráfego (2D) e, quando possível, por camadas (pseudo-3D).
-- **Estimativa de “momento ótimo de renovação”** (threshold-based) por linha/trecho.
-- **Alertas e recomendações operacionais** (“verificar/renovar nesta faixa”).
-- Interface de ingestão de dados e recalibração a cada campanha.
+### 2. Protótipo navegável
+A aplicação web publicada em `prototipo/index.html` apresenta uma interface interativa com:
 
----
+- **HUD operacional do trator**
+  - preset da máquina
+  - velocidade
+  - heading
+  - carga por roda
+  - pressão
+  - largura do pneu
+  - bitola
 
-## Escopo inicial
-### Dentro do escopo
-- Uso de telemetria e dados operacionais: rota, passadas, carga/peso, pneu/rodado.
-- Integração com dados ambientais: chuva/umidade (medida ou proxy).
-- Calibração com ensaios existentes (penetrômetro e outros) e pontos sentinela.
-- Modelagem: correlação/estimação com validação periódica e extrapolação controlada.
-- Saída: mapas e alertas por linha/trecho.
+- **Leitura do terreno atual**
+  - célula ativa
+  - teor de argila
+  - teor de água
+  - sucção mátrica
+  - densidade
+  - fator de concentração
+  - sigma de pré-consolidação
 
-### Fora do escopo (por ora)
-- Medição “não invasiva” contínua em toda a lavoura com alta densidade espacial.
-- Dependência exclusiva de sensores geofísicos para inferir compactação (podem ser avaliados como complementares).
+- **Compactação por camada**
+  - leitura por profundidade de 0–10 cm até 50–60 cm
+  - indicação qualitativa de risco
+  - tensão aplicada
+  - sigma de pré-consolidação
+  - indicador de deformação/densidade estimada
 
----
+- **Mapa temático**
+  - alternância entre base satelital e visualização temática BDC
+  - legenda de classes como vegetação densa, vegetação esparsa, solo exposto e água
 
-## Metodologia (alto nível)
-1. **Levantamento e consolidação de dados existentes**
-   - Telemetria e rotas (GPS/RTK), passadas, carga, rodado/pneu.
-   - Ensaios de compactação já realizados pelo cliente.
-   - Dados de solo (classe/textura) e ambiente (chuva/umidade).
+- **Planejamento de cobertura**
+  - desenho de talhão no mapa
+  - geração de plano de cobertura
+  - comparação entre rota **baseline** e rota **otimizada**
+  - métricas de comprimento e custo de compactação
+  - visualização dedicada do planner
 
-2. **Baseline e definição de variável-alvo**
-   - Definir como o “estado de compactação” será representado (ex.: classes, índice contínuo, risco).
-   - Construir baseline via medições disponíveis e mapear linhas de tráfego.
+- **Painel de missão**
+  - ID da missão
+  - número de amostras
+  - última coleta
+  - timestamp
+  - latitude e longitude
+  - célula atual
+  - status de armazenamento local
+  - exportação dos dados em JSON
 
-3. **Modelo preditivo de evolução**
-   - Construir função/algoritmo que acumula “dano/estado” por passadas ponderadas por carga e condição hídrica.
-   - Ajustar parâmetros por tipo de solo e condição de contorno.
+## Como usar a demo
 
-4. **Validação e recalibração**
-   - Comparar previsão com medições de campo (sentinelas e campanhas).
-   - Atualizar parâmetros e reduzir erro (ciclo iterativo).
+1. Abra o protótipo navegável.
+2. Navegue no mapa da área operacional.
+3. Observe o HUD do trator e da célula ativa.
+4. Alterne entre imagem de satélite e camada temática BDC.
+5. Entre no fluxo de planejamento:
+   - iniciar desenho do talhão,
+   - fechar o polígono,
+   - gerar o plano,
+   - comparar baseline e otimizada.
+6. Use o painel de missão para exportar ou limpar os dados locais.
 
-5. **Entrega do protótipo**
-   - Pipeline de dados → estimativa → mapa → alerta.
-   - Documentar limites de validade (solo/umidade/faixa de operação).
+## Controles básicos
 
----
+- `↑` avançar
+- `←` / `→` esterçar
+- `↓` frear
+- `D` alternar painel de debug
 
-## Entradas e saídas do sistema
-### Entradas (mínimas)
-- Trilhas de tráfego georreferenciadas (rota).
-- Contagem de passadas por linha/trecho.
-- Carga/peso do equipamento (ou estimativa).
-- Tipo de pneu/rodado (e pressão, se disponível).
-- Chuva/umidade (medida/proxy).
-- Baseline de compactação (campanha inicial).
+## Objetivo técnico
 
-### Saídas
-- Índice/risco de compactação por linha/trecho (com histórico temporal).
-- Alertas do tipo “atingiu nível de intervenção”.
-- Mapas 2D (e extensões por camadas quando suportado por dados/modelo).
-- Relatório de confiabilidade (erro, cobertura de dados, condição fora do envelope).
+O objetivo do protótipo é evoluir para um sistema capaz de:
 
----
+- estimar risco/estado de compactação por linha de tráfego;
+- considerar histórico de passadas, carga e condição do solo;
+- comparar trajetórias com menor impacto operacional;
+- apoiar decisões sobre intervenção, renovação e manejo.
 
-## Próximos passos (tarefa de casa)
-1. **Revisão bibliográfica e benchmarking** das abordagens de:
-   - compactação por passadas (pista experimental / calibração por número de passagens),
-   - modelos que incorporam umidade e tipo de solo,
-   - métodos de validação em solos naturais.
-2. **Inventário de dados CNH/cliente** (telemetria + ensaios já existentes).
-3. **Definir baseline e protocolo de recalibração** (frequência, pontos sentinela).
-4. **Desenhar arquitetura do protótipo** (ingestão, processamento, visualização, alertas).
-5. **Montar apresentação** de opções, prós e contras, e plano TRL 4–5.
+## Estrutura do repositório
 
----
-
-## Participantes (referência da reunião)
-- CNH: Caio Silva, João Lucca, Marcos Ohira (e equipe)
-- IPT/FIPT: Gabriel Góes Rocha de Lima, Rubens Vieira, Scandar Gasperazzo Ignatius, Otavio (métodos geofísicos), Daniel Seabra Nogueira Alves Albarelli
-
----
-
-## Nota sobre riscos e limites
-- O modelo é **fortemente condicionado** por solo e umidade; extrapolações devem ficar dentro do envelope validado.
-- O objetivo do protótipo é atingir acurácia operacional “boa o suficiente” (ex.: ~90% utilidade prática) com **validação periódica** e uso de dados já disponíveis.
-
----
-
-## Documentação Técnica (Sphinx + GitHub Pages)
-
-A documentação para público de engenharia de solos está em `sphinx/`, com foco em:
-- fundamentos geotécnicos e terramecânicos do modelo,
-- equações e hipóteses físicas,
-- interpretação dos resultados para decisão.
-
-### Build local
-```bash
-pip install -r docs-requirements.txt
-sphinx-build -b html sphinx sphinx/_build/html
-```
-
-### Publicação no GitHub Pages
-- Workflow: `.github/workflows/pages.yml`
-- O deploy é automático a cada push no `main` quando houver mudanças na documentação/código.
-- Em `Settings > Pages`, garantir que a fonte está configurada para **GitHub Actions**.
-
-## Simulação 3D aberta (trajeto + compactação em profundidade)
-
-Para um protótipo simples, equivalente em conceito a um fluxo Terranimo/Softsoil (sem dependências proprietárias),
-foi adicionado um simulador 3D em código aberto:
-
-- Script: `src/prototipo_trajeto_3d.py`
-- Modelo: rota repetida + trilhas de roda + tensão decaindo com profundidade + acumulação por passadas
-- Rotas suportadas: reta, senoidal e CSV (RTK/local)
-- Solos suportados: perfil linear (legado) e perfis em camadas (`sandy_loam`, `clayey`, `lateritic`, `wet_weak`, `custom`)
-- Saídas: mapa 2D de carga, seção transversal (y-z), volume 3D estático e HTML interativo, CSV de evolução
-
-Execução:
-
-```bash
-python3 src/prototipo_trajeto_3d.py --output-dir outputs/prototipo_trajeto_3d
-```
-
-Exemplo com rota senoidal e perfil argiloso:
-
-```bash
-python3 src/prototipo_trajeto_3d.py \
-  --route-mode sine \
-  --route-sine-amplitude-m 1.5 \
-  --route-sine-wavelength-m 35 \
-  --soil-profile clayey \
-  --output-dir outputs/prototipo_trajeto_3d_senoidal
-```
-
-Exemplo com rota CSV (RTK) e perfil customizado por camadas:
-
-```bash
-python3 src/prototipo_trajeto_3d.py \
-  --route-mode csv \
-  --route-csv data/exemplo_rota_rtk.csv \
-  --soil-profile custom \
-  --sigma-crit-layers "0.30:95,1.00:140,2.00:210,5.00:290" \
-  --output-dir outputs/prototipo_trajeto_3d_csv
-```
-
-Formato esperado para CSV de rota:
-
-```csv
-x_m,y_m
-0.0,0.0
-1.0,0.1
-2.0,0.2
-```
-
-Arquivos gerados (exemplo):
-
-- `outputs/prototipo_trajeto_3d/mapa_carga_superficial.png`
-- `outputs/prototipo_trajeto_3d/secao_transversal_meio_rota.png`
-- `outputs/prototipo_trajeto_3d/volume_compactacao_3d.png`
-- `outputs/prototipo_trajeto_3d/volume_compactacao_3d_interativo.html`
-- `outputs/prototipo_trajeto_3d/evolucao_compactacao_passadas.csv`
-- `outputs/prototipo_trajeto_3d/perfil_sigma_crit.csv`
-- `outputs/prototipo_trajeto_3d/parametros_simulacao_3d.csv`
-
-## Integração geoespacial com MapBiomas e BDC
-
-Foi adicionado um utilitário de pré-processamento offline para enriquecer trilhas GPS/RTK com classes de uso e cobertura do solo:
-
-- Script: `src/enriquecer_uso_cobertura.py`
-- Objetivo: cruzar cada ponto do trajeto com rasters locais do MapBiomas e do BDC
-- Saída: CSV enriquecido para treino ou inferência do modelo de compactação
-
-Exemplo:
-
-```bash
-python3 src/enriquecer_uso_cobertura.py \
-  --route-csv data/exemplo_rota_rtk.csv \
-  --output-csv outputs/rota_enriquecida.csv \
-  --x-col x_m \
-  --y-col y_m \
-  --route-crs EPSG:31983 \
-  --window-radius-m 15 \
-  --mapbiomas mapbiomas::data/mapbiomas_uso_cobertura_2024.tif \
-  --bdc bdc::data/bdc_lulc_2024.tif
-```
-
-O fluxo recomendado é:
-
-1. recortar previamente os rasters temáticos para a área operacional;
-2. enriquecer as trilhas com `src/enriquecer_uso_cobertura.py`;
-3. alimentar o modelo com classes do pixel, classe modal em vizinhança e transições ao longo do trajeto;
-4. executar lookup local no computador de bordo, sem dependência de API online durante a operação.
-
-Documentação adicional:
-
-- [Arquitetura de integração MapBiomas + BDC](docs/integracao_mapbiomas_bdc.md)
+```text
+SoloCompactado-IPT/
+├── prototipo/          # aplicação web navegável
+├── sphinx/             # documentação técnica
+├── docs/               # documentação complementar
+├── src/                # scripts e experimentos
+└── .github/workflows/  # automação de build e deploy
