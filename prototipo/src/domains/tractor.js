@@ -60,6 +60,20 @@
         }
 
         deltaSeconds = deltaMs / 1000;
+
+        // Bypass autopilot: heading e speed já definidos por autopilotDomain.update()
+        if (config.isAutopilotActive && config.isAutopilotActive()) {
+          distanceMeters = tractorState.speedMps * deltaSeconds;
+          if (distanceMeters > 0) {
+            tractorState.position = config.moveForward(
+              tractorState.position,
+              tractorState.headingDeg,
+              distanceMeters
+            );
+          }
+          return;
+        }
+
         turningLeft = inputState.left && !inputState.right;
         turningRight = inputState.right && !inputState.left;
 
