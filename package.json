@@ -1,0 +1,28 @@
+{
+  "name": "solocompactado",
+  "version": "1.0.0",
+  "description": "Este protótipo implementa, de forma **conceitual e executável**, a ideia discutida em `README.md`, `Proposta.md` e `Prototipo.md`: - um único ponto da superfície recebe várias passadas de uma máquina pesada; - a compactação evolui em uma coluna de solo (padrão de 5 m, configurável); - o resultado é uma série temporal por passada + perfil vertical final.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gabriel-Goes/SoloCompactado-IPT.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Gabriel-Goes/SoloCompactado-IPT/issues"
+  },
+  "homepage": "https://github.com/Gabriel-Goes/SoloCompactado-IPT#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "playwright": "^1.59.1"
+  }
+}
