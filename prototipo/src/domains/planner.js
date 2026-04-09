@@ -10,6 +10,7 @@
     layers.baselineRoute.clearLayers();
     layers.optimizedRoute.clearLayers();
     layers.originMarker.clearLayers();
+    layers.autopilotWaypoint.clearLayers();
   }
 
   function getPlannerSwathCollection(plannerState) {
@@ -228,6 +229,9 @@
     }
 
     function clearPlan() {
+      if (config.autopilotDomain) {
+        config.autopilotDomain.deactivate("Plano descartado. Piloto desativado.");
+      }
       config.clearCoveragePlanArtifacts();
       config.clearCoveragePreviewArtifacts();
       runtime.coveragePlanner.mode = runtime.coveragePlanner.field_polygon ? "polygon-ready" : "idle";
