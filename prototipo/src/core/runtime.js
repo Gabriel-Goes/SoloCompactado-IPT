@@ -43,7 +43,10 @@
       uiMessage: null,
       lastTickTimestamp: null,
       lastDeltaMs: 0,
-      coveragePlanner: createCoveragePlannerState(config)
+      coveragePlanner: createCoveragePlannerState(config),
+      autopilot: {
+        state: "inactive"   // espelho mínimo — atualizado por autopilot.js; fonte de verdade é autopilotState local no domain
+      }
     };
   }
 
@@ -79,7 +82,8 @@
       plannerViewMode: runtimeState.coveragePlanner.view.mode,
       plannerMapBase: runtimeState.coveragePlanner.view.map_base,
       uiMessage: getUiMessage(runtimeState),
-      lastDeltaMs: runtimeState.lastDeltaMs
+      lastDeltaMs: runtimeState.lastDeltaMs,
+      autopilotState: runtimeState.autopilot.state
     };
   }
 
