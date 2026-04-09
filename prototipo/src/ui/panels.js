@@ -57,6 +57,12 @@
         domRefs.planner.overlayOptimizedButton.addEventListener("click", function () {
           actions.onSetOptimizedOverlay();
         });
+
+        if (domRefs.autopilot && domRefs.autopilot.toggleButton) {
+          domRefs.autopilot.toggleButton.addEventListener("click", function () {
+            actions.onAutopilotToggle();
+          });
+        }
       }
     };
   }

@@ -91,6 +91,12 @@
         deltaCompaction: byId("planner-delta-compaction"),
         statusMessage: byId("planner-status-message")
       },
+      autopilot: {
+        toggleButton: byId("autopilot-toggle"),
+        stateLabel:   byId("autopilot-state"),
+        segmentLabel: byId("autopilot-segment"),
+        typeLabel:    byId("autopilot-type")
+      },
       debug: {
         overlay: byId("debug-overlay"),
         lat: byId("debug-lat"),

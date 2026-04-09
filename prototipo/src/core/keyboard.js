@@ -11,13 +11,22 @@
 
     global.addEventListener("keydown", function (event) {
       var drawingActive = config.plannerDomain.isDrawingActive();
+      var blocked = drawingActive || (config.isAutopilotActive && config.isAutopilotActive());
       var handledDirectional = config.tractorDomain.applyDirectionalInput(
         "keydown",
         event.key,
-        drawingActive
+        blocked
       );
 
       if (handledDirectional) {
+        event.preventDefault();
+        return;
+      }
+
+      if (event.key === "a" || event.key === "A") {
+        if (config.autopilotDomain) {
+          config.autopilotDomain.toggle();
+        }
         event.preventDefault();
         return;
       }

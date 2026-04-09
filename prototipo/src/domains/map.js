@@ -90,7 +90,8 @@
       swaths: global.L.layerGroup(),
       baselineRoute: global.L.layerGroup(),
       optimizedRoute: global.L.layerGroup(),
-      originMarker: global.L.layerGroup()
+      originMarker: global.L.layerGroup(),
+      autopilotWaypoint: global.L.layerGroup()
     };
 
     Object.keys(plannerLayers).forEach(function (key) {

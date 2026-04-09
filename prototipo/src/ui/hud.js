@@ -84,6 +84,16 @@
         domRefs.planner.baseBdcButton.disabled = viewModel.planner.controls.base_bdc_disabled;
         domRefs.planner.overlayBaselineButton.disabled = viewModel.planner.controls.overlay_baseline_disabled;
         domRefs.planner.overlayOptimizedButton.disabled = viewModel.planner.controls.overlay_optimized_disabled;
+
+        if (domRefs.autopilot && viewModel.autopilot) {
+          setHudMetric(domRefs.autopilot.stateLabel,   viewModel.autopilot.state_label, false);
+          setHudMetric(domRefs.autopilot.segmentLabel, viewModel.autopilot.segment_label,
+            viewModel.autopilot.segment_label === "—");
+          setHudMetric(domRefs.autopilot.typeLabel,    viewModel.autopilot.type_label,
+            viewModel.autopilot.type_label === "—");
+          domRefs.autopilot.toggleButton.textContent = viewModel.autopilot.button_label;
+          domRefs.autopilot.toggleButton.disabled    = viewModel.autopilot.button_disabled;
+        }
       },
       setMissionStatus: function setMissionStatus(type, text) {
         domRefs.mission.status.className = "panel-status";
