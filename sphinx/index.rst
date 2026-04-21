@@ -29,6 +29,7 @@ Público-alvo: engenheiros e tecnólogos com experiência em solos e geotecnia, 
    simulador_light
    prototipo_navegavel
    simulador_3d
+   simulador_caixa_gpu
    integracao_geoespacial
    leitura_resultados
    bloco1_validacao

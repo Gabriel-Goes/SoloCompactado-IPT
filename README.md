@@ -131,3 +131,21 @@ SoloCompactado-IPT/
 ├── docs/               # documentação complementar
 ├── src/                # scripts e experimentos
 └── .github/workflows/  # automação de build e deploy
+```
+
+## Simulador de domínio GPU
+
+Aplicação web paralela em `prototipo/simulador_caixa_gpu/` para estudar passagem de roda/esteira
+em um domínio voxelizado com atualização em GPU.
+
+- domínio padrão `5 m x 1 m x 1 m`;
+- resolução configurável até o limite suportado pela GPU;
+- camadas de material por preset;
+- visualização por slices `XY`, `XZ`, `YZ` e visão 3D resumida;
+- exportação local de configuração, timeline, snapshot bruto e PNGs.
+
+- **URL publicada:**  
+  https://gabriel-goes.github.io/SoloCompactado-IPT/prototipo/simulador_caixa_gpu/index.html
+
+Para o ambiente do GeoServer com Brave/Wayland, o fluxo operacional validado está documentado na
+página Sphinx do simulador.

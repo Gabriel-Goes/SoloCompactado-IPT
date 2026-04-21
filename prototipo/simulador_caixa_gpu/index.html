@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SoloCompactado | Simulador de Dominio GPU</title>
+    <link rel="stylesheet" href="./assets/app.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <aside class="control-rail">
+        <div class="rail-card intro-card">
+          <span class="eyebrow">WebGPU Lab</span>
+          <h1>Passagem de rodado em dominio voxelizado</h1>
+          <p>
+            Protótipo interativo para compactação mecânica em grade voxel contínua, com slices
+            ortogonais e visão 3D resumida do volume.
+          </p>
+        </div>
+
+        <div class="rail-card actions-card">
+          <div class="actions-grid">
+            <button id="btn-start" class="primary-action" type="button">Iniciar</button>
+            <button id="btn-pause" type="button">Pausar</button>
+            <button id="btn-reset" type="button">Aplicar / Resetar</button>
+            <button id="btn-export" type="button">Exportar</button>
+          </div>
+          <p id="status-text" class="status-text">Inicializando suporte WebGPU...</p>
+        </div>
+
+        <form id="control-form" class="controls-stack">
+          <section class="rail-card">
+            <div class="section-head">
+              <h2>Dominio</h2>
+              <span id="voxel-count-pill" class="pill">-</span>
+            </div>
+            <div class="field-grid field-grid-three">
+              <label class="field">
+                <span>Comprimento (m)</span>
+                <input id="domain-length" type="number" min="0.5" step="0.5" value="5" />
+              </label>
+              <label class="field">
+                <span>Largura (m)</span>
+                <input id="domain-width" type="number" min="0.5" step="0.25" value="1" />
+              </label>
+              <label class="field">
+                <span>Profundidade (m)</span>
+                <input id="domain-depth" type="number" min="0.5" step="0.25" value="1" />
+              </label>
+            </div>
+            <label class="field">
+              <span>Resolução</span>
+              <select id="resolution"></select>
+            </label>
+            <label class="field">
+              <span>Slice X</span>
+              <input id="slice-x" type="range" min="0" max="100" step="1" value="50" />
+            </label>
+            <label class="field">
+              <span>Slice Y</span>
+              <input id="slice-y" type="range" min="0" max="100" step="1" value="50" />
+            </label>
+            <label class="field">
+              <span>Slice Z</span>
+              <input id="slice-z" type="range" min="0" max="100" step="1" value="25" />
+            </label>
+          </section>
+
+          <section class="rail-card">
+            <div class="section-head">
+              <h2>Carga</h2>
+              <span class="pill subtle">trajeto reto em x</span>
+            </div>
+            <label class="field">
+              <span>Modo de contato</span>
+              <select id="load-mode">
+                <option value="wheel">Roda</option>
+                <option value="track">Esteira</option>
+              </select>
+            </label>
+            <div class="field-grid">
+              <label class="field">
+                <span>Massa total (kg)</span>
+                <input id="mass-kg" type="number" min="1000" step="500" value="28000" />
+              </label>
+              <label class="field">
+                <span>Passadas</span>
+                <input id="passes" type="number" min="1" step="1" value="18" />
+              </label>
+            </div>
+            <div class="field-grid">
+              <label class="field">
+                <span>Velocidade (m/s)</span>
+                <input id="speed-mps" type="number" min="0.05" step="0.05" value="0.35" />
+              </label>
+              <label class="field">
+                <span>Largura (m)</span>
+                <input id="footprint-width" type="number" min="0.05" step="0.01" value="0.32" />
+              </label>
+            </div>
+            <label class="field">
+              <span>Comprimento de contato (m)</span>
+              <input id="footprint-length" type="number" min="0.05" step="0.01" value="0.48" />
+            </label>
+          </section>
+
+          <section class="rail-card">
+            <div class="section-head">
+              <h2>Camadas</h2>
+              <span class="pill subtle">normalizadas na profundidade</span>
+            </div>
+            <div class="layer-stack">
+              <div class="layer-row">
+                <label class="field">
+                  <span>Camada 1</span>
+                  <select id="layer-1-material"></select>
+                </label>
+                <label class="field compact-field">
+                  <span>Espessura</span>
+                  <input id="layer-1-thickness" type="number" min="0" step="0.05" value="0.25" />
+                </label>
+              </div>
+              <div class="layer-row">
+                <label class="field">
+                  <span>Camada 2</span>
+                  <select id="layer-2-material"></select>
+                </label>
+                <label class="field compact-field">
+                  <span>Espessura</span>
+                  <input id="layer-2-thickness" type="number" min="0" step="0.05" value="0.4" />
+                </label>
+              </div>
+              <div class="layer-row">
+                <label class="field">
+                  <span>Camada 3</span>
+                  <select id="layer-3-material"></select>
+                </label>
+                <label class="field compact-field">
+                  <span>Espessura</span>
+                  <input id="layer-3-thickness" type="number" min="0" step="0.05" value="0.35" />
+                </label>
+              </div>
+            </div>
+          </section>
+        </form>
+      </aside>
+
+      <main class="workspace">
+        <header class="workspace-hero">
+          <div>
+            <span class="eyebrow">Dominio padrao 5 x 1 x 1</span>
+            <h2>Compactação mecânica com compute shader</h2>
+            <p>
+              O v1 usa WebGPU, carga de superfície retilínea e presets estratificados de material.
+            </p>
+          </div>
+          <div class="compat-badges">
+            <span id="support-pill" class="hero-pill">Checando GPU...</span>
+            <span class="hero-pill muted">guard de buffer ativo</span>
+          </div>
+        </header>
+
+        <section class="stats-grid">
+          <article class="stat-card">
+            <span class="stat-label">Estado</span>
+            <strong id="sim-state">Parado</strong>
+            <small id="sim-time">t = 0.00 s</small>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Passada atual</span>
+            <strong id="pass-state">0 / 0</strong>
+            <small id="load-position">x = 0.00 m</small>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Compactação</span>
+            <strong id="max-compaction">0.000</strong>
+            <small id="mean-top-compaction">top mean = 0.000</small>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Footprint</span>
+            <strong id="pressure-state">0.0 kPa</strong>
+            <small id="footprint-state">0.00 x 0.00 m</small>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Render</span>
+            <strong id="fps-state">0.0 FPS</strong>
+            <small id="sample-state">slices off</small>
+          </article>
+          <article class="stat-card">
+            <span class="stat-label">Campos ativos</span>
+            <strong>d, n, w</strong>
+            <small>densidade, porosidade, umidade</small>
+          </article>
+        </section>
+
+        <section class="viz-grid">
+          <article class="viz-card">
+            <div class="viz-head">
+              <h3>Slice XY</h3>
+              <span id="slice-xy-label" class="viz-meta">z = 0.25 m</span>
+            </div>
+            <canvas id="slice-xy-canvas" width="420" height="420"></canvas>
+          </article>
+          <article class="viz-card">
+            <div class="viz-head">
+              <h3>Slice XZ</h3>
+              <span id="slice-xz-label" class="viz-meta">y = 0.50 m</span>
+            </div>
+            <canvas id="slice-xz-canvas" width="420" height="420"></canvas>
+          </article>
+          <article class="viz-card">
+            <div class="viz-head">
+              <h3>Slice YZ</h3>
+              <span id="slice-yz-label" class="viz-meta">x = 2.50 m</span>
+            </div>
+            <canvas id="slice-yz-canvas" width="420" height="420"></canvas>
+          </article>
+          <article class="viz-card overview-card">
+            <div class="viz-head">
+              <h3>Visão 3D resumida</h3>
+              <span id="overview-label" class="viz-meta">amostragem desacoplada</span>
+            </div>
+            <canvas id="overview-canvas" width="920" height="520"></canvas>
+          </article>
+        </section>
+
+        <section class="notes-grid">
+          <article class="notes-card">
+            <h3>Campos do v1</h3>
+            <ul>
+              <li>Estado volumétrico: densidade, porosidade, umidade, compactação e tensão.</li>
+              <li>Química e dissolução ficam reservadas para a próxima fase.</li>
+              <li>As camadas são renormalizadas para preencher toda a profundidade ativa.</li>
+            </ul>
+          </article>
+          <article class="notes-card">
+            <h3>Guard de dispositivo</h3>
+            <ul>
+              <li>Configurações acima do limite de buffer da GPU são recusadas.</li>
+              <li>O caso `5 m @ 1 cm` pode exigir GPU com orçamento elevado de memória.</li>
+              <li>Quando necessário, reduza resolução ou comprimento para continuar.</li>
+            </ul>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <script type="module" src="./src/main.mjs"></script>
+  </body>
+</html>
