@@ -296,9 +296,12 @@ export class SimulationEngine {
       throw new Error("WebGPU não está disponível neste navegador.");
     }
 
-    this.adapter = await navigator.gpu.requestAdapter();
+    const preflightSelection = await getPreflightAdapterSelection();
+    const adapterSelection = preflightSelection || (await requestBestAdapter(navigator.gpu));
+    this.adapter = adapterSelection.adapter;
+    this.adapterPreference = adapterSelection.preference;
     if (!this.adapter) {
-      throw new Error("Nenhum adaptador WebGPU disponível.");
+      throw new Error(buildAdapterFailureMessage(adapterSelection.attempts));
     }
 
     this.device = await this.adapter.requestDevice();
@@ -972,4 +975,73 @@ function serializeConfig(config) {
 
 function toMegabytes(bytes) {
   return (bytes / (1024 * 1024)).toFixed(1);
+}
+
+async function getPreflightAdapterSelection() {
+  const ready = globalThis.__webgpuPreflightReady;
+  if (ready && typeof ready.then === "function") {
+    try {
+      await ready;
+    } catch (error) {
+      console.warn("WebGPU preflight promise failed:", error);
+    }
+  }
+
+  const state = globalThis.__webgpuPreflightState;
+  if (!state || !state.adapter) {
+    return null;
+  }
+
+  return {
+    adapter: state.adapter,
+    preference: state.preference || "preflight",
+    attempts: state.attempts || []
+  };
+}
+
+async function requestBestAdapter(gpu) {
+  const attempts = [];
+  const preferences = [
+    { label: "high-performance", options: { powerPreference: "high-performance" } },
+    { label: "default", options: undefined },
+    { label: "low-power", options: { powerPreference: "low-power" } }
+  ];
+
+  for (const preference of preferences) {
+    try {
+      const adapter = await gpu.requestAdapter(preference.options);
+      attempts.push(preference.label + ": " + (adapter ? "ok" : "null"));
+      if (adapter) {
+        return {
+          adapter: adapter,
+          preference: preference.label,
+          attempts: attempts
+        };
+      }
+    } catch (error) {
+      attempts.push(preference.label + ": " + (error.message || String(error)));
+    }
+  }
+
+  return {
+    adapter: null,
+    preference: null,
+    attempts: attempts
+  };
+}
+
+function buildAdapterFailureMessage(attempts) {
+  const secureContextLabel =
+    typeof window !== "undefined" ? (window.isSecureContext ? "secure-context=yes" : "secure-context=no") : "secure-context=unknown";
+  const attemptLabel = attempts && attempts.length ? attempts.join(" | ") : "sem detalhes";
+
+  return (
+    "Nenhum adaptador WebGPU disponível. " +
+    "Tentativas: " +
+    attemptLabel +
+    ". " +
+    secureContextLabel +
+    ". " +
+    'Teste no console: await navigator.gpu.requestAdapter({ powerPreference: "high-performance" })'
+  );
 }
