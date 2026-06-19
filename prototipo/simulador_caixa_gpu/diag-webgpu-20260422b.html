@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <title>Diagnóstico WebGPU | build 2026-04-22b</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+        background: #f4f1ea;
+        color: #1e1c18;
+      }
+      body {
+        margin: 0;
+        padding: 24px;
+      }
+      main {
+        max-width: 920px;
+        margin: 0 auto;
+        display: grid;
+        gap: 16px;
+      }
+      .card {
+        background: #fffdf8;
+        border: 1px solid #d6cbb8;
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 18px 40px rgba(59, 44, 13, 0.08);
+      }
+      h1, h2, p, pre {
+        margin: 0;
+      }
+      .muted {
+        color: #665f53;
+      }
+      .ok {
+        color: #1f6d3d;
+        font-weight: 700;
+      }
+      .fail {
+        color: #8c2f13;
+        font-weight: 700;
+      }
+      pre {
+        white-space: pre-wrap;
+        word-break: break-word;
+        font-family: "IBM Plex Mono", "Fira Code", monospace;
+        font-size: 14px;
+        line-height: 1.5;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="card">
+        <h1>Diagnóstico WebGPU</h1>
+        <p class="muted">build 2026-04-22b</p>
+      </section>
+
+      <section class="card">
+        <h2>Resumo</h2>
+        <pre id="summary">Executando diagnóstico...</pre>
+      </section>
+
+      <section class="card">
+        <h2>Detalhes</h2>
+        <pre id="details">Aguardando...</pre>
+      </section>
+    </main>
+
+    <script>
+      (async function run() {
+        const summary = document.getElementById("summary");
+        const details = document.getElementById("details");
+
+        function setSummary(lines, className) {
+          summary.textContent = lines.join("\n");
+          summary.className = className || "";
+        }
+
+        try {
+          const navGpu = typeof navigator !== "undefined" && !!navigator.gpu;
+          const secure = typeof window !== "undefined" ? window.isSecureContext : null;
+
+          const highPerformance = await navigator.gpu?.requestAdapter({ powerPreference: "high-performance" });
+          const defaultAdapter = await navigator.gpu?.requestAdapter();
+          const lowPower = await navigator.gpu?.requestAdapter({ powerPreference: "low-power" });
+
+          const chosen = highPerformance || defaultAdapter || lowPower;
+
+          setSummary(
+            [
+              "navigator.gpu = " + navGpu,
+              "secureContext = " + secure,
+              "high-performance = " + !!highPerformance,
+              "default = " + !!defaultAdapter,
+              "low-power = " + !!lowPower,
+              "adapter disponível = " + !!chosen
+            ],
+            chosen ? "ok" : "fail"
+          );
+
+          details.textContent = JSON.stringify(
+            {
+              userAgent: navigator.userAgent,
+              navigatorGpu: navGpu,
+              secureContext: secure,
+              highPerformance: !!highPerformance,
+              defaultAdapter: !!defaultAdapter,
+              lowPower: !!lowPower,
+              chosenLimits: chosen
+                ? {
+                    maxStorageBufferBindingSize: chosen.limits.maxStorageBufferBindingSize,
+                    maxBufferSize: chosen.limits.maxBufferSize,
+                    maxComputeInvocationsPerWorkgroup: chosen.limits.maxComputeInvocationsPerWorkgroup,
+                    maxComputeWorkgroupStorageSize: chosen.limits.maxComputeWorkgroupStorageSize
+                  }
+                : null,
+              chosenFeatures: chosen ? Array.from(chosen.features) : []
+            },
+            null,
+            2
+          );
+        } catch (error) {
+          setSummary(
+            [
+              "Falha ao executar diagnóstico",
+              error && error.message ? error.message : String(error)
+            ],
+            "fail"
+          );
+          details.textContent = error && error.stack ? error.stack : String(error);
+        }
+      })();
+    </script>
+  </body>
+</html>
