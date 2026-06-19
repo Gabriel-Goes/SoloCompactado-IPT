@@ -6,6 +6,11 @@ sphinx/_build/
 
 # Artigos de terceiros (copyright)
 docs/artigos/
+artefatos/
+docs/CaseIH/
+docs/imagens/
+test-results/
+node_modules/
 
 # PDFs compilados de relatórios (versionar apenas .tex)
 docs/relatorios/*.pdf
